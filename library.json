@@ -1,0 +1,29 @@
+{
+  "name": "EDP-Platform-ESP-IDF",
+  "description": "ESP-IDF backend implementations for EDP-Platform",
+  "keywords": "espressio,platform,esp-idf,espressif,backend,concurrency,embedded",
+  "homepage": "https://espressio.org",
+  "authors": {
+    "name": "Simon J. Stuart",
+    "maintainer": true,
+    "url": "https://espressio.org"
+  },
+  "build": {
+    "flags": ["-std=gnu++17"],
+    "unflags": ["-std=gnu++11"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF.git"
+  },
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "frameworks": "espidf",
+  "platforms": "espressif32",
+  "dependencies": [
+    {
+      "name": "EDP-Platform",
+      "version": "https://github.com/ESPressio-Development-Platform/EDP-Platform.git#main"
+    }
+  ]
+}
