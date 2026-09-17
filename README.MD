@@ -9,9 +9,25 @@
 
 ## Dependencies
 
-This library depends on `EDP-Platform` and the C++ standard atomic facility available in the ESP-IDF target toolchain.
+```text
+EDP-Platform-ESP-IDF
+└── EDP-Platform [mandatory]
+    └── EDP-System [mandatory, transitive]
+```
 
-The current provider does not allocate memory, create tasks, use a mutex/semaphore, or depend on a scheduler. Compilation deliberately fails on a target where `std::atomic<uint32_t>` is not always lock-free or does not occupy four bytes.
+There are currently no optional ESPressio library dependencies.
+
+See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD) for the maintained dependency graph.
+
+## Demos
+
+The `AtomicWord32` provider demonstration is available under [`./demos/atomic-word-basic`](./demos/atomic-word-basic) for:
+
+- Arduino IDE;
+- PlatformIO Arduino;
+- PlatformIO ESP-IDF.
+
+The package remains an ESP-IDF-owned concrete backend. The policy-required cross-framework PlatformIO demo disables only PlatformIO's compatibility filter for that demo project; it does not alter the package's declared framework ownership or recommended application selection.
 
 ## Development Status
 
