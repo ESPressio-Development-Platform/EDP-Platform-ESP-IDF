@@ -1,6 +1,5 @@
 #pragma once
 
-#include <atomic>
 #include <cstdint>
 #include <limits>
 
@@ -17,6 +16,15 @@ namespace ESPressio::Platform::ESPIDF::Execution {
 
     namespace Framework = ESPressio::System::CompositionFramework;
 
+#if defined(INCLUDE_uxTaskGetStackHighWaterMark) && ( INCLUDE_uxTaskGetStackHighWaterMark == 1 )
+    /// Indicates that this ESP-IDF configuration exposes stack high-water telemetry.
+    inline constexpr bool StackTelemetryAvailable = true;
+#else
+    /// Indicates that this ESP-IDF configuration does not expose stack high-water telemetry.
+    inline constexpr bool StackTelemetryAvailable = false;
+#endif
+
+
 #if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( INCLUDE_vTaskDelete == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) && ( INCLUDE_xTaskGetCurrentTaskHandle == 1 )
 
     /// ESP-IDF static execution-context provider with processor-affinity support.
@@ -28,14 +36,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                 Framework::PropertyValue<ESPressio::Platform::Execution::CallerSuppliedStorage, true>,
                 Framework::PropertyValue<ESPressio::Platform::Execution::SupportsPriority, true>,
                 Framework::PropertyValue<ESPressio::Platform::Execution::SupportsProcessorAffinity, true>,
-                Framework::PropertyValue<
-                    ESPressio::Platform::Execution::SupportsStackTelemetry,
-#if ( INCLUDE_uxTaskGetStackHighWaterMark == 1 )
-                    true
-#else
-                    false
-#endif
-                >,
+                Framework::PropertyValue<ESPressio::Platform::Execution::SupportsStackTelemetry, StackTelemetryAvailable>,
                 Framework::PropertyValue<ESPressio::Platform::Execution::ControlStorageBytes, sizeof(StaticTask_t)>,
                 Framework::PropertyValue<ESPressio::Platform::Execution::ControlStorageAlignment, alignof(StaticTask_t)>,
                 Framework::PropertyValue<ESPressio::Platform::Execution::StackStorageAlignment, alignof(StackType_t)>,
@@ -62,13 +63,13 @@ namespace ESPressio::Platform::ESPIDF::Execution {
             void* _parameter = nullptr;
 
             /// Indicates whether the execution context was initialized.
-            std::atomic<bool> _initialized{false};
+            bool _initialized = false;
 
             /// Indicates whether Start has been accepted.
-            std::atomic<bool> _started{false};
+            bool _started = false;
 
-            /// Indicates whether the user entry function has returned.
-            std::atomic<bool> _completed{false};
+            /// Indicates whether the owner has successfully joined the completed execution.
+            bool _joined = false;
 
 
             // Private lifecycle signals.
@@ -124,11 +125,6 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                         self->_parameter
                     );
                 }
-
-                self->_completed.store(
-                    true,
-                    std::memory_order_release
-                );
 
                 (void)xSemaphoreGive(
                     self->_completionSignal
@@ -192,7 +188,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                 ESPressio::Platform::Execution::ExecutionEntry entry,
                 void* parameter
             ) noexcept {
-                if (_initialized.load(std::memory_order_acquire)) {
+                if (_initialized) {
                     return ESPressio::Platform::Execution::ExecutionInitializationResult::AlreadyInitialized;
                 }
 
@@ -257,14 +253,8 @@ namespace ESPressio::Platform::ESPIDF::Execution {
 
                 _entry = entry;
                 _parameter = parameter;
-                _started.store(
-                    false,
-                    std::memory_order_release
-                );
-                _completed.store(
-                    false,
-                    std::memory_order_release
-                );
+                _started = false;
+                _joined = false;
 
                 const auto name = configuration.Name != nullptr
                     ? configuration.Name
@@ -287,10 +277,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                     return ESPressio::Platform::Execution::ExecutionInitializationResult::ProviderFailure;
                 }
 
-                _initialized.store(
-                    true,
-                    std::memory_order_release
-                );
+                _initialized = true;
 
                 return ESPressio::Platform::Execution::ExecutionInitializationResult::Succeeded;
             }
@@ -300,39 +287,29 @@ namespace ESPressio::Platform::ESPIDF::Execution {
 
             /// Releases the private start gate and permits the native task to enter user code.
             ESPressio::Platform::Execution::ExecutionStartResult Start() noexcept {
-                if (
-                    !_initialized.load(std::memory_order_acquire) ||
-                    _started.exchange(
-                        true,
-                        std::memory_order_acq_rel
-                    )
-                ) {
+                if (!_initialized || _started) {
                     return ESPressio::Platform::Execution::ExecutionStartResult::InvalidState;
                 }
+
+                _started = true;
 
                 if (
                     xSemaphoreGive(
                         _startSignal
                     ) != pdTRUE
                 ) {
-                    _started.store(
-                        false,
-                        std::memory_order_release
-                    );
+                    _started = false;
                     return ESPressio::Platform::Execution::ExecutionStartResult::ProviderFailure;
                 }
 
                 return ESPressio::Platform::Execution::ExecutionStartResult::Succeeded;
             }
 
-            /// Waits until the user execution entry has returned.
+            /// Waits until the user execution entry has returned and records successful ownership join.
             ESPressio::Platform::Execution::ExecutionJoinResult Join(
                 ESPressio::Platform::Synchronization::WaitTimeout timeout
             ) noexcept {
-                if (
-                    !_initialized.load(std::memory_order_acquire) ||
-                    !_started.load(std::memory_order_acquire)
-                ) {
+                if (!_initialized || !_started) {
                     return ESPressio::Platform::Execution::ExecutionJoinResult::InvalidState;
                 }
 
@@ -340,30 +317,30 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                     return ESPressio::Platform::Execution::ExecutionJoinResult::SelfJoin;
                 }
 
-                if (_completed.load(std::memory_order_acquire)) {
+                if (_joined) {
                     return ESPressio::Platform::Execution::ExecutionJoinResult::Succeeded;
                 }
 
-                return xSemaphoreTake(
-                    _completionSignal,
-                    ESPressio::Platform::ESPIDF::Detail::ToTicks(
-                        timeout
-                    )
-                ) == pdTRUE
-                    ? ESPressio::Platform::Execution::ExecutionJoinResult::Succeeded
-                    : ESPressio::Platform::Execution::ExecutionJoinResult::TimedOut;
+                ESPressio::Platform::ESPIDF::Detail::WaitBudget budget(timeout);
+
+                if (!budget.Take(
+                    _completionSignal
+                )) {
+                    return ESPressio::Platform::Execution::ExecutionJoinResult::TimedOut;
+                }
+
+                _joined = true;
+
+                return ESPressio::Platform::Execution::ExecutionJoinResult::Succeeded;
             }
 
-            /// Destroys an unstarted context or a context whose user entry has completed.
+            /// Destroys an unstarted context or a context whose completed execution was joined.
             ESPressio::Platform::Execution::ExecutionDestroyResult Destroy() noexcept {
-                if (!_initialized.load(std::memory_order_acquire) || _handle == nullptr) {
+                if (!_initialized || _handle == nullptr) {
                     return ESPressio::Platform::Execution::ExecutionDestroyResult::InvalidState;
                 }
 
-                if (
-                    _started.load(std::memory_order_acquire) &&
-                    !_completed.load(std::memory_order_acquire)
-                ) {
+                if (_started && !_joined) {
                     return ESPressio::Platform::Execution::ExecutionDestroyResult::InvalidState;
                 }
 
@@ -374,18 +351,9 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                 _handle = nullptr;
                 _entry = nullptr;
                 _parameter = nullptr;
-                _completed.store(
-                    false,
-                    std::memory_order_release
-                );
-                _started.store(
-                    false,
-                    std::memory_order_release
-                );
-                _initialized.store(
-                    false,
-                    std::memory_order_release
-                );
+                _joined = false;
+                _started = false;
+                _initialized = false;
 
                 return ESPressio::Platform::Execution::ExecutionDestroyResult::Succeeded;
             }
@@ -401,7 +369,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
 
             /// Returns the minimum free stack bytes when ESP-IDF stack telemetry is enabled.
             ESPressio::Platform::Execution::ExecutionStackTelemetry GetStackTelemetry() const noexcept {
-#if ( INCLUDE_uxTaskGetStackHighWaterMark == 1 )
+#if defined(INCLUDE_uxTaskGetStackHighWaterMark) && ( INCLUDE_uxTaskGetStackHighWaterMark == 1 )
                 if (_handle == nullptr) { return {}; }
 
                 return {
