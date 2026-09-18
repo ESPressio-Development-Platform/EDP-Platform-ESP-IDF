@@ -15,6 +15,7 @@ namespace Test {
             ESPressio::Platform::Synchronization::SpinLockReleaseResult::Released
         );
 
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( INCLUDE_vTaskDelete == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) && ( INCLUDE_xTaskGetCurrentTaskHandle == 1 )
         using ExecutionProvider = ESPressio::Platform::ESPIDF::Execution::ExecutionContextProvider;
         using ExecutionContract = ESPressio::Platform::Execution::Detail::ExecutionContextProviderTraits<ExecutionProvider>;
 
@@ -31,6 +32,7 @@ namespace Test {
             >,
             "ESP-IDF execution provider must advertise processor affinity"
         );
+#endif
 
         return 0;
     }
