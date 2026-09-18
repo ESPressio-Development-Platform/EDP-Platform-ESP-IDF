@@ -39,8 +39,11 @@ See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
 
 ## Documentation
 
-- [ExecutionContext provider](./docs/EXECUTION-CONTEXT.MD)
-- [SpinLock provider](./docs/SPINLOCK.MD)
+- [ExecutionContext Provider](./docs/EXECUTION-CONTEXT.MD)  
+  Defines the ESP-IDF static task provider, Composition properties, storage contract, lifecycle, affinity, waits, telemetry, and failure semantics.
+
+- [SpinLock Provider](./docs/SPINLOCK.MD)  
+  Defines the `portMUX_TYPE`-backed critical-section provider, ordinary/interrupt-context behavior, ownership boundary, and usage constraints.
 
 ## Demos
 
