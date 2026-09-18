@@ -35,3 +35,13 @@ EDP-Platform-ESP-IDF
 There are no optional ESPressio library dependencies.
 
 See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
+
+
+## Documentation
+
+- [ExecutionContext provider](./docs/EXECUTION-CONTEXT.MD)
+- [SpinLock provider](./docs/SPINLOCK.MD)
+
+## Demos
+
+Buildable demonstrations are provided under [`./demos`](./demos).

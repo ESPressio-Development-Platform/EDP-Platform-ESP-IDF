@@ -1,5 +1,10 @@
 # Demos
 
-- `atomic-word-basic` — the ESP-IDF `AtomicWord32` concrete provider.
+The ESP-IDF concrete provider repository includes:
 
-The repository remains the ESP-IDF concrete backend. The policy-required Arduino PlatformIO target disables PlatformIO's framework compatibility filter locally so the current SDK-independent atomic provider surface can be compiled there without changing the package's declared ESP-IDF ownership or compatibility.
+- `spin-lock-basic` — ESP-IDF `portMUX_TYPE` critical-section spin lock;
+- `execution-context-basic` — static caller-storage-backed execution context with core affinity.
+
+Each demo provides Arduino IDE, PlatformIO Arduino and PlatformIO ESP-IDF surfaces as required by ESPressio policy.
+
+The Arduino surfaces target Arduino-ESP32, where the underlying ESP-IDF headers are available. PlatformIO Arduino disables compatibility filtering locally because this repository is correctly declared as ESP-IDF-owned.
