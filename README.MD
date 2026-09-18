@@ -1,34 +1,37 @@
 # ESPressio Platform - ESP-IDF
 
-`EDP-Platform-ESP-IDF` supplies ESP-IDF-environment concrete implementations for abstractions defined by `EDP-Platform`.
+`EDP-Platform-ESP-IDF` supplies concrete implementations for `EDP-Platform` abstractions that are specifically backed by ESP-IDF APIs or ESP-IDF extensions.
 
-## Contents
+## Providers
 
-- [AtomicWord32 Provider](./docs/ATOMIC-WORD32.MD)  
-  Supplies the lock-free four-byte `AtomicWord32` capability required by Platform read-mostly concurrency facilities such as `ConcurrentSnapshot`.
+Current ESP-IDF-owned providers:
+
+```text
+ExecutionContext
+    caller-supplied static task/control storage
+    priority
+    processor affinity
+    stack telemetry when enabled
+
+SpinLock
+    portMUX_TYPE-backed
+    ordinary and interrupt-context critical-section support
+```
+
+The execution provider uses ESP-IDF's `xTaskCreateStaticPinnedToCore` extension.
+
+FreeRTOS mutexes, semaphores and signals remain owned by `EDP-Platform-FreeRTOS` because their implementations use portable FreeRTOS APIs rather than ESP-IDF-specific APIs.
+
+`AtomicWord32` is owned by `EDP-Platform-Portable` because its implementation is entirely Standard C++.
 
 ## Dependencies
 
 ```text
 EDP-Platform-ESP-IDF
 └── EDP-Platform [mandatory]
-    └── EDP-System [mandatory, transitive]
+    └── EDP-System [transitive]
 ```
 
-There are currently no optional ESPressio library dependencies.
+There are no optional ESPressio library dependencies.
 
-See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD) for the maintained dependency graph.
-
-## Demos
-
-The `AtomicWord32` provider demonstration is available under [`./demos/atomic-word-basic`](./demos/atomic-word-basic) for:
-
-- Arduino IDE;
-- PlatformIO Arduino;
-- PlatformIO ESP-IDF.
-
-The package remains an ESP-IDF-owned concrete backend. The policy-required cross-framework PlatformIO demo disables only PlatformIO's compatibility filter for that demo project; it does not alter the package's declared framework ownership or recommended application selection.
-
-## Development Status
-
-Only Platform capabilities with an actual ESP-IDF concrete responsibility are added here. The current implementation is intentionally limited to the atomic-word prerequisite required by synchronized Clock work.
+See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).

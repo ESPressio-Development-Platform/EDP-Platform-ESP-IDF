@@ -5,16 +5,15 @@
 ```text
 EDP-Platform-ESP-IDF
 └── EDP-Platform [mandatory]
-    └── EDP-System [mandatory, transitive]
+    └── EDP-System [transitive]
 ```
 
 ## Mandatory Dependencies
 
-- `EDP-Platform` — owns the platform-neutral capability contracts implemented by this ESP-IDF backend.
-- `EDP-System` — transitive through `EDP-Platform` for Composition.
+- `EDP-Platform` — defines the Platform ExecutionContext and SpinLock capabilities implemented by this ESP-IDF backend.
 
 ## Optional Dependencies
 
-There are currently no optional ESPressio library dependencies.
+`EDP-Platform-ESP-IDF` has no optional ESPressio library dependencies.
 
-ESP-IDF and its C++ standard atomic implementation are target facilities, not ESPressio library dependencies.
+ESP-IDF and its FreeRTOS extensions are target facilities, not ESPressio-library dependencies.
