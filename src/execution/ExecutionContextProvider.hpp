@@ -138,6 +138,31 @@ namespace ESPressio::Platform::ESPIDF::Execution {
             }
 
 
+            // Priority mapping.
+
+            /// Maps the portable four-level ESPressio priority contract onto the available native range.
+            static UBaseType_t NativePriority(
+                ESPressio::Platform::Execution::ExecutionPriority priority
+            ) noexcept {
+                const auto highest = static_cast<UBaseType_t>(configMAX_PRIORITIES - 1U);
+
+                if (highest == 0U) { return 0U; }
+
+                switch (priority) {
+                    case ESPressio::Platform::Execution::ExecutionPriority::Low:
+                        return static_cast<UBaseType_t>(1U <= highest ? 1U : highest);
+                    case ESPressio::Platform::Execution::ExecutionPriority::Normal:
+                        return static_cast<UBaseType_t>((highest + 1U) / 2U);
+                    case ESPressio::Platform::Execution::ExecutionPriority::High:
+                        return static_cast<UBaseType_t>((highest * 3U + 3U) / 4U);
+                    case ESPressio::Platform::Execution::ExecutionPriority::Critical:
+                        return highest;
+                }
+
+                return static_cast<UBaseType_t>((highest + 1U) / 2U);
+            }
+
+
             // Storage validation.
 
             /// Reports whether an address satisfies a required alignment.
@@ -199,10 +224,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                     return ESPressio::Platform::Execution::ExecutionInitializationResult::ProviderFailure;
                 }
 
-                if (
-                    configuration.Priority >= static_cast<std::uint32_t>(configMAX_PRIORITIES) ||
-                    entry == nullptr
-                ) {
+                if (entry == nullptr) {
                     return ESPressio::Platform::Execution::ExecutionInitializationResult::InvalidConfiguration;
                 }
 
@@ -265,7 +287,9 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                     name,
                     static_cast<std::uint32_t>(storage.StackBytes),
                     this,
-                    static_cast<UBaseType_t>(configuration.Priority),
+                    NativePriority(
+                        configuration.Priority
+                    ),
                     static_cast<StackType_t*>(storage.StackAddress),
                     static_cast<StaticTask_t*>(storage.ControlAddress),
                     core
