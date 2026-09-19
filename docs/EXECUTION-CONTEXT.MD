@@ -65,7 +65,7 @@ entry function
 entry parameter
 ```
 
-Priority must be less than `configMAX_PRIORITIES`, and the entry function must be non-null.
+The portable `ExecutionPriority` values `Low`, `Normal`, `High`, and `Critical` are mapped monotonically across the configured native ESP-IDF FreeRTOS priority range. `Critical` maps to the highest available native priority; `Low` avoids the idle priority where the native range permits. Small native priority ranges may collapse adjacent logical levels. The entry function must be non-null.
 
 `ProcessorAffinity::Any()` maps to `tskNO_AFFINITY`. A specific processor index is accepted only when ESP-IDF reports it as a valid core through `taskVALID_CORE_ID`.
 
