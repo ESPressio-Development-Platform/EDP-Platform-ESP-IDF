@@ -32,6 +32,8 @@ namespace ESPressio::Platform::ESPIDF::Memory {
 
             public:
 
+                // Resource operations.
+
                 /// Allocates one aligned block from heaps satisfying the configured capability mask.
                 ESPressio::Memory::MemoryAllocationResult Allocate(
                     std::size_t byteCount,
@@ -107,6 +109,8 @@ namespace ESPressio::Platform::ESPIDF::Memory {
     > {
 
         public:
+
+            // Resource operations.
 
             /// Attempts external SPI RAM first and internal byte-addressable memory second.
             ESPressio::Memory::MemoryAllocationResult Allocate(
