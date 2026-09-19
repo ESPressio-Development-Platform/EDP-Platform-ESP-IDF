@@ -1,7 +1,7 @@
 {
   "name": "EDP-Platform-ESP-IDF",
-  "description": "ESP-IDF-specific concrete providers for EDP-Platform",
-  "keywords": "espressio,platform,esp-idf,espressif,execution,affinity,spinlock,embedded",
+  "description": "ESP-IDF-specific concrete providers for EDP-Platform and EDP-Memory",
+  "keywords": "espressio,platform,esp-idf,espressif,execution,affinity,spinlock,memory,psram,embedded",
   "homepage": "https://espressio.org",
   "authors": {
     "name": "Simon J. Stuart",
@@ -9,8 +9,12 @@
     "url": "https://espressio.org"
   },
   "build": {
-    "flags": ["-std=gnu++17"],
-    "unflags": ["-std=gnu++11"]
+    "flags": [
+      "-std=gnu++17"
+    ],
+    "unflags": [
+      "-std=gnu++11"
+    ]
   },
   "repository": {
     "type": "git",
@@ -24,6 +28,10 @@
     {
       "name": "EDP-Platform",
       "version": "https://github.com/ESPressio-Development-Platform/EDP-Platform.git#main"
+    },
+    {
+      "name": "EDP-Memory",
+      "version": "https://github.com/ESPressio-Development-Platform/EDP-Memory.git#main"
     }
   ]
 }

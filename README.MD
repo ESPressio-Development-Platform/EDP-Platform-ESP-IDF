@@ -1,50 +1,56 @@
 # ESPressio Platform - ESP-IDF
 
-`EDP-Platform-ESP-IDF` supplies concrete implementations for `EDP-Platform` abstractions that are specifically backed by ESP-IDF APIs or ESP-IDF extensions.
+`EDP-Platform-ESP-IDF` supplies concrete implementations for abstractions specifically backed by ESP-IDF APIs or ESP-IDF extensions.
 
 ## Providers
 
 Current ESP-IDF-owned providers:
 
 ```text
-ExecutionContext
-    caller-supplied static task/control storage
-    priority
-    processor affinity
-    stack telemetry when enabled
+EDP-Platform
+    ExecutionContext
+        caller-supplied static task/control storage
+        priority
+        processor affinity
+        stack telemetry when enabled
 
-SpinLock
-    portMUX_TYPE-backed
-    ordinary and interrupt-context critical-section support
+    SpinLock
+        portMUX_TYPE-backed
+        ordinary and interrupt-context critical-section support
+
+EDP-Memory
+    InternalMemoryResource
+    ExternalMemoryResource
+    ExternalPreferredMemoryResource
 ```
 
-The execution provider uses ESP-IDF's `xTaskCreateStaticPinnedToCore` extension.
+The Memory providers use ESP-IDF heap-capability APIs. ByteOperations remains owned by `EDP-Platform-Portable` because its concrete implementation uses Standard C/C++ byte primitives.
 
 FreeRTOS mutexes, semaphores and signals remain owned by `EDP-Platform-FreeRTOS` because their implementations use portable FreeRTOS APIs rather than ESP-IDF-specific APIs.
 
-`AtomicWord32` is owned by `EDP-Platform-Portable` because its implementation is entirely Standard C++.
+`AtomicWord32` remains owned by `EDP-Platform-Portable` because its implementation is entirely Standard C++.
 
 ## Dependencies
 
 ```text
 EDP-Platform-ESP-IDF
-└── EDP-Platform [mandatory]
-    └── EDP-System [transitive]
+├── EDP-Platform [mandatory]
+│   └── EDP-System [mandatory]
+└── EDP-Memory [mandatory]
+    ├── EDP-System [mandatory]
+    └── EDP-Platform [mandatory]
 ```
 
-There are no optional ESPressio library dependencies.
+There are no optional ESPressio-library dependencies.
 
 See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
 
-
 ## Documentation
 
-- [ExecutionContext Provider](./docs/EXECUTION-CONTEXT.MD)  
-  Defines the ESP-IDF static task provider, Composition properties, storage contract, lifecycle, affinity, waits, telemetry, and failure semantics.
-
-- [SpinLock Provider](./docs/SPINLOCK.MD)  
-  Defines the `portMUX_TYPE`-backed critical-section provider, ordinary/interrupt-context behavior, ownership boundary, and usage constraints.
+- [ExecutionContext Provider](./docs/EXECUTION-CONTEXT.MD) — static task lifecycle, storage, affinity, waits and telemetry.
+- [SpinLock Provider](./docs/SPINLOCK.MD) — `portMUX_TYPE` critical-section provider and ISR behavior.
+- [Memory Resources](./docs/MEMORY-RESOURCES.MD) — internal, external/PSRAM-only, and external-preferred/internal-fallback raw resources.
 
 ## Demos
 
-Buildable demonstrations are provided under [`./demos`](./demos).
+Buildable demonstrations are provided under [`./demos`](./demos). Arduino surfaces target Arduino-ESP32, where the underlying ESP-IDF APIs are available.
