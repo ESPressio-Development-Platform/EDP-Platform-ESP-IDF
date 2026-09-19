@@ -1,5 +1,7 @@
 # EDP-Platform-ESP-IDF Dependency Graph
 
+> Revalidated: 2026-09-19 — execution-priority contract alignment introduced no new ESPressio-library dependency.
+
 ## Library Dependency Tree
 
 ```text
