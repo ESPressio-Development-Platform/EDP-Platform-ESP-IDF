@@ -8,6 +8,10 @@ Current ESP-IDF-owned providers:
 
 ```text
 EDP-Platform
+    AtomicWord32
+        native lock-free 32-bit compiler/ESP-IDF atomic operations
+        exact four-byte storage when ESP-IDF advertises HAS_ATOMICS_32
+
     ExecutionContext
         caller-supplied static task/control storage
         priority
@@ -28,7 +32,7 @@ The Memory providers use ESP-IDF heap-capability APIs. ByteOperations remains ow
 
 FreeRTOS mutexes, semaphores and signals remain owned by `EDP-Platform-FreeRTOS` because their implementations use portable FreeRTOS APIs rather than ESP-IDF-specific APIs.
 
-`AtomicWord32` remains owned by `EDP-Platform-Portable` because its implementation is entirely Standard C++.
+`EDP-Platform-Portable` remains the Standard C++ `AtomicWord32` implementation where `std::atomic<std::uint32_t>` can prove the required always-lock-free contract. `EDP-Platform-ESP-IDF` additionally supplies a native ESP-IDF implementation when `HAS_ATOMICS_32` is available, allowing ESP32-family targets to satisfy the same Platform capability without relying on libstdc++'s `is_always_lock_free` trait.
 
 ## Dependencies
 
