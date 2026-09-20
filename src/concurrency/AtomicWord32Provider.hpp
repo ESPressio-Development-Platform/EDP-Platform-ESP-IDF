@@ -2,15 +2,19 @@
 
 #include <cstdint>
 
-#include <esp_stdatomic.h>
-
 #include <ESPressio_Platform.hpp>
 
 namespace ESPressio::Platform::ESPIDF::Concurrency {
 
     namespace Framework = ESPressio::System::CompositionFramework;
 
-#if HAS_ATOMICS_32
+    /// Compiler-proven target capability for native four-byte atomic operations.
+    inline constexpr bool AtomicWord32NativeLockFree =
+        __atomic_always_lock_free(
+            sizeof(std::uint32_t),
+            nullptr
+        );
+
 
     /// ESP-IDF provider for the native lock-free 32-bit atomic word capability.
     class AtomicWord32Provider final : public Framework::Provider<
@@ -18,13 +22,20 @@ namespace ESPressio::Platform::ESPIDF::Concurrency {
         Framework::Provides<
             Framework::Offer<
                 ESPressio::Platform::Concurrency::AtomicWord32,
-                Framework::PropertyValue<ESPressio::Platform::Concurrency::LockFree, true>,
+                Framework::PropertyValue<
+                    ESPressio::Platform::Concurrency::LockFree,
+                    AtomicWord32NativeLockFree
+                >,
                 Framework::PropertyValue<ESPressio::Platform::Concurrency::AtomicWordStorageBytes, 4U>
             >
         >
     > {
 
         public:
+
+            /// Indicates whether the compiler proves this target's four-byte atomics are always lock-free.
+            static constexpr bool IsNativeLockFree =
+                AtomicWord32NativeLockFree;
 
             /// Exactly four bytes of ESP-IDF-native atomic storage.
             class Word final {
@@ -114,12 +125,5 @@ namespace ESPressio::Platform::ESPIDF::Concurrency {
         sizeof(AtomicWord32Provider::Word) == sizeof(std::uint32_t),
         "ESP-IDF AtomicWord32Provider must occupy exactly four bytes"
     );
-
-    using AtomicWord32Contract =
-        ESPressio::Platform::Concurrency::Detail::AtomicWord32ProviderTraits<
-            AtomicWord32Provider
-        >;
-
-#endif
 
 } // ESPressio::Platform::ESPIDF::Concurrency
