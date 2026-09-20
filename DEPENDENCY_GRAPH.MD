@@ -1,5 +1,7 @@
 # EDP-Platform-ESP-IDF Dependency Graph
 
+> Revalidated: 2026-09-20 — V2 compliance audit and execution-demo priority migration introduced no new ESPressio-library dependency.
+
 > Revalidated: 2026-09-19 — execution-priority contract alignment introduced no new ESPressio-library dependency.
 
 ## Library Dependency Tree
