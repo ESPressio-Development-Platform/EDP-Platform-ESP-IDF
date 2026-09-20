@@ -427,3 +427,25 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# macOS filesystem metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# Windows filesystem metadata
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# PlatformIO local build and dependency state
+.pio/
+.pioenvs/
+.piolibdeps/
