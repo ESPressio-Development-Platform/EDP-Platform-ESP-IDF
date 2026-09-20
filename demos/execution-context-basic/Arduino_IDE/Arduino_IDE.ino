@@ -2,10 +2,22 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 
 #include <ESPressio_Platform_ESP_IDF.hpp>
 
 namespace Demo {
+
+    /// Outcome of running the execution-context demonstration.
+    enum class DemonstrationResult : std::uint8_t {
+        Succeeded = 0,
+        InitializationFailed = 1,
+        StartFailed = 2,
+        JoinFailed = 3,
+        DestroyFailed = 4,
+        EntryNotExecuted = 5
+    };
+
 
     using Provider = ESPressio::Platform::ESPIDF::Execution::ExecutionContextProvider;
     using Contract = ESPressio::Platform::Execution::Detail::ExecutionContextProviderTraits<Provider>;
@@ -60,7 +72,7 @@ namespace Demo {
 
 
     /// Creates, starts, joins and destroys one core-affinity-capable execution context.
-    int Run() noexcept {
+    DemonstrationResult Run() noexcept {
         Provider provider;
 
         const ESPressio::Platform::Execution::ExecutionStorage storage {
@@ -86,14 +98,14 @@ namespace Demo {
                 nullptr
             ) != ESPressio::Platform::Execution::ExecutionInitializationResult::Succeeded
         ) {
-            return 1;
+            return DemonstrationResult::InitializationFailed;
         }
 
         if (
             provider.Start() !=
             ESPressio::Platform::Execution::ExecutionStartResult::Succeeded
         ) {
-            return 2;
+            return DemonstrationResult::StartFailed;
         }
 
         if (
@@ -101,17 +113,19 @@ namespace Demo {
                 ESPressio::Platform::Synchronization::WaitTimeout::Forever()
             ) != ESPressio::Platform::Execution::ExecutionJoinResult::Succeeded
         ) {
-            return 3;
+            return DemonstrationResult::JoinFailed;
         }
 
         if (
             provider.Destroy() !=
             ESPressio::Platform::Execution::ExecutionDestroyResult::Succeeded
         ) {
-            return 4;
+            return DemonstrationResult::DestroyFailed;
         }
 
-        return Executed ? 0 : 5;
+        return Executed
+            ? DemonstrationResult::Succeeded
+            : DemonstrationResult::EntryNotExecuted;
     }
 
 } // Demo
