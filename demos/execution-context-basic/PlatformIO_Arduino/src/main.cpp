@@ -71,7 +71,7 @@ namespace Demo {
         };
 
         ESPressio::Platform::Execution::ExecutionConfiguration configuration;
-        configuration.Priority = 1U;
+        configuration.Priority = ESPressio::Platform::Execution::ExecutionPriority::Normal;
         configuration.Affinity =
             ESPressio::Platform::Execution::ProcessorAffinity::Specific(
                 0U
