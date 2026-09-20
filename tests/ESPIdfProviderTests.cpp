@@ -7,9 +7,13 @@ namespace Test {
 
     /// Exercises ESP-IDF-owned provider behavior that does not require a secondary task.
     int Run() noexcept {
-#if HAS_ATOMICS_32
         using AtomicProvider =
             ESPressio::Platform::ESPIDF::Concurrency::AtomicWord32Provider;
+
+        static_assert(
+            AtomicProvider::IsNativeLockFree,
+            "Configured ESP-IDF validation target must provide native four-byte atomics"
+        );
 
         using AtomicContract =
             ESPressio::Platform::Concurrency::Detail::AtomicWord32ProviderTraits<
@@ -46,8 +50,6 @@ namespace Test {
         assert(
             atomicWord.LoadRelaxed() == 11U
         );
-#endif
-
         ESPressio::Platform::ESPIDF::Synchronization::SpinLockProvider spinLock;
 
         spinLock.Acquire();
