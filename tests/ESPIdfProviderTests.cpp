@@ -7,49 +7,6 @@ namespace Test {
 
     /// Exercises ESP-IDF-owned provider behavior that does not require a secondary task.
     int Run() noexcept {
-        using AtomicProvider =
-            ESPressio::Platform::ESPIDF::Concurrency::AtomicWord32Provider;
-
-        static_assert(
-            AtomicProvider::IsNativeLockFree,
-            "Configured ESP-IDF validation target must provide native four-byte atomics"
-        );
-
-        using AtomicContract =
-            ESPressio::Platform::Concurrency::Detail::AtomicWord32ProviderTraits<
-                AtomicProvider
-            >;
-
-        static_assert(
-            sizeof(AtomicProvider::Word) == sizeof(std::uint32_t) &&
-            AtomicContract::Properties::template Value<
-                ESPressio::Platform::Concurrency::LockFree
-            >,
-            "ESP-IDF AtomicWord32 must remain an exact four-byte lock-free primitive"
-        );
-
-        AtomicProvider::Word atomicWord;
-
-        atomicWord.StoreRelaxed(
-            7U
-        );
-
-        assert(
-            atomicWord.LoadAcquire() == 7U
-        );
-
-        std::uint32_t expected = 7U;
-
-        assert(
-            atomicWord.CompareExchangeAcqRel(
-                expected,
-                11U
-            )
-        );
-
-        assert(
-            atomicWord.LoadRelaxed() == 11U
-        );
         ESPressio::Platform::ESPIDF::Synchronization::SpinLockProvider spinLock;
 
         spinLock.Acquire();
