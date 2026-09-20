@@ -1,6 +1,6 @@
 # ESP-IDF Provider Tests
 
-`ESPIdfProviderTests.cpp` validates ESP-IDF-owned spin-lock behavior, compile-time execution-context properties, and target MemoryResource behavior.
+`ESPIdfProviderTests.cpp` validates ESP-IDF-owned spin-lock behavior, compile-time execution-context properties, the four-level execution-priority mapping, and target MemoryResource behavior.
 
 The buildable `execution-context-basic` and Memory-resource demos exercise their corresponding runtime surfaces on ESP-IDF/Arduino-ESP32 targets.
 
