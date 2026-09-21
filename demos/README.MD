@@ -11,3 +11,7 @@ Each demo provides Arduino IDE, PlatformIO Arduino and PlatformIO ESP-IDF surfac
 The Arduino surfaces target Arduino-ESP32, where the underlying ESP-IDF headers/APIs are available. PlatformIO Arduino disables compatibility filtering locally because this repository is correctly declared as ESP-IDF-owned.
 
 The external-only MemoryResource demonstration treats `ResourceExhausted` as a valid outcome on targets/configurations without available SPI RAM; the preferred resource must still be able to fall back to internal memory when suitable internal storage exists.
+
+## C++ Language Baseline
+
+All PlatformIO-compatible demos require C++20 and explicitly select the maintained PIOArduino ESP32 platform package. PIOArduino is the recommended ESP32 PlatformIO-compatible environment for ESPressio.
