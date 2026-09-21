@@ -10,10 +10,12 @@
   },
   "build": {
     "flags": [
-      "-std=gnu++17"
+      "-std=gnu++20"
     ],
     "unflags": [
-      "-std=gnu++11"
+      "-std=gnu++11",
+      "-std=gnu++14",
+      "-std=gnu++17"
     ]
   },
   "repository": {
