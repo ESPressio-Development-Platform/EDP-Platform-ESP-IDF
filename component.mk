@@ -2,4 +2,4 @@ COMPONENT_ADD_INCLUDEDIRS := src
 COMPONENT_SRCDIRS := src
 COMPONENT_REQUIRES := EDP_Platform EDP_Memory
 
-CXXFLAGS += -std=gnu++17
+CXXFLAGS += -std=gnu++20
