@@ -60,6 +60,24 @@ if(NOT DEFINED EDP_SECURITY_SOURCE_DIR)
     message(FATAL_ERROR "EDP_SECURITY_SOURCE_DIR must point at an EDP-Security checkout")
 endif()
 
+
+# Required dependency headers must exist in the supplied source checkouts.
+if(NOT EXISTS "${EDP_SYSTEM_SOURCE_DIR}/src/ESPressio_System.hpp")
+    message(FATAL_ERROR "EDP_SYSTEM_SOURCE_DIR does not contain src/ESPressio_System.hpp; pull/update EDP-System")
+endif()
+
+if(NOT EXISTS "${EDP_PLATFORM_SOURCE_DIR}/src/ESPressio_Platform.hpp")
+    message(FATAL_ERROR "EDP_PLATFORM_SOURCE_DIR does not contain src/ESPressio_Platform.hpp; pull/update EDP-Platform")
+endif()
+
+if(NOT EXISTS "${EDP_MEMORY_SOURCE_DIR}/src/ESPressio_Memory.hpp")
+    message(FATAL_ERROR "EDP_MEMORY_SOURCE_DIR does not contain src/ESPressio_Memory.hpp; pull/update EDP-Memory")
+endif()
+
+if(NOT EXISTS "${EDP_SECURITY_SOURCE_DIR}/src/ESPressio_Security.hpp")
+    message(FATAL_ERROR "EDP_SECURITY_SOURCE_DIR does not contain src/ESPressio_Security.hpp; pull/update EDP-Security")
+endif()
+
 add_executable(
     espidf_memory_provider_host_tests
     host/MemoryResourceProviderHostTests.cpp

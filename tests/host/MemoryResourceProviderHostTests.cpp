@@ -1,7 +1,7 @@
 #include <cassert>
 #include <cstdint>
 
-#include <ESPressio_Platform_ESP_IDF.hpp>
+#include <memory/MemoryResourceProviders.hpp>
 
 namespace Memory = ESPressio::Memory;
 namespace ESPIDFMemory = ESPressio::Platform::ESPIDF::Memory;
