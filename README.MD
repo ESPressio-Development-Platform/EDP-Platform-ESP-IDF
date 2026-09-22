@@ -36,9 +36,13 @@ FreeRTOS mutexes, semaphores and signals remain owned by `EDP-Platform-FreeRTOS`
 EDP-Platform-ESP-IDF
 ├── EDP-Platform [mandatory]
 │   └── EDP-System [mandatory]
-└── EDP-Memory [mandatory]
+├── EDP-Memory [mandatory]
     ├── EDP-System [mandatory]
     └── EDP-Platform [mandatory]
+└── EDP-Security [mandatory]
+    ├── EDP-System [mandatory, transitive]
+    ├── EDP-Platform [mandatory, transitive]
+    └── EDP-Memory [mandatory, transitive]
 ```
 
 There are no optional ESPressio-library dependencies.
@@ -48,7 +52,9 @@ See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
 ## Documentation
 
 - [ExecutionContext Provider](./docs/EXECUTION-CONTEXT.MD) — static task lifecycle, storage, affinity, waits and telemetry.
-- [SpinLock Provider](./docs/SPINLOCK.MD) — `portMUX_TYPE` critical-section provider and ISR behavior.\n- [Random Byte Source](./docs/RANDOMNESS.MD) — ESP-IDF cryptographic random-byte provider and ownership semantics.
+- [SpinLock Provider](./docs/SPINLOCK.MD) — `portMUX_TYPE` critical-section provider and ISR behavior.
+- [Random Byte Source](./docs/RANDOMNESS.MD) — ESP-IDF cryptographic random-byte provider and ownership semantics.
+- [AES-256-GCM Security Provider](./docs/AES-256-GCM.MD) — Mbed TLS authenticated-crypto provider, segmented AAD handling and authentication-before-publication semantics.
 - [Memory Resources](./docs/MEMORY-RESOURCES.MD) — internal, external/PSRAM-only, and external-preferred/internal-fallback raw resources.
 
 ## Demos

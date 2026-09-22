@@ -17,6 +17,10 @@ if(NOT DEFINED EDP_MEMORY_SOURCE_DIR)
     message(FATAL_ERROR "EDP_MEMORY_SOURCE_DIR must point at an EDP-Memory checkout")
 endif()
 
+if(NOT DEFINED EDP_SECURITY_SOURCE_DIR)
+    message(FATAL_ERROR "EDP_SECURITY_SOURCE_DIR must point at an EDP-Security checkout")
+endif()
+
 add_executable(
     espidf_memory_provider_host_tests
     host/MemoryResourceProviderHostTests.cpp
@@ -61,6 +65,34 @@ target_include_directories(
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(
         espidf_random_provider_host_tests
+        PRIVATE
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Werror
+    )
+endif()
+
+
+add_executable(
+    espidf_aes256_gcm_provider_host_tests
+    host/Aes256GcmProviderHostTests.cpp
+)
+
+target_include_directories(
+    espidf_aes256_gcm_provider_host_tests
+    PRIVATE
+        host/include
+        ../src
+        ${EDP_PLATFORM_SOURCE_DIR}/src
+        ${EDP_SYSTEM_SOURCE_DIR}/src
+        ${EDP_MEMORY_SOURCE_DIR}/src
+        ${EDP_SECURITY_SOURCE_DIR}/src
+)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(
+        espidf_aes256_gcm_provider_host_tests
         PRIVATE
             -Wall
             -Wextra
