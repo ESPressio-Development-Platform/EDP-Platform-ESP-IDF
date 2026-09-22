@@ -18,6 +18,15 @@ EDP-Platform
         portMUX_TYPE-backed
         ordinary and interrupt-context critical-section support
 
+    RandomByteSource
+        ESP-IDF system random source
+        cryptographically suitable
+
+EDP-Security
+    AuthenticatedCrypto
+        AES-256-GCM through Mbed TLS
+        raw-key access
+
 EDP-Memory
     InternalMemoryResource
     ExternalMemoryResource
@@ -37,8 +46,8 @@ EDP-Platform-ESP-IDF
 ├── EDP-Platform [mandatory]
 │   └── EDP-System [mandatory]
 ├── EDP-Memory [mandatory]
-    ├── EDP-System [mandatory]
-    └── EDP-Platform [mandatory]
+│   ├── EDP-System [mandatory]
+│   └── EDP-Platform [mandatory]
 └── EDP-Security [mandatory]
     ├── EDP-System [mandatory, transitive]
     ├── EDP-Platform [mandatory, transitive]
