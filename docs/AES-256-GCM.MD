@@ -43,6 +43,10 @@ This deliberately avoids exposing unauthenticated candidate plaintext to the cal
 
 The tag comparison has no data-dependent early exit.
 
+## Scratch erasure
+
+Fixed stack scratch used for partial-block processing or authentication-only candidate plaintext is explicitly overwritten through the selected EDP-Memory ByteOperations provider before returning on both successful and failed processing paths.
+
 ## Configuration requirement
 
 The target ESP-IDF configuration must include AES and GCM support. ESP-IDF's normal Mbed TLS configuration enables GCM on supported targets.
