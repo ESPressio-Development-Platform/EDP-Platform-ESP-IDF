@@ -3,6 +3,10 @@
 #include <cstddef>
 #include <cstdint>
 
+#if defined(ESP_PLATFORM) && !defined(MBEDTLS_CONFIG_FILE)
+#define MBEDTLS_CONFIG_FILE "mbedtls/esp_config.h"
+#endif
+
 #include <mbedtls/gcm.h>
 
 #include <ESPressio_Memory.hpp>
