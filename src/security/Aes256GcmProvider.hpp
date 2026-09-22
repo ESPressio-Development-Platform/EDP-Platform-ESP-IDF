@@ -301,6 +301,11 @@ namespace ESPressio::Platform::ESPIDF::Security {
                 );
 
                 if (processResult != Detail::Aes256GcmProcessingResult::Succeeded) {
+                    _bytes.FillBytes(
+                        tail,
+                        0U,
+                        sizeof(tail)
+                    );
                     mbedtls_gcm_free(
                         &context
                     );
@@ -320,6 +325,11 @@ namespace ESPressio::Platform::ESPIDF::Security {
                     ) != 0 ||
                     tailBytes + finishBytes != input.Size - producedBytes
                 ) {
+                    _bytes.FillBytes(
+                        tail,
+                        0U,
+                        sizeof(tail)
+                    );
                     mbedtls_gcm_free(
                         &context
                     );
@@ -333,6 +343,12 @@ namespace ESPressio::Platform::ESPIDF::Security {
                         tailBytes + finishBytes
                     );
                 }
+
+                _bytes.FillBytes(
+                    tail,
+                    0U,
+                    sizeof(tail)
+                );
 
                 mbedtls_gcm_free(
                     &context
@@ -394,6 +410,11 @@ namespace ESPressio::Platform::ESPIDF::Security {
                             &outputBytes
                         ) != 0
                     ) {
+                        _bytes.FillBytes(
+                            scratch,
+                            0U,
+                            sizeof(scratch)
+                        );
                         mbedtls_gcm_free(
                             &context
                         );
@@ -415,11 +436,22 @@ namespace ESPressio::Platform::ESPIDF::Security {
                         TagBytes
                     ) != 0
                 ) {
+                    _bytes.FillBytes(
+                        scratch,
+                        0U,
+                        sizeof(scratch)
+                    );
                     mbedtls_gcm_free(
                         &context
                     );
                     return Detail::Aes256GcmProcessingResult::ProviderFailure;
                 }
+
+                _bytes.FillBytes(
+                    scratch,
+                    0U,
+                    sizeof(scratch)
+                );
 
                 mbedtls_gcm_free(
                     &context
