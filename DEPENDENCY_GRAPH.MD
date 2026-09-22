@@ -1,6 +1,6 @@
 # EDP-Platform-ESP-IDF Dependency Graph
 
-> Revalidated: 2026-09-20 — V2 compliance audit and execution-demo priority migration introduced no new ESPressio-library dependency.
+> Revalidated: 2026-09-22 — ESP-IDF RandomByteSource provider uses the existing EDP-Platform contract and introduces no new ESPressio-library dependency.\n\n> Revalidated: 2026-09-20 — V2 compliance audit and execution-demo priority migration introduced no new ESPressio-library dependency.
 
 > Revalidated: 2026-09-19 — execution-priority contract alignment introduced no new ESPressio-library dependency.
 
@@ -18,7 +18,7 @@ EDP-Platform-ESP-IDF
 
 ## Mandatory Dependencies
 
-- `EDP-Platform` — defines the ESP-IDF-owned ExecutionContext and SpinLock contracts already implemented here.
+- `EDP-Platform` — defines the ESP-IDF-owned ExecutionContext, SpinLock and RandomByteSource contracts implemented here.
 - `EDP-Memory` — defines the MemoryResource contract implemented by the ESP-IDF heap-capability providers.
 
 ESP-IDF and its FreeRTOS extensions are target facilities, not ESPressio-library dependencies.

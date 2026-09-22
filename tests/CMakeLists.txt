@@ -42,3 +42,29 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
             -Werror
     )
 endif()
+
+
+add_executable(
+    espidf_random_provider_host_tests
+    host/RandomByteSourceProviderHostTests.cpp
+)
+
+target_include_directories(
+    espidf_random_provider_host_tests
+    PRIVATE
+        host/include
+        ../src
+        ${EDP_PLATFORM_SOURCE_DIR}/src
+        ${EDP_SYSTEM_SOURCE_DIR}/src
+)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(
+        espidf_random_provider_host_tests
+        PRIVATE
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Werror
+    )
+endif()

@@ -48,7 +48,7 @@ See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
 ## Documentation
 
 - [ExecutionContext Provider](./docs/EXECUTION-CONTEXT.MD) — static task lifecycle, storage, affinity, waits and telemetry.
-- [SpinLock Provider](./docs/SPINLOCK.MD) — `portMUX_TYPE` critical-section provider and ISR behavior.
+- [SpinLock Provider](./docs/SPINLOCK.MD) — `portMUX_TYPE` critical-section provider and ISR behavior.\n- [Random Byte Source](./docs/RANDOMNESS.MD) — ESP-IDF cryptographic random-byte provider and ownership semantics.
 - [Memory Resources](./docs/MEMORY-RESOURCES.MD) — internal, external/PSRAM-only, and external-preferred/internal-fallback raw resources.
 
 ## Demos

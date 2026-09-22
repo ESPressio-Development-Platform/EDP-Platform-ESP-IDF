@@ -15,3 +15,5 @@ The external-only MemoryResource demonstration treats `ResourceExhausted` as a v
 ## C++ Language Baseline
 
 All PlatformIO-compatible demos require C++20 and explicitly select the maintained PIOArduino ESP32 platform package. PIOArduino is the recommended ESP32 PlatformIO-compatible environment for ESPressio.
+
+- `random-byte-source-basic` — cryptographically suitable random bytes written directly into caller-owned storage through the ESP-IDF provider.
