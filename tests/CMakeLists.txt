@@ -5,6 +5,45 @@ project(EDPPlatformESPIDFMemoryHostTests LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Normalize caller-supplied sibling paths relative to the repository root.
+if(DEFINED EDP_PLATFORM_SOURCE_DIR)
+    get_filename_component(
+        EDP_PLATFORM_SOURCE_DIR
+        "${EDP_PLATFORM_SOURCE_DIR}"
+        ABSOLUTE
+        BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.."
+    )
+endif()
+
+if(DEFINED EDP_SYSTEM_SOURCE_DIR)
+    get_filename_component(
+        EDP_SYSTEM_SOURCE_DIR
+        "${EDP_SYSTEM_SOURCE_DIR}"
+        ABSOLUTE
+        BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.."
+    )
+endif()
+
+if(DEFINED EDP_MEMORY_SOURCE_DIR)
+    get_filename_component(
+        EDP_MEMORY_SOURCE_DIR
+        "${EDP_MEMORY_SOURCE_DIR}"
+        ABSOLUTE
+        BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.."
+    )
+endif()
+
+if(DEFINED EDP_SECURITY_SOURCE_DIR)
+    get_filename_component(
+        EDP_SECURITY_SOURCE_DIR
+        "${EDP_SECURITY_SOURCE_DIR}"
+        ABSOLUTE
+        BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.."
+    )
+endif()
+
+
+
 if(NOT DEFINED EDP_PLATFORM_SOURCE_DIR)
     message(FATAL_ERROR "EDP_PLATFORM_SOURCE_DIR must point at an EDP-Platform checkout")
 endif()
