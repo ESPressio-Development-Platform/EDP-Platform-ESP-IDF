@@ -1,5 +1,7 @@
 # EDP-Platform-ESP-IDF Dependency Graph
 
+> Revalidated: 2026-09-23 — Composition Framework enhancement migration changes compile-time provider/requirement metadata and validation only; no ESPressio-library dependency edge changed.
+
 > Revalidated: 2026-09-22 — AES-256-GCM concrete provider adds mandatory EDP-Security contract dependency; graph remains acyclic.
 
 > Revalidated: 2026-09-22 — ESP-IDF RandomByteSource provider uses the existing EDP-Platform contract and introduces no new ESPressio-library dependency.

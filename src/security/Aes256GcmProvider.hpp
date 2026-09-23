@@ -35,7 +35,7 @@ namespace ESPressio::Platform::ESPIDF::Security {
     template<class TByteOperationsProvider>
     class Aes256GcmProvider final : public Framework::Provider<
         ESPressio::Security::Domain,
-        Framework::Provides<
+        Framework::Offers<
             Framework::Offer<
                 ESPressio::Security::AuthenticatedCrypto,
                 Framework::PropertyValue<
@@ -60,9 +60,12 @@ namespace ESPressio::Platform::ESPIDF::Security {
                 >
             >
         >,
-        Framework::Requires<>,
-        Framework::DependsOn<
-            Framework::Need<ESPressio::Memory::ByteOperations>
+        Framework::Contract<
+            Framework::Requirement<
+                ESPressio::Memory::ByteOperations,
+                Framework::RequirementScope::ExternalDomain,
+                Framework::ExactlyProviders<1U>
+            >
         >
     > {
 

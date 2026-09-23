@@ -14,7 +14,7 @@ namespace ESPressio::Platform::ESPIDF::Randomness {
     /// ESP-IDF hardware-random provider suitable for cryptographic random-byte requests.
     class RandomByteSourceProvider final : public Framework::Provider<
         ESPressio::Platform::Domain,
-        Framework::Provides<
+        Framework::Offers<
             Framework::Offer<
                 ESPressio::Platform::Randomness::RandomByteSource,
                 Framework::FlagPropertyValue<

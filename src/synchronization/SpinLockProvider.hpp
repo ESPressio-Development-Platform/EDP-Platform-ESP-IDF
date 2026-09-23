@@ -15,7 +15,7 @@ namespace ESPressio::Platform::ESPIDF::Synchronization {
     /// configured critical level while the lock is held. Callers must keep the protected scope short.
     class SpinLockProvider final : public Framework::Provider<
         ESPressio::Platform::Domain,
-        Framework::Provides<
+        Framework::Offers<
             Framework::Offer<
                 ESPressio::Platform::Synchronization::SpinLock,
                 Framework::PropertyValue<

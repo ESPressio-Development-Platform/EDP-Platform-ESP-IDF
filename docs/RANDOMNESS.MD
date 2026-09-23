@@ -13,7 +13,7 @@ The provider advertises:
 - `RandomByteSource`;
 - `RandomByteSourceFeature::CryptographicallySuitable`.
 
-This allows higher domains to select it through `CryptographicRandomByteSourceNeed` without introducing ESP-IDF vocabulary into those domains.
+Standalone consumers may qualify cryptographic randomness with the Platform `CryptographicRandomByteSourceRequirement`. Provider Contracts in other Domains should reuse `CryptographicRandomByteSourceConstraint` inside an explicitly scoped external `Requirement`, avoiding any ESP-IDF-specific vocabulary in those domains.
 
 ## Operation
 
