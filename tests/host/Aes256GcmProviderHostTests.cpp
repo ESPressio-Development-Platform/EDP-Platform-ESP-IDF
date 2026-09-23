@@ -11,7 +11,7 @@ namespace Test {
     /// Host ByteOperations provider for the ESP-IDF AES-GCM provider test.
     class TestByteOperations final : public Framework::Provider<
         ESPressio::Memory::Domain,
-        Framework::Provides<
+        Framework::Offers<
             Framework::Offer<ESPressio::Memory::ByteOperations>
         >
     > {

@@ -25,7 +25,7 @@ namespace ESPressio::Platform::ESPIDF::Memory {
         template<std::uint32_t TCapabilities>
         class FixedCapabilityMemoryResourceProvider : public Framework::Provider<
             ESPressio::Memory::Domain,
-            Framework::Provides<
+            Framework::Offers<
                 Framework::Offer<ESPressio::Memory::MemoryResource>
             >
         > {
@@ -103,7 +103,7 @@ namespace ESPressio::Platform::ESPIDF::Memory {
     /// ESP-IDF MemoryResource preferring external SPI RAM and coherently falling back to internal memory.
     class ExternalPreferredMemoryResourceProvider final : public Framework::Provider<
         ESPressio::Memory::Domain,
-        Framework::Provides<
+        Framework::Offers<
             Framework::Offer<ESPressio::Memory::MemoryResource>
         >
     > {
