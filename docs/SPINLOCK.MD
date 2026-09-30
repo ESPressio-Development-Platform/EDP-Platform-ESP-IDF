@@ -75,3 +75,7 @@ Using this provider around long work, I/O, semaphore waits, task joins, or any o
 `SpinLock` is not a substitute for the Platform `Mutex`, `RecursiveMutex`, `ReadWriteMutex`, `CountingSemaphore`, or `Signal` capabilities.
 
 Those abstractions carry different waiting and ownership semantics. In an ESP-IDF application, portable FreeRTOS-backed implementations of those capabilities remain owned by `EDP-Platform-FreeRTOS`, because provider ownership follows the API that implements the abstraction.
+
+## Narrow public entry point
+
+`<ESPressio_Platform_ESP_IDF_SpinLock.hpp>` is a public aggregation header containing no runtime state or alternate implementation. It includes only `synchronization/SpinLockProvider.hpp`. Use it when a consumer needs the existing SpinLock provider without importing unrelated ESP-IDF provider domains through `<ESPressio_Platform_ESP_IDF.hpp>`. The narrow entry point does not change Composition identity, provider storage, interrupt behavior, or dependency semantics.

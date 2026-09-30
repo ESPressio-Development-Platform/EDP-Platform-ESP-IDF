@@ -5,6 +5,7 @@ Every production header under `src/` is represented below. Reference pages prese
 | Source header | Classification | Declarations | Reference |
 |---|---|---:|---|
 | `src/ESPressio_Platform_ESP_IDF.hpp` | PUBLIC ENTRY POINT | 0 | [open](Reference-ESPressio-Platform-ESP-IDF) |
+| `src/ESPressio_Platform_ESP_IDF_SpinLock.hpp` | PUBLIC NARROW ENTRY POINT | 0 | [open](Reference-ESPressio-Platform-ESP-IDF-SpinLock) |
 | `src/detail/ESPIdfWait.hpp` | PRIVATE IMPLEMENTATION | 11 | [open](Reference-detail-ESPIdfWait) |
 | `src/detail/ExecutionPriority.hpp` | PRIVATE IMPLEMENTATION | 1 | [open](Reference-detail-ExecutionPriority) |
 | `src/execution/ExecutionContextProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 28 | [open](Reference-execution-ExecutionContextProvider) |

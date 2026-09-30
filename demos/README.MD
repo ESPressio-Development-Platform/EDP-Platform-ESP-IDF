@@ -19,3 +19,5 @@ All PlatformIO-compatible demos require C++20 and explicitly select the maintain
 - `random-byte-source-basic` — cryptographically suitable random bytes written directly into caller-owned storage through the ESP-IDF provider.
 
 - `aes-256-gcm-basic` — direct AES-256-GCM authenticated encryption through the ESP-IDF/Mbed TLS Security provider.
+
+The `spin-lock-basic` variants intentionally include the narrow `<ESPressio_Platform_ESP_IDF_SpinLock.hpp>` entry point, proving that SpinLock consumers need not import the broad ESP-IDF provider umbrella.

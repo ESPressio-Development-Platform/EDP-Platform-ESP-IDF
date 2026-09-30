@@ -37,3 +37,5 @@ Its Composition Contract requires **exactly one external EDP-Memory ByteOperatio
 There is no cycle: abstract EDP-Security depends on abstract Platform/Memory; this concrete repository depends on EDP-Security only to implement its concrete cryptographic provider.
 
 > Dependency contract audit baseline: `59fce5555e87517901afe33b708a0bad2fe4502b` (`main`).
+
+The narrow SpinLock entry header does not alter repository dependencies. It re-exports only the existing `SpinLockProvider`, whose Platform contract remains supplied by the mandatory `EDP-Platform` dependency.

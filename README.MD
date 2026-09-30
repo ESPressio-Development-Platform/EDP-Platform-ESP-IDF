@@ -39,6 +39,8 @@ FreeRTOS mutexes, semaphores and signals remain owned by `EDP-Platform-FreeRTOS`
 
 `AtomicWord32` remains owned by `EDP-Platform-Portable` only on targets where the Standard C++ implementation can prove the required always-lock-free contract. ESP-IDF's target-specific compare-and-set facilities are not exposed here as a generic `AtomicWord32` provider because their lock-free behavior can depend on storage location.
 
+Consumers which need only the ESP-IDF SpinLock concrete may include the narrow `<ESPressio_Platform_ESP_IDF_SpinLock.hpp>` entry point. It imports only `SpinLockProvider` and avoids pulling the broad execution/memory/randomness/security provider umbrella into narrow synchronization consumers.
+
 ## Dependencies
 
 ```text

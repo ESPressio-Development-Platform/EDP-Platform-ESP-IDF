@@ -18,3 +18,5 @@
 
 This header is an aggregation/include surface and contains no declaration-level Doxygen blocks.
 
+
+The broad umbrella remains appropriate for consumers selecting multiple ESP-IDF provider families. Consumers needing only SpinLock should prefer the separate narrow entry point documented at [Reference-ESPressio-Platform-ESP-IDF-SpinLock](Reference-ESPressio-Platform-ESP-IDF-SpinLock).

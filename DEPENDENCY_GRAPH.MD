@@ -41,3 +41,5 @@ ESP-IDF and its FreeRTOS extensions are target facilities, not ESPressio-library
 ## Dependency direction
 
 The graph remains acyclic because `EDP-Security` depends on abstract `EDP-Platform` and `EDP-Memory`, never on this concrete provider repository.
+
+The narrow `ESPressio_Platform_ESP_IDF_SpinLock.hpp` public entry point introduces no additional dependency edge; it is only a reduced include surface over the existing ESP-IDF SpinLock provider and its existing `EDP-Platform` contract.
