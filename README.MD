@@ -27,6 +27,13 @@ EDP-Security
         AES-256-GCM through Mbed TLS
         raw-key access
 
+    SecretZeroization
+        mbedtls_platform_zeroize-backed
+
+    DeploymentKeySource
+        fixed caller-provisioned application key and deployment PSK
+        allocation-free HKDF-SHA-256 orchestration over Mbed TLS SHA-256
+
 EDP-Memory
     InternalMemoryResource
     ExternalMemoryResource
@@ -49,11 +56,13 @@ EDP-Platform-ESP-IDF
 │   └── EDP-System [mandatory]
 ├── EDP-Memory [mandatory]
 │   ├── EDP-System [mandatory]
-│   └── EDP-Platform [mandatory]
+│   ├── EDP-Platform [mandatory]
+│   └── EDP-BoundedTopology [mandatory]
 └── EDP-Security [mandatory]
     ├── EDP-System [mandatory, transitive]
     ├── EDP-Platform [mandatory, transitive]
-    └── EDP-Memory [mandatory, transitive]
+    ├── EDP-Memory [mandatory, transitive]
+    └── EDP-BoundedTopology [mandatory, transitive through EDP-Memory]
 ```
 
 There are no optional ESPressio-library dependencies.
@@ -66,11 +75,12 @@ See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
 - [SpinLock Provider](./docs/SPINLOCK.MD) — `portMUX_TYPE` critical-section provider and ISR behavior.
 - [Random Byte Source](./docs/RANDOMNESS.MD) — ESP-IDF cryptographic random-byte provider and ownership semantics.
 - [AES-256-GCM Security Provider](./docs/AES-256-GCM.MD) — Mbed TLS authenticated-crypto provider, segmented AAD handling and authentication-before-publication semantics.
+- [Deployment-Key Source and Secret Zeroization](./docs/DEPLOYMENT-KEY-SOURCE.MD) — bounded root provisioning, allocation-free HKDF-SHA-256, zeroization, Composition and lifecycle semantics.
 - [Memory Resources](./docs/MEMORY-RESOURCES.MD) — internal, external/PSRAM-only, and external-preferred/internal-fallback raw resources.
 
 ## Demos
 
-Buildable demonstrations are provided under [`./demos`](./demos). Arduino surfaces target Arduino-ESP32, where the underlying ESP-IDF APIs are available.
+Buildable demonstrations are provided under [`./demos`](./demos), including end-to-end deployment-key provisioning and generic key lifecycle integration. Arduino surfaces target Arduino-ESP32, where the underlying ESP-IDF APIs are available.
 
 ## C++ Language Baseline
 

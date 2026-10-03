@@ -1,9 +1,16 @@
 # ESP-IDF Provider Tests
 
-`ESPIdfProviderTests.cpp` validates ESP-IDF-owned spin-lock behavior, compile-time execution-context properties, the four-level execution-priority mapping, and target MemoryResource behavior.
+`ESPIdfProviderTests.cpp` validates ESP-IDF-owned spin-lock behavior, compile-time execution-context properties, the four-level execution-priority mapping and target MemoryResource behavior.
 
-The buildable `execution-context-basic` and Memory-resource demos exercise their corresponding runtime surfaces on ESP-IDF/Arduino-ESP32 targets.
+`tests/CMakeLists.txt` builds strict host suites for:
 
-`tests/CMakeLists.txt` additionally builds `host/MemoryResourceProviderHostTests.cpp` against a deliberately tiny `esp_heap_caps.h` simulation. That host seam validates capability selection, alignment, external-only failure, and external-preferred/internal-fallback behavior without pretending to validate real ESP32 memory placement.
+- MemoryResource capability selection, alignment, external-only failure and external-preferred/internal fallback through a deliberately small `esp_heap_caps.h` simulation;
+- RandomByteSource result and caller-buffer behavior;
+- AES-256-GCM provider metadata, segmented associated data, encrypt/decrypt behavior and authentication-before-publication through a controlled GCM seam;
+- SecretZeroization and ProvisionedDeploymentKeySource contracts, lifecycle, six independent HKDF-SHA-256 known-answer vectors, root/context/purpose/generation separation, failure clearing and zeroization evidence.
 
-Provider headers instantiate their corresponding EDP-Platform / EDP-Memory contract traits, so incompatible surfaces fail at the provider definition boundary.
+The deployment-key SHA-256 host seam delegates digest computation to OpenSSL. It is intentionally independent of the production Mbed TLS implementation and does not replace target compilation.
+
+Provider headers instantiate their corresponding EDP-Platform, EDP-Memory or EDP-Security contract traits, so incompatible surfaces fail at the provider definition boundary.
+
+Buildable demos under `./demos` exercise the target-owned paths. In particular, `deployment-key-source-basic` composes the two concrete ESP-IDF security providers with EDP-Security's generic bounded deployment-key lifecycle.

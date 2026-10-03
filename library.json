@@ -1,7 +1,7 @@
 {
   "name": "EDP-Platform-ESP-IDF",
   "description": "ESP-IDF-specific concrete providers for EDP-Platform, EDP-Memory and EDP-Security",
-  "keywords": "espressio,platform,esp-idf,espressif,execution,affinity,spinlock,memory,psram,security,aes,gcm,embedded",
+  "keywords": "espressio,platform,esp-idf,espressif,execution,affinity,spinlock,memory,psram,security,aes,gcm,hkdf,sha256,zeroization,deployment-key,embedded",
   "homepage": "https://espressio.org",
   "authors": {
     "name": "Simon J. Stuart",
@@ -37,7 +37,7 @@
     },
     {
       "name": "EDP-Security",
-      "version": "https://github.com/ESPressio-Development-Platform/EDP-Security.git#main"
+      "version": "https://github.com/ESPressio-Development-Platform/EDP-Security.git#mesh_v1"
     }
   ]
 }
