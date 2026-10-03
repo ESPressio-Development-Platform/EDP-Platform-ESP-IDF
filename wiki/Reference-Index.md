@@ -12,6 +12,8 @@ Every production header under `src/` is represented below. Reference pages prese
 | `src/memory/MemoryResourceProviders.hpp` | PUBLIC PROVIDER / EXTENSION API | 9 | [open](Reference-memory-MemoryResourceProviders) |
 | `src/randomness/RandomByteSourceProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 3 | [open](Reference-randomness-RandomByteSourceProvider) |
 | `src/security/Aes256GcmProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 15 | [open](Reference-security-Aes256GcmProvider) |
+| `src/security/DeploymentKeySourceProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 31 | [open](Reference-security-DeploymentKeySourceProvider) |
+| `src/security/SecretZeroizationProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 3 | [open](Reference-security-SecretZeroizationProvider) |
 | `src/synchronization/SpinLockProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 12 | [open](Reference-synchronization-SpinLockProvider) |
 
-> Source baseline: `3ea9e7b6ed6cf163defd6ff3b19d1be6b87552e5`.
+> Source baseline: `524a881b9ed27a86c5b886429558242d88962b70`.

@@ -1,11 +1,40 @@
 # Public API
 
-Concrete provider types implement the abstract Platform, Memory and Security capabilities.
+Concrete providers implement abstract Platform, Memory and Security capabilities. Exact declarations remain authoritative in exported headers and are exhaustively linked from [Reference Index](Reference-Index.md).
 
-ExecutionContext uses static ESP-IDF task creation and supports processor affinity. SpinLock wraps `portMUX_TYPE` and can expose interrupt-safe operations where the native API supports them. RandomByteSource uses `esp_fill_random` and advertises cryptographic suitability.
+## Entry points
 
-Memory resources expose internal-only, external/PSRAM-only and external-preferred allocation policies. AES-256-GCM advertises the exact algorithm, 32-byte key, 12-byte data-protection nonce, 16-byte tag and RawMaterial key access mode.
+`<ESPressio_Platform_ESP_IDF.hpp>` imports every provider family.
 
-Exact declarations remain authoritative in the exported headers.
+`<ESPressio_Platform_ESP_IDF_SpinLock.hpp>` is the narrow entry point for consumers requiring only `SpinLockProvider`.
 
-`<ESPressio_Platform_ESP_IDF_SpinLock.hpp>` is the narrow public entry point for consumers which require only the existing ESP-IDF `SpinLockProvider`. It avoids importing execution, memory, randomness and Security providers from the broad umbrella; it does not define a second SpinLock implementation.
+## Platform and Memory
+
+ExecutionContext uses static ESP-IDF task creation and supports processor affinity. SpinLock wraps `portMUX_TYPE`. RandomByteSource uses `esp_fill_random` and advertises cryptographic suitability.
+
+Memory resources expose internal-only, external/PSRAM-only and external-preferred allocation policies.
+
+## Authenticated crypto
+
+`Aes256GcmProvider<TByteOperationsProvider>` advertises AES-256-GCM, 32-byte keys, a 12-byte default data-protection nonce, 16-byte tags and RawMaterial access. Decrypt authenticates before publishing plaintext.
+
+## Secret zeroization
+
+`SecretZeroizationProvider` offers `SecureZeroize(MutableByteView) noexcept` through Mbed TLS's optimization-resistant erasure primitive.
+
+## Provisioned deployment-key source
+
+`ProvisionedDeploymentKeySourceInitializationResult` is the public provisioning result vocabulary.
+
+`ProvisionedDeploymentKeySourceProvider<TZeroizer, ApplicationKeyBytes, DeploymentPskBytes, ApplicationContextCapacity>`:
+
+- owns exact-size private root copies;
+- offers the generic root-hiding `DeploymentKeySource` capability;
+- derives exact 32-byte Mesh V1 working keys;
+- exposes deterministic resource constants;
+- supports explicit idempotent `Destroy` and reprovisioning;
+- is non-copyable and non-movable.
+
+Public operations are `Initialize`, `Destroy` and generic `Derive`. No operation exposes either root.
+
+The application normally combines this source and zeroizer with EDP-Security's `DeploymentKeyProvider` rather than invoking six derivations manually.

@@ -1,41 +1,58 @@
 # Dependency Contracts
 
-EDP-Platform-ESP-IDF depends on **EDP-Platform**, **EDP-Memory** and **EDP-Security**.
+EDP-Platform-ESP-IDF has mandatory direct package dependencies on **EDP-Platform**, **EDP-Memory** and **EDP-Security**. **EDP-BoundedTopology** is mandatory transitively through EDP-Memory.
 
-## EDP-Platform providers
+## EDP-Platform contracts
 
 ### ExecutionContext
 
-Offers the Platform `ExecutionContext` capability with caller-supplied storage, priority support and processor-affinity support. Backing sizes/alignments are derived from ESP-IDF/FreeRTOS native types and validated through `ExecutionContextProviderTraits`.
+Offers caller-static task/control storage, priority support and processor affinity. Native sizes and alignments are derived from ESP-IDF/FreeRTOS Types and validated through provider traits.
 
 ### SpinLock
 
-Offers Platform `SpinLock` with `SpinLockSupportsInterruptContext=true`, backed by `portMUX_TYPE`.
+Offers `SpinLock` with interrupt-context support backed by `portMUX_TYPE`.
 
 ### RandomByteSource
 
-Offers the shared Platform `RandomByteSource` capability and sets the `CryptographicallySuitable` feature. This provider therefore satisfies Security's cryptographic randomness requirement.
+Offers the shared `RandomByteSource` capability with `CryptographicallySuitable`. This qualifies it for EDP-Security consumers requiring cryptographic randomness.
 
-## EDP-Memory providers
+## EDP-Memory contracts
 
-Internal, external/PSRAM-only and external-preferred resource providers offer the Memory `MemoryResource` capability. External-preferred is a policy provider that tries PSRAM first and falls back to internal memory.
+Internal, external-only and external-preferred providers offer `MemoryResource`. AES-GCM requires exactly one external-domain `ByteOperations` provider for bounded copies and scratch erasure.
 
-## EDP-Security provider
+EDP-Memory's EDP-BoundedTopology dependency is transitive here; no production header in this repository directly includes EDP-BoundedTopology.
 
-`Aes256GcmProvider<TByteOperationsProvider>` offers `AuthenticatedCrypto` with:
+## EDP-Security contracts
 
-- algorithm: AES-256-GCM;
-- key bytes: 32;
-- default DataProtection nonce bytes: 12;
-- tag bytes: 16;
-- key-access mode: RawMaterial.
+### Authenticated crypto
 
-Its Composition Contract requires **exactly one external EDP-Memory ByteOperations provider**. It also validates the supplied raw-key provider at each operation boundary through EDP-Security's internal provider traits.
+`Aes256GcmProvider<TByteOperationsProvider>` offers AES-256-GCM with a 32-byte key, 12-byte default data-protection nonce, 16-byte tag and RawMaterial key access.
 
-## Dependency direction
+### Secret zeroization
 
-There is no cycle: abstract EDP-Security depends on abstract Platform/Memory; this concrete repository depends on EDP-Security only to implement its concrete cryptographic provider.
+`SecretZeroizationProvider` offers the shared `SecretZeroization` capability and implements the exact `noexcept void SecureZeroize(MutableByteView)` provider trait.
 
-> Dependency contract audit baseline: `59fce5555e87517901afe33b708a0bad2fe4502b` (`main`).
+### Deployment-key source
 
-The narrow SpinLock entry header does not alter repository dependencies. It re-exports only the existing `SpinLockProvider`, whose Platform contract remains supplied by the mandatory `EDP-Platform` dependency.
+`ProvisionedDeploymentKeySourceProvider` consumes:
+
+- `DeploymentKeySource` capability/property vocabulary;
+- `DeploymentKeyDerivationRequest` and result vocabulary;
+- `WriteDeploymentKeyDerivationInfo` canonical encoder;
+- `SecretZeroizationTraits` for its same-domain dependency.
+
+It offers HKDF-SHA-256 with application key as salt, deployment PSK as input key material, 32-byte output and a template-selected context capacity.
+
+EDP-Security owns the generic `DeploymentKeyProvider` which consumes this concrete source. That direction is an application/provider binding, not a reverse package dependency.
+
+## Target facilities
+
+ESP-IDF, FreeRTOS extensions and Mbed TLS are target SDK facilities, not ESPressio-library dependencies.
+
+## Branch baseline
+
+The Mesh V1 branch manifest selects EDP-Security `mesh_v1` so the concrete provider and generic contract are mutually available before mainline integration. Other direct dependencies remain on `main`. All package versions remain `0.1.0`.
+
+> Dependency/documentation baseline: `f7c5667e8359e29d9c2a23f4aa44b8761ca6ac60` (`mesh_v1`).
+
+The dependency direction is acyclic: EDP-Security depends only on abstract Platform/Memory contracts and never on EDP-Platform-ESP-IDF.
