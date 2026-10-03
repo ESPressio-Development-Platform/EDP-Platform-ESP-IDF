@@ -42,6 +42,15 @@ if(DEFINED EDP_SECURITY_SOURCE_DIR)
     )
 endif()
 
+if(DEFINED EDP_BOUNDED_TOPOLOGY_SOURCE_DIR)
+    get_filename_component(
+        EDP_BOUNDED_TOPOLOGY_SOURCE_DIR
+        "${EDP_BOUNDED_TOPOLOGY_SOURCE_DIR}"
+        ABSOLUTE
+        BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.."
+    )
+endif()
+
 
 
 if(NOT DEFINED EDP_PLATFORM_SOURCE_DIR)
@@ -58,6 +67,10 @@ endif()
 
 if(NOT DEFINED EDP_SECURITY_SOURCE_DIR)
     message(FATAL_ERROR "EDP_SECURITY_SOURCE_DIR must point at an EDP-Security checkout")
+endif()
+
+if(NOT DEFINED EDP_BOUNDED_TOPOLOGY_SOURCE_DIR)
+    message(FATAL_ERROR "EDP_BOUNDED_TOPOLOGY_SOURCE_DIR must point at an EDP-BoundedTopology checkout")
 endif()
 
 
@@ -78,6 +91,12 @@ if(NOT EXISTS "${EDP_SECURITY_SOURCE_DIR}/src/ESPressio_Security.hpp")
     message(FATAL_ERROR "EDP_SECURITY_SOURCE_DIR does not contain src/ESPressio_Security.hpp; pull/update EDP-Security")
 endif()
 
+if(NOT EXISTS "${EDP_BOUNDED_TOPOLOGY_SOURCE_DIR}/src/ESPressio_BoundedTopology.hpp")
+    message(FATAL_ERROR "EDP_BOUNDED_TOPOLOGY_SOURCE_DIR does not contain src/ESPressio_BoundedTopology.hpp; pull/update EDP-BoundedTopology")
+endif()
+
+find_package(OpenSSL REQUIRED)
+
 add_executable(
     espidf_memory_provider_host_tests
     host/MemoryResourceProviderHostTests.cpp
@@ -91,6 +110,7 @@ target_include_directories(
         ${EDP_PLATFORM_SOURCE_DIR}/src
         ${EDP_SYSTEM_SOURCE_DIR}/src
         ${EDP_MEMORY_SOURCE_DIR}/src
+        ${EDP_BOUNDED_TOPOLOGY_SOURCE_DIR}/src
 )
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
@@ -144,12 +164,48 @@ target_include_directories(
         ${EDP_PLATFORM_SOURCE_DIR}/src
         ${EDP_SYSTEM_SOURCE_DIR}/src
         ${EDP_MEMORY_SOURCE_DIR}/src
+        ${EDP_BOUNDED_TOPOLOGY_SOURCE_DIR}/src
         ${EDP_SECURITY_SOURCE_DIR}/src
 )
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(
         espidf_aes256_gcm_provider_host_tests
+        PRIVATE
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Werror
+    )
+endif()
+
+
+add_executable(
+    espidf_deployment_key_source_provider_host_tests
+    host/DeploymentKeySourceProviderHostTests.cpp
+)
+
+target_include_directories(
+    espidf_deployment_key_source_provider_host_tests
+    PRIVATE
+        host/include
+        ../src
+        ${EDP_PLATFORM_SOURCE_DIR}/src
+        ${EDP_SYSTEM_SOURCE_DIR}/src
+        ${EDP_MEMORY_SOURCE_DIR}/src
+        ${EDP_BOUNDED_TOPOLOGY_SOURCE_DIR}/src
+        ${EDP_SECURITY_SOURCE_DIR}/src
+)
+
+target_link_libraries(
+    espidf_deployment_key_source_provider_host_tests
+    PRIVATE
+        OpenSSL::Crypto
+)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(
+        espidf_deployment_key_source_provider_host_tests
         PRIVATE
             -Wall
             -Wextra
