@@ -30,7 +30,8 @@ EDP-Security
     DigitalSignature
         canonical low-S P-256 ECDSA/SHA-256 via Mbed TLS
         Bootstrap-owned key source + EDP-Platform cryptographic random source
-        no device key provisioning/certified Clock election until subsequent tranches
+        optional H363 development-lab P-256 key source in ordinary NVS
+        NOT hardware-hardened; NOT independently certified Clock election
 
     SecretZeroization
         mbedtls_platform_zeroize-backed
@@ -63,11 +64,12 @@ EDP-Platform-ESP-IDF
 │   ├── EDP-System [mandatory]
 │   ├── EDP-Platform [mandatory]
 │   └── EDP-BoundedTopology [mandatory]
-└── EDP-Security [mandatory]
+├── EDP-Security [mandatory]
     ├── EDP-System [mandatory, transitive]
     ├── EDP-Platform [mandatory, transitive]
     ├── EDP-Memory [mandatory, transitive]
     └── EDP-BoundedTopology [mandatory, transitive through EDP-Memory]
+└── EDP-Persistence [mandatory for lab-only P-256 key storage]
 ```
 
 There are no optional ESPressio-library dependencies.
@@ -76,6 +78,7 @@ See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
 
 ## Documentation
 
+- [Development-lab P-256 key source via ordinary EDP-Persistence storage](./docs/DEVELOPMENT-P256-NVS-KEYS.MD) — explicit one-time provision/reboot readback, independent board keys; **no hardware security or Clock Reference authority**.
 - [P-256 ECDSA DigitalSignature provider](./docs/EDP-SIGNATURE-IMPLEMENTATION.MD) — genuine Mbed TLS signature and low-S verification with host regression tests; **not** yet per-device key provisioning, durable voter signatures or Clock Reference authority.
 
 - [ExecutionContext Provider](./docs/EXECUTION-CONTEXT.MD) — static task lifecycle, storage, affinity, waits and telemetry.

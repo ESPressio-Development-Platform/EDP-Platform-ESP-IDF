@@ -1,5 +1,7 @@
 # EDP-Platform-ESP-IDF Dependency Graph
 
+> H363 (2026-10-15): optional development-only P-256 signing-key helper consumes the **neutral EDP-Persistence KeyValueStorage contract** via Bootstrap-injected NVS; EDP-Persistence added as mandatory package dependency. NO hardware key hardening or RF election authority.
+
 > H360 (2026-10-15): added real P-256/SHA-256 EDP-Security DigitalSignature provider via existing EDP-Platform and EDP-Security mandatory dependencies and existing ESP-IDF Mbed TLS. **No new package dependency, NVS key store or elected Clock authority.**
 
 > Revalidated: 2026-10-03 — provisioned DeploymentKeySource and SecretZeroization providers extend the existing mandatory EDP-Security contract edge. EDP-BoundedTopology is now shown as the mandatory transitive dependency introduced by EDP-Memory; no new direct package edge is created here.
@@ -25,11 +27,12 @@ EDP-Platform-ESP-IDF
 │   ├── EDP-Platform [mandatory]
 │   │   └── EDP-System [mandatory, transitive]
 │   └── EDP-BoundedTopology [mandatory]
-└── EDP-Security [mandatory]
-    ├── EDP-System [mandatory, transitive]
-    ├── EDP-Platform [mandatory, transitive]
-    ├── EDP-Memory [mandatory, transitive]
-    └── EDP-BoundedTopology [mandatory, transitive through EDP-Memory]
+├── EDP-Security [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   ├── EDP-Platform [mandatory, transitive]
+│   ├── EDP-Memory [mandatory, transitive]
+│   └── EDP-BoundedTopology [mandatory, transitive through EDP-Memory]
+└── EDP-Persistence [mandatory, neutral KeyValueStorage contract]
 ```
 
 ## Mandatory Dependencies
@@ -37,6 +40,7 @@ EDP-Platform-ESP-IDF
 - `EDP-Platform` — defines the ESP-IDF-owned ExecutionContext, SpinLock and RandomByteSource contracts implemented here.
 - `EDP-Memory` — defines the MemoryResource contract implemented by the ESP-IDF heap-capability providers and ByteOperations contract consumed by the AES-GCM provider.
 - `EDP-Security` — defines the AuthenticatedCrypto, SecretZeroization and DeploymentKeySource capabilities implemented here, plus the generic key lifecycle and derivation request contracts consumed by the provisioned source.
+- `EDP-Persistence` — supplies the neutral KeyValueStorage contract consumed by H363 DevelopmentP256KeySource; concrete NVS storage is selected by application Bootstrap.
 
 `EDP-BoundedTopology` is required transitively by `EDP-Memory`; no production source in this repository includes it directly.
 
@@ -44,7 +48,7 @@ ESP-IDF and its FreeRTOS extensions are target facilities, not ESPressio-library
 
 ## Optional Dependencies
 
-`EDP-Platform-ESP-IDF` has no optional ESPressio-library dependencies.
+`EDP-Platform-ESP-IDF` has no optional EDP package dependencies. The development-key helper is opt-in at the source/API level; EDP-Persistence is declared in library.json as a required neutral contract dependency.
 
 ## Dependency direction
 

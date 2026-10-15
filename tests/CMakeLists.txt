@@ -133,6 +133,32 @@ if(EDP_ENABLE_REAL_P256_MBEDTLS_TESTS)
         COMMAND espidf_real_p256_signature_host_tests)
 endif()
 
+# H363: optional real Mbed TLS development-only P-256 identity key lifecycle
+# over the EDP-Persistence KeyValueStorage contract; fake storage host only.
+# Does not provision voters or permit Clock election.
+if(EDP_ENABLE_REAL_P256_MBEDTLS_TESTS AND DEFINED EDP_PERSISTENCE_SOURCE_DIR)
+    add_executable(espidf_lab_p256_key_source_host_tests
+        host/DevelopmentP256KeySourceHostTests.cpp)
+    target_include_directories(espidf_lab_p256_key_source_host_tests PRIVATE
+        ${MBEDTLS_INCLUDE_DIR}
+        ../src
+        ${EDP_PERSISTENCE_SOURCE_DIR}/src
+        ${EDP_SECURITY_SOURCE_DIR}/src
+        ${EDP_SYSTEM_SOURCE_DIR}/src
+        ${EDP_PLATFORM_SOURCE_DIR}/src
+        ${EDP_MEMORY_SOURCE_DIR}/src
+        ${EDP_BOUNDED_TOPOLOGY_SOURCE_DIR}/src
+    )
+    target_link_libraries(espidf_lab_p256_key_source_host_tests
+        PRIVATE ${MBEDCRYPTO_LIBRARY})
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        target_compile_options(espidf_lab_p256_key_source_host_tests PRIVATE
+            -Wall -Wextra -Wpedantic -Werror -UNDEBUG)
+    endif()
+    enable_testing()
+    add_test(NAME espidf_lab_p256_key_source_host_tests
+        COMMAND espidf_lab_p256_key_source_host_tests)
+endif()
 
 add_executable(
     espidf_memory_provider_host_tests
