@@ -1,5 +1,7 @@
 # EDP-Platform-ESP-IDF Dependency Graph
 
+> H360 (2026-10-15): added real P-256/SHA-256 EDP-Security DigitalSignature provider via existing EDP-Platform and EDP-Security mandatory dependencies and existing ESP-IDF Mbed TLS. **No new package dependency, NVS key store or elected Clock authority.**
+
 > Revalidated: 2026-10-03 — provisioned DeploymentKeySource and SecretZeroization providers extend the existing mandatory EDP-Security contract edge. EDP-BoundedTopology is now shown as the mandatory transitive dependency introduced by EDP-Memory; no new direct package edge is created here.
 
 > Revalidated: 2026-09-23 — Composition Framework enhancement migration changes compile-time provider/requirement metadata and validation only; no ESPressio-library dependency edge changed.

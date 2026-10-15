@@ -27,6 +27,11 @@ EDP-Security
         AES-256-GCM through Mbed TLS
         raw-key access
 
+    DigitalSignature
+        canonical low-S P-256 ECDSA/SHA-256 via Mbed TLS
+        Bootstrap-owned key source + EDP-Platform cryptographic random source
+        no device key provisioning/certified Clock election until subsequent tranches
+
     SecretZeroization
         mbedtls_platform_zeroize-backed
 
@@ -70,6 +75,8 @@ There are no optional ESPressio-library dependencies.
 See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
 
 ## Documentation
+
+- [P-256 ECDSA DigitalSignature provider](./docs/EDP-SIGNATURE-IMPLEMENTATION.MD) — genuine Mbed TLS signature and low-S verification with host regression tests; **not** yet per-device key provisioning, durable voter signatures or Clock Reference authority.
 
 - [ExecutionContext Provider](./docs/EXECUTION-CONTEXT.MD) — static task lifecycle, storage, affinity, waits and telemetry.
 - [SpinLock Provider](./docs/SPINLOCK.MD) — `portMUX_TYPE` critical-section provider and ISR behavior.

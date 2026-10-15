@@ -97,6 +97,43 @@ endif()
 
 find_package(OpenSSL REQUIRED)
 
+# H360 optional genuine Mbed TLS digital-signature verification.
+# Unlike standard host scaffolding, this target requires a real Mbed TLS 3.6
+# header/library pair. It must NEVER use the fake AES-GCM host headers.
+option(EDP_ENABLE_REAL_P256_MBEDTLS_TESTS
+    "Enable genuine ECDSA P-256 signature host validation" OFF)
+if(EDP_ENABLE_REAL_P256_MBEDTLS_TESTS)
+    if(NOT MBEDTLS_INCLUDE_DIR OR NOT EXISTS "${MBEDTLS_INCLUDE_DIR}/mbedtls/ecdsa.h")
+        message(FATAL_ERROR "Specify matching real MBEDTLS_INCLUDE_DIR")
+    endif()
+    if(NOT MBEDCRYPTO_LIBRARY OR NOT EXISTS "${MBEDCRYPTO_LIBRARY}")
+        message(FATAL_ERROR "Specify actual linked MBEDCRYPTO_LIBRARY")
+    endif()
+    add_executable(
+        espidf_real_p256_signature_host_tests
+        host/EcdsaP256Sha256ProviderHostTests.cpp
+    )
+    target_include_directories(espidf_real_p256_signature_host_tests PRIVATE
+        ${MBEDTLS_INCLUDE_DIR}
+        ../src
+        ${EDP_SECURITY_SOURCE_DIR}/src
+        ${EDP_SYSTEM_SOURCE_DIR}/src
+        ${EDP_PLATFORM_SOURCE_DIR}/src
+        ${EDP_MEMORY_SOURCE_DIR}/src
+        ${EDP_BOUNDED_TOPOLOGY_SOURCE_DIR}/src
+    )
+    target_link_libraries(espidf_real_p256_signature_host_tests
+        PRIVATE ${MBEDCRYPTO_LIBRARY})
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        target_compile_options(espidf_real_p256_signature_host_tests
+            PRIVATE -Wall -Wextra -Wpedantic -Werror -UNDEBUG)
+    endif()
+    enable_testing()
+    add_test(NAME espidf_real_p256_signature_host_tests
+        COMMAND espidf_real_p256_signature_host_tests)
+endif()
+
+
 add_executable(
     espidf_memory_provider_host_tests
     host/MemoryResourceProviderHostTests.cpp

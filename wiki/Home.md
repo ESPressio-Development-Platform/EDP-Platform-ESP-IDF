@@ -22,7 +22,7 @@ Consumers requiring only the spin-lock provider may use:
 
 - Platform: execution context, spin lock and cryptographically suitable random bytes.
 - Memory: internal, external-only and external-preferred raw resources.
-- Security: AES-256-GCM, secure zeroization and provisioned Mesh V1 deployment-key derivation.
+- Security: AES-256-GCM, **real P-256 ECDSA/SHA-256 DigitalSignature** via Bootstrap-injected key/RNG providers, secure zeroization and Mesh V1 deployment-key derivation. ECDSA has genuine host+Xtensa tests but device-unique secure key persistence and elected Clock Reference remain unimplemented; see [H360 provider reference](Reference-security-EcdsaP256Sha256Provider.md).
 
 ## Dependencies
 
