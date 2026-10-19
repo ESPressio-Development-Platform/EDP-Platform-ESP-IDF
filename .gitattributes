@@ -1,0 +1,3 @@
+
+# Preserve original tool evidence spacing verbatim.
+docs/evidence/** -whitespace

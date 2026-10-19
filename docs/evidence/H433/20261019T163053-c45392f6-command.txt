@@ -1,0 +1,1 @@
+/srv/espressio/cache/espressif/python_env/idf6.0_py3.13_env/bin/python /srv/espressio/repos/EDP-Labs/Mesh-Concurrency-Qualification/H433-OnDevice-Qualified-Entropy/run_h433_hil.py --role d --private-evidence /srv/espressio/evidence/H433-D-20261019-1630 --uart-log /srv/espressio/repos/EDP-Labs/Mesh-Concurrency-Qualification/docs/H433-D-qualified-entropy-UART.log

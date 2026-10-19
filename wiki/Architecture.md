@@ -51,3 +51,5 @@ and XCHAL_HAVE_S32C1I. All complete Word storage must be internal DRAM,
 checked before initialization. ESP32-S2 and external/RTC storage are refused;
 there is no emulation, additional storage, task or lock. See
 [provider reference](Reference-AtomicWord32-ESP-IDF).
+
+H433 native random is an explicit Bootstrap resource owner over SDK entropy, reusing the existing qualified native atomic. The feature flag alone is not readiness. [Contract](../docs/EXPLICIT-ENTROPY-OWNERSHIP.MD).

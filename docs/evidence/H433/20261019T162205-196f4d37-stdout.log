@@ -1,0 +1,78 @@
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.5.7")
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /srv/espressio/builds/H433-platform-gcc
+[ 25%] Building CXX object CMakeFiles/espidf_memory_provider_host_tests.dir/host/MemoryResourceProviderHostTests.cpp.o
+[ 25%] Building CXX object CMakeFiles/espidf_random_provider_host_tests.dir/host/RandomByteSourceProviderHostTests.cpp.o
+[ 50%] Building CXX object CMakeFiles/espidf_aes256_gcm_provider_host_tests.dir/host/Aes256GcmProviderHostTests.cpp.o
+[ 50%] Building CXX object CMakeFiles/espidf_deployment_key_source_provider_host_tests.dir/host/DeploymentKeySourceProviderHostTests.cpp.o
+[ 62%] Linking CXX executable espidf_random_provider_host_tests
+[ 62%] Built target espidf_random_provider_host_tests
+[ 75%] Linking CXX executable espidf_memory_provider_host_tests
+[ 75%] Built target espidf_memory_provider_host_tests
+[ 87%] Linking CXX executable espidf_aes256_gcm_provider_host_tests
+[100%] Linking CXX executable espidf_deployment_key_source_provider_host_tests
+[100%] Built target espidf_aes256_gcm_provider_host_tests
+[100%] Built target espidf_deployment_key_source_provider_host_tests
+Internal ctest changing into directory: /srv/espressio/builds/H433-platform-gcc
+Test project /srv/espressio/builds/H433-platform-gcc
+    Start 1: espidf_memory_provider_host_tests
+1/5 Test #1: espidf_memory_provider_host_tests ..................   Passed    0.00 sec
+    Start 2: espidf_random_provider_host_tests
+2/5 Test #2: espidf_random_provider_host_tests ..................   Passed    0.00 sec
+    Start 3: espidf_aes256_gcm_provider_host_tests
+3/5 Test #3: espidf_aes256_gcm_provider_host_tests ..............   Passed    0.00 sec
+    Start 4: espidf_deployment_key_source_provider_host_tests
+4/5 Test #4: espidf_deployment_key_source_provider_host_tests ...   Passed    0.00 sec
+    Start 5: espidf_atomic_word32_target_storage_contract
+5/5 Test #5: espidf_atomic_word32_target_storage_contract .......   Passed    2.37 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   2.37 sec
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.5.7")
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /srv/espressio/builds/H433-platform-clang
+[ 12%] Building CXX object CMakeFiles/espidf_memory_provider_host_tests.dir/host/MemoryResourceProviderHostTests.cpp.o
+[ 25%] Building CXX object CMakeFiles/espidf_random_provider_host_tests.dir/host/RandomByteSourceProviderHostTests.cpp.o
+[ 50%] Building CXX object CMakeFiles/espidf_deployment_key_source_provider_host_tests.dir/host/DeploymentKeySourceProviderHostTests.cpp.o
+[ 50%] Building CXX object CMakeFiles/espidf_aes256_gcm_provider_host_tests.dir/host/Aes256GcmProviderHostTests.cpp.o
+[ 62%] Linking CXX executable espidf_random_provider_host_tests
+[ 62%] Built target espidf_random_provider_host_tests
+[ 75%] Linking CXX executable espidf_memory_provider_host_tests
+[ 75%] Built target espidf_memory_provider_host_tests
+[ 87%] Linking CXX executable espidf_aes256_gcm_provider_host_tests
+[ 87%] Built target espidf_aes256_gcm_provider_host_tests
+[100%] Linking CXX executable espidf_deployment_key_source_provider_host_tests
+[100%] Built target espidf_deployment_key_source_provider_host_tests
+Internal ctest changing into directory: /srv/espressio/builds/H433-platform-clang
+Test project /srv/espressio/builds/H433-platform-clang
+    Start 1: espidf_memory_provider_host_tests
+1/5 Test #1: espidf_memory_provider_host_tests ..................   Passed    0.00 sec
+    Start 2: espidf_random_provider_host_tests
+2/5 Test #2: espidf_random_provider_host_tests ..................   Passed    0.00 sec
+    Start 3: espidf_aes256_gcm_provider_host_tests
+3/5 Test #3: espidf_aes256_gcm_provider_host_tests ..............   Passed    0.00 sec
+    Start 4: espidf_deployment_key_source_provider_host_tests
+4/5 Test #4: espidf_deployment_key_source_provider_host_tests ...   Passed    0.00 sec
+    Start 5: espidf_atomic_word32_target_storage_contract
+5/5 Test #5: espidf_atomic_word32_target_storage_contract .......   Passed    2.29 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Total Test time (real) =   2.29 sec

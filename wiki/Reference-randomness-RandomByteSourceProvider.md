@@ -1,56 +1,48 @@
-# src/randomness/RandomByteSourceProvider.hpp
+# randomness/RandomByteSourceProvider.hpp — H433
 
-**Primary classification:** PUBLIC PROVIDER / EXTENSION API
+**Classification:** public native provider and ownership statuses; private state.
+Existing capability/typed Fill contract and version0.1.0 remain. See the
+[complete resource preconditions and evidence](../docs/EXPLICIT-ENTROPY-OWNERSHIP.MD).
 
-**Source baseline:** `3ea9e7b6ed6cf163defd6ff3b19d1be6b87552e5`
+## Public declarations
 
-[Open exact source](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/3ea9e7b6ed6cf163defd6ff3b19d1be6b87552e5/src/randomness/RandomByteSourceProvider.hpp)
+InternalEntropyAcquisitionResult : uint8_t is Acquired=0, AlreadyAcquired=1,
+OwnedByAnotherInstance=2, UnsupportedTarget=3. InternalEntropyReleaseResult is
+Released=0, NotOwned=1. None of these values is a caller-provided trust input.
 
-## Direct includes
+RandomByteSourceProvider inherits the existing Framework Provider in Platform
+Domain and offers RandomByteSource with CryptographicallySuitable metadata.
+That metadata applies to successful nonzero output under the resource contract;
+it is not a ready predicate. Default construction is side-effect-free with
+respect to entropy peripherals. Copy/move construction and assignment are deleted.
+Destructor noexcept releases only this instance's actually acquired source.
 
-- `cstddef`
-- `cstdint`
-- `esp_random.h`
-- `ESPressio_Platform.hpp`
+- AcquireInternalEntropySource() noexcept returns the acquisition enum. Bootstrap
+  reserves all SDK conflicts first. Supported hardware claims the shared native
+  word atomically and enables the SDK source exactly once; a competitor returns
+  OwnedByAnotherInstance, self reentry AlreadyAcquired. Unsupported hardware refuses.
+- ReleaseInternalEntropySource() noexcept returns the release enum; SDK disable
+  precedes publication of available global ownership. Nonowners return NotOwned.
+- OwnsInternalEntropySource() const noexcept is an observation of this instance's
+  actual ownership, not a min-entropy measurement or permission to violate lifetime.
+- FillRandomBytes(uint8_t* destination,size_t byteCount) noexcept returns the
+  original RandomByteGenerationResult. Zero bytes succeed without access. Null
+  nonzero destination refuses. Held, supported source calls esp_fill_random;
+  otherwise ProviderFailure with no weak fallback or implicit acquisition.
+- RandomByteSourceContract aliases the existing generic provider traits.
 
-## Documented declarations
+## Private declarations
 
-### `RandomByteSourceProvider`
+_ownsInternalEntropy is one boolean, set only after actual SDK enable and
+cleared after actual disable. _sourceOwner is an inline static instance of the
+existing native AtomicWord32Provider::Word, one across TUs; only the audited
+Xtensa ESP32/S3 branch declares it. Native word storage qualification remains
+mandatory. No second atomic/RNG implementation or caller-supplied readiness flag.
 
-**Classification:** PUBLIC PROVIDER / EXTENSION API
+## Conditional compilation
 
-ESP-IDF hardware-random provider suitable for cryptographic random-byte requests.
-
-```cpp
-class RandomByteSourceProvider final : public Framework::Provider<
-        ESPressio::Platform::Domain,
-```
-
-### `FillRandomBytes`
-
-**Classification:** PUBLIC PROVIDER / EXTENSION API · source access: `public`
-
-Fills caller-owned storage using ESP-IDF's system random source.
-
-A zero-byte request succeeds without accessing destination.
-
-- **Parameter `destination`:** Caller-owned writable byte range.
-- **Parameter `byteCount`:** Number of random bytes requested.
-
-```cpp
-ESPressio::Platform::Randomness::RandomByteGenerationResult FillRandomBytes(
-                std::uint8_t* destination,
-                std::size_t byteCount
-            ) noexcept
-```
-
-### `RandomByteSourceContract`
-
-**Classification:** PUBLIC PROVIDER / EXTENSION API
-
-Compile-time validation of the ESP-IDF RandomByteSource provider.
-
-```cpp
-using RandomByteSourceContract = ESPressio::Platform::Randomness::Detail::RandomByteSourceProviderTraits<RandomByteSourceProvider>;
-```
-
+sdkconfig.h supplies SDK-owned CONFIG_IDF_TARGET_ESP32 / ESP32S3 and compiler
+__XTENSA__. Those select the only audited positive source path and the existing
+native atomic header. Other targets compile explicit refusal. No repository-owned
+macro bypasses entropy qualification. Host sdkconfig selects no target; positive
+native instructions and SDK enable/disable are exercised on actual C+D hardware.

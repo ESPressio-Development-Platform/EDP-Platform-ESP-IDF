@@ -1,0 +1,1 @@
+bash /srv/espressio/scratch/h433_random_analysis.sh

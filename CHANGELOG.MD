@@ -9,3 +9,5 @@
   GitHub Actions coverage and real WROOM32/S3 two-core qualification.
 - Preserve the existing four-byte ABI, operation API, explicit include and
   library version. No Clock authority or NVS/security provisioning change.
+
+- H433 (0.1.0): fix unqualified native cryptographic random success; explicit exclusive SDK source acquisition/release, default/unsupported refusal, noncopyable owner, host and actual C+D two-core qualification. Historical key entropy is not retroactively qualified.

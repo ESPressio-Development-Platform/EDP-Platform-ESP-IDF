@@ -62,3 +62,5 @@ H429 / #9: target/storage qualification additionally consumes ESP-IDF
 esp_memory_utils.h and Xtensa core-isa.h, plus standard abort. The existing
 EDP-Platform/System edge is unchanged. Native internal-DRAM CAS only;
 ESP32-S2 and external RAM emulation cannot satisfy LockFree=true.
+
+H433: RandomByteSourceProvider reuses the existing same-repository native AtomicWord32 for exclusive SDK entropy lifetime. No package edge or RNG/crypto/task/mutex backend added.

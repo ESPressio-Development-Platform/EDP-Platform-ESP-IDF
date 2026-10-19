@@ -1,0 +1,1 @@
+/srv/espressio/bin/pio run -d /srv/espressio/repos/EDP-Labs/Mesh-Concurrency-Qualification/H433-OnDevice-Qualified-Entropy

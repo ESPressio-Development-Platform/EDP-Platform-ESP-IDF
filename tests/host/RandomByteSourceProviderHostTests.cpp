@@ -1,64 +1,44 @@
+#include <array>
 #include <cassert>
 #include <cstdint>
+#include <type_traits>
 
 #include <randomness/RandomByteSourceProvider.hpp>
 
 namespace Test {
 
-    /// Exercises the ESP-IDF RandomByteSource provider against the host ESP-IDF stub.
+    /// Host has no qualified native entropy backend. Verify refusal without invoking the SDK stub.
     int Run() noexcept {
-        using Provider = ESPressio::Platform::ESPIDF::Randomness::RandomByteSourceProvider;
+        using namespace ESPressio::Platform::ESPIDF::Randomness;
+        using Provider = RandomByteSourceProvider;
+        using Result = ESPressio::Platform::Randomness::RandomByteGenerationResult;
         using Contract = ESPressio::Platform::Randomness::Detail::RandomByteSourceProviderTraits<Provider>;
         using Properties = typename Contract::Properties;
-
         constexpr ESPressio::System::FlagSet<
-            ESPressio::Platform::Randomness::RandomByteSourceFeature,
-            std::uint8_t
-        > features(
-            Properties::template Value<ESPressio::Platform::Randomness::RandomByteSourceFeatures>
-        );
+            ESPressio::Platform::Randomness::RandomByteSourceFeature,std::uint8_t> features(
+            Properties::template Value<ESPressio::Platform::Randomness::RandomByteSourceFeatures>);
+        static_assert(features.HasAll(ESPressio::Platform::Randomness::RandomByteSourceFeature::CryptographicallySuitable));
+        static_assert(!std::is_copy_constructible_v<Provider> && !std::is_move_constructible_v<Provider>);
+        static_assert(!std::is_copy_assignable_v<Provider> && !std::is_move_assignable_v<Provider>);
 
-        static_assert(
-            features.HasAll(
-                ESPressio::Platform::Randomness::RandomByteSourceFeature::CryptographicallySuitable
-            ),
-            "ESP-IDF random source must advertise cryptographic suitability"
-        );
-
-        Provider provider;
-        std::uint8_t bytes[8U]{};
-
-        assert(
-            provider.FillRandomBytes(
-                bytes,
-                sizeof(bytes)
-            ) == ESPressio::Platform::Randomness::RandomByteGenerationResult::Succeeded
-        );
-
-        assert(bytes[0U] == 0xA5U);
-        assert(bytes[1U] == 0xA4U);
-
-        assert(
-            provider.FillRandomBytes(
-                nullptr,
-                1U
-            ) == ESPressio::Platform::Randomness::RandomByteGenerationResult::InvalidDestination
-        );
-
-        assert(
-            provider.FillRandomBytes(
-                nullptr,
-                0U
-            ) == ESPressio::Platform::Randomness::RandomByteGenerationResult::Succeeded
-        );
-
+        Provider first,second;
+        std::array<std::uint8_t,8U> bytes{};
+        bytes.fill(0x3CU);
+        const auto original=bytes;
+        assert(!first.OwnsInternalEntropySource());
+        assert(first.FillRandomBytes(bytes.data(),bytes.size())==Result::ProviderFailure);
+        assert(bytes==original && EspRandomStubCalls==0U);
+        assert(first.AcquireInternalEntropySource()==InternalEntropyAcquisitionResult::UnsupportedTarget);
+        assert(second.AcquireInternalEntropySource()==InternalEntropyAcquisitionResult::UnsupportedTarget);
+        assert(!first.OwnsInternalEntropySource() && !second.OwnsInternalEntropySource());
+        assert(first.ReleaseInternalEntropySource()==InternalEntropyReleaseResult::NotOwned);
+        assert(second.ReleaseInternalEntropySource()==InternalEntropyReleaseResult::NotOwned);
+        assert(first.FillRandomBytes(nullptr,1U)==Result::InvalidDestination);
+        assert(first.FillRandomBytes(nullptr,0U)==Result::Succeeded);
+        assert(first.FillRandomBytes(bytes.data(),0U)==Result::Succeeded);
+        assert(bytes==original && EspRandomStubCalls==0U);
         return 0;
     }
-
-} // Test
-
-
-/// Runs ESP-IDF random provider host tests.
-int main() {
-    return Test::Run();
 }
+
+int main() { return Test::Run(); }

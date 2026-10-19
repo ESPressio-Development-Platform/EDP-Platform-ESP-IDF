@@ -95,3 +95,5 @@ Buildable demonstrations are provided under [`./demos`](./demos), including end-
 ## C++ Language Baseline
 
 ESPressio requires C++20. PlatformIO-compatible ESP32 examples should use a maintained C++20-capable PIOArduino platform package rather than the outdated Arduino-ESP32 package bundled by stock PlatformIO. Native ESP-IDF builds must likewise use a C++20-capable toolchain.
+
+H433: native cryptographic randomness requires [explicit SDK entropy ownership](docs/EXPLICIT-ENTROPY-OWNERSHIP.MD). Default nonzero requests now refuse; migrate Bootstrap before use.

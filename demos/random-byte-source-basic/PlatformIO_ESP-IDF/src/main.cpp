@@ -7,6 +7,10 @@ namespace Demo {
     /// Exercises the ESP-IDF cryptographic random-byte provider using caller-owned storage.
     int Run() noexcept {
         ESPressio::Platform::ESPIDF::Randomness::RandomByteSourceProvider random;
+        // Bootstrap reserves ADC/internal RF and ESP32 I2S until random is destroyed.
+        // This example initializes none of those consumers.
+        if (random.AcquireInternalEntropySource() !=
+            ESPressio::Platform::ESPIDF::Randomness::InternalEntropyAcquisitionResult::Acquired) return 2;
         std::uint8_t bytes[16U]{};
 
         return random.FillRandomBytes(

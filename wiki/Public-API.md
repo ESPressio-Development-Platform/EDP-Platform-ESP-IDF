@@ -38,3 +38,5 @@ Memory resources expose internal-only, external/PSRAM-only and external-preferre
 Public operations are `Initialize`, `Destroy` and generic `Derive`. No operation exposes either root.
 
 The application normally combines this source and zeroizer with EDP-Security's `DeploymentKeyProvider` rather than invoking six derivations manually.
+
+H433 adds explicit RandomByteSourceProvider acquisition/release/status and actual ownership query; copy/move deleted, default nonzero fill refuses. [Reference](Reference-randomness-RandomByteSourceProvider.md).

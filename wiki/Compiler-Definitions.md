@@ -32,3 +32,5 @@ and XCHAL_HAVE_S32C1I. All complete Word storage must be internal DRAM,
 checked before initialization. ESP32-S2 and external/RTC storage are refused;
 there is no emulation, additional storage, task or lock. See
 [provider reference](Reference-AtomicWord32-ESP-IDF).
+
+H433 uses SDK sdkconfig target macros and compiler __XTENSA__ only for audited ESP32/S3 entropy ownership/native CAS. Other targets refuse. No owned macro can force qualification; host SDK stub selects no target.

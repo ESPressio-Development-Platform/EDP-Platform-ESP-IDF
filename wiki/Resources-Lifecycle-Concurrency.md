@@ -42,3 +42,5 @@ and XCHAL_HAVE_S32C1I. All complete Word storage must be internal DRAM,
 checked before initialization. ESP32-S2 and external/RTC storage are refused;
 there is no emulation, additional storage, task or lock. See
 [provider reference](Reference-AtomicWord32-ESP-IDF).
+
+H433: reserve ADC/internal RF/ESP32 I2S while owning SDK entropy, serialize Bootstrap lifecycle and stop consumers before release. One reused inline native4B word plus compiler startup guard metadata; one boolean per provider. No heap/task/mutex/new RNG algorithm.

@@ -1,0 +1,244 @@
+esptool v5.4.0
+Serial port /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Connecting.....
+Connected to ESP32 on /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Chip type:          ESP32-D0WD (revision v1.0)
+Features:           Wi-Fi, BT, Dual Core + LP Core, 240MHz, Vref calibration in eFuse, Coding Scheme None
+Crystal frequency:  40MHz
+MAC:                98:cd:ac:45:98:a0
+
+Uploading stub flasher...
+Running stub flasher...
+Stub flasher running.
+
+MAC:                98:cd:ac:45:98:a0
+
+Staying in bootloader.
+esptool v5.4.0
+Serial port /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Connecting....
+Connected to ESP32 on /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Chip type:          ESP32-D0WD (revision v1.0)
+Features:           Wi-Fi, BT, Dual Core + LP Core, 240MHz, Vref calibration in eFuse, Coding Scheme None
+Crystal frequency:  40MHz
+MAC:                98:cd:ac:45:98:a0
+
+Uploading stub flasher...
+Running stub flasher...
+Stub flasher running.
+
+Configuring flash size...
+Reading from 0x0000a000 ━━━━━━                          20.0% 4.00kB/20.00kB [0s] 
+Reading from 0x0000b000 ━━━━━━━━━━━━                    40.0% 8.00kB/20.00kB [0s] 
+Reading from 0x0000c000 ━━━━━━━━━━━━━━━━━━              60.0% 12.00kB/20.00kB [1s] 
+Reading from 0x0000d000 ━━━━━━━━━━━━━━━━━━━━━━━━        80.0% 16.00kB/20.00kB [1s] 
+Reading from 0x0000e000 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.0% 20.00kB/20.00kB [1s] 
+Read 20480 bytes from 0x00009000 in 1.8 seconds (89.8 kbit/s) to '/srv/espressio/evidence/H433-C-20261019-1630/nvs-before.bin'.
+
+Staying in bootloader.
+esptool v5.4.0
+Serial port /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Connecting....
+Connected to ESP32 on /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Chip type:          ESP32-D0WD (revision v1.0)
+Features:           Wi-Fi, BT, Dual Core + LP Core, 240MHz, Vref calibration in eFuse, Coding Scheme None
+Crystal frequency:  40MHz
+MAC:                98:cd:ac:45:98:a0
+
+Uploading stub flasher...
+Running stub flasher...
+Stub flasher running.
+
+Configuring flash size...
+Reading from 0x00009000 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.0% 4.00kB/4.00kB [0s] 
+Read 4096 bytes from 0x00008000 in 0.4 seconds (88.4 kbit/s) to '/srv/espressio/evidence/H433-C-20261019-1630/partition-table.bin'.
+
+Staying in bootloader.
+H433_PARTITION_GUARD_PASS|application_only=1
+H433_IMAGE_SHA256|eac60bac782c666d3b0f86e571b1787b955a0adac17e3a640252ef26668600fe
+esptool v5.4.0
+Serial port /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Connecting....
+Connected to ESP32 on /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Chip type:          ESP32-D0WD (revision v1.0)
+Features:           Wi-Fi, BT, Dual Core + LP Core, 240MHz, Vref calibration in eFuse, Coding Scheme None
+Crystal frequency:  40MHz
+MAC:                98:cd:ac:45:98:a0
+
+Uploading stub flasher...
+Running stub flasher...
+Stub flasher running.
+
+Configuring flash size...
+Flash will be erased from 0x00010000 to 0x00039fff...
+Compressed 169456 bytes to 96051...
+Writing at 0x0001c2a2 ━━━━━                           17.1% 16.00kB/93.80kB [1s] 
+Writing at 0x000220a7 ━━━━━━━━━━                      34.1% 32.00kB/93.80kB [2s] 
+Writing at 0x00027a1d ━━━━━━━━━━━━━━━                 51.2% 48.00kB/93.80kB [4s] 
+Writing at 0x0002e01f ━━━━━━━━━━━━━━━━━━━━            68.2% 64.00kB/93.80kB [5s] 
+Writing at 0x00033cd6 ━━━━━━━━━━━━━━━━━━━━━━━━━╸      85.3% 80.00kB/93.80kB [7s] 
+Writing at 0x000395f0 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.0% 93.80kB/93.80kB [8s] 
+Wrote 169456 bytes (96051 compressed) at 0x00010000 in 8.7 seconds (156.0 kbit/s).
+Verifying written data...
+Hash of data verified.
+
+Staying in bootloader.
+H433_UART|role=c|cycle=1|ets Jun  8 2016 00:22:57
+H433_UART|role=c|cycle=1|rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+H433_UART|role=c|cycle=1|configsip: 0, SPIWP:0xee
+H433_UART|role=c|cycle=1|clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+H433_UART|role=c|cycle=1|mode:DIO, clock div:2
+H433_UART|role=c|cycle=1|load:0x3fff0030,len:6280
+H433_UART|role=c|cycle=1|load:0x40078000,len:15836
+H433_UART|role=c|cycle=1|ho 0 tail 12 room 4
+H433_UART|role=c|cycle=1|load:0x40080400,len:3920
+H433_UART|role=c|cycle=1|entry 0x4008063c
+H433_UART|role=c|cycle=1|I (28) boot: ESP-IDF 5.5.5 2nd stage bootloader
+H433_UART|role=c|cycle=1|I (29) boot: compile time Oct 18 2026 17:54:19
+H433_UART|role=c|cycle=1|I (29) boot: Multicore bootloader
+H433_UART|role=c|cycle=1|I (30) boot: chip revision: v1.0
+H433_UART|role=c|cycle=1|I (33) boot.esp32: SPI Speed      : 40MHz
+H433_UART|role=c|cycle=1|I (36) boot.esp32: SPI Mode       : DIO
+H433_UART|role=c|cycle=1|I (40) boot.esp32: SPI Flash Size : 4MB
+H433_UART|role=c|cycle=1|I (43) boot: Enabling RNG early entropy source...
+H433_UART|role=c|cycle=1|I (48) boot: Partition Table:
+H433_UART|role=c|cycle=1|I (50) boot: ## Label            Usage          Type ST Offset   Length
+H433_UART|role=c|cycle=1|I (57) boot:  0 nvs              WiFi data        01 02 00009000 00005000
+H433_UART|role=c|cycle=1|I (63) boot:  1 phy_init         RF data          01 01 0000e000 00001000
+H433_UART|role=c|cycle=1|I (70) boot:  2 factory          factory app      00 00 00010000 00180000
+H433_UART|role=c|cycle=1|I (76) boot:  3 storage          Unknown data     01 82 00190000 00270000
+H433_UART|role=c|cycle=1|I (83) boot: End of partition table
+H433_UART|role=c|cycle=1|I (86) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=09888h ( 39048) map
+H433_UART|role=c|cycle=1|I (107) esp_image: segment 1: paddr=000198b0 vaddr=3ffb0000 size=028a8h ( 10408) load
+H433_UART|role=c|cycle=1|I (111) esp_image: segment 2: paddr=0001c160 vaddr=40080000 size=03eb8h ( 16056) load
+H433_UART|role=c|cycle=1|I (118) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=104c8h ( 66760) map
+H433_UART|role=c|cycle=1|I (141) esp_image: segment 4: paddr=000304f0 vaddr=40083eb8 size=090a8h ( 37032) load
+H433_UART|role=c|cycle=1|I (156) esp_image: segment 5: paddr=000395a0 vaddr=50000000 size=00020h (    32) load
+H433_UART|role=c|cycle=1|I (163) boot: Loaded app from partition at offset 0x10000
+H433_UART|role=c|cycle=1|I (163) boot: Disabling RNG early entropy source...
+H433_UART|role=c|cycle=1|I (174) cpu_start: Multicore app
+H433_UART|role=c|cycle=1|I (183) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+H433_UART|role=c|cycle=1|I (183) cpu_start: Pro cpu start user code
+H433_UART|role=c|cycle=1|I (183) cpu_start: cpu freq: 160000000 Hz
+H433_UART|role=c|cycle=1|I (185) app_init: Application information:
+H433_UART|role=c|cycle=1|I (188) app_init: Project name:     h433_native_atomic_qualificatio
+H433_UART|role=c|cycle=1|I (194) app_init: App version:      6518118
+H433_UART|role=c|cycle=1|I (198) app_init: Compile time:     Oct 19 2026 16:28:04
+H433_UART|role=c|cycle=1|I (203) app_init: ELF file SHA256:  85163cb01...
+H433_UART|role=c|cycle=1|I (208) app_init: ESP-IDF:          5.5.5
+H433_UART|role=c|cycle=1|I (211) efuse_init: Min chip rev:     v0.0
+H433_UART|role=c|cycle=1|I (215) efuse_init: Max chip rev:     v3.99
+H433_UART|role=c|cycle=1|I (219) efuse_init: Chip rev:         v1.0
+H433_UART|role=c|cycle=1|I (223) heap_init: Initializing. RAM available for dynamic allocation:
+H433_UART|role=c|cycle=1|I (230) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+H433_UART|role=c|cycle=1|I (235) heap_init: At 3FFB5448 len 0002ABB8 (170 KiB): DRAM
+H433_UART|role=c|cycle=1|I (240) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+H433_UART|role=c|cycle=1|I (245) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+H433_UART|role=c|cycle=1|I (251) heap_init: At 4008CF60 len 000130A0 (76 KiB): IRAM
+H433_UART|role=c|cycle=1|I (257) spi_flash: detected chip: generic
+H433_UART|role=c|cycle=1|I (260) spi_flash: flash io: dio
+H433_UART|role=c|cycle=1|I (263) main_task: Started on CPU0
+H433_UART|role=c|cycle=1|I (263) main_task: Calling app_main()
+H433_UART|role=c|cycle=1|H433_QUALIFIED_ENTROPY_BEGIN|mac=98:cd:ac:45:98:a0|entropy_reserved=1|internal=1
+H433_UART|role=c|cycle=1|H433_QUALIFIED_ENTROPY_LIFETIME_PASS|default_refuses=1|cross_tu=1|destructor=1|random_material_logged=0
+H433_UART|role=c|cycle=1|H433_QUALIFIED_ENTROPY_TWO_CORE_PASS|winners=1|busy=1|core0=0|core1=1|stack_bytes_each=4096|rf=0|nvs_writes=0|mesh_clock_present=0
+H433_PHYSICAL_CYCLE_PASS|role=c|cycle=1|mac=98:cd:ac:45:98:a0
+H433_UART|role=c|cycle=2|ets Jun  8 2016 00:22:57
+H433_UART|role=c|cycle=2|rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+H433_UART|role=c|cycle=2|configsip: 0, SPIWP:0xee
+H433_UART|role=c|cycle=2|clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+H433_UART|role=c|cycle=2|mode:DIO, clock div:2
+H433_UART|role=c|cycle=2|load:0x3fff0030,len:6280
+H433_UART|role=c|cycle=2|load:0x40078000,len:15836
+H433_UART|role=c|cycle=2|ho 0 tail 12 room 4
+H433_UART|role=c|cycle=2|load:0x40080400,len:3920
+H433_UART|role=c|cycle=2|entry 0x4008063c
+H433_UART|role=c|cycle=2|I (28) boot: ESP-IDF 5.5.5 2nd stage bootloader
+H433_UART|role=c|cycle=2|I (29) boot: compile time Oct 18 2026 17:54:19
+H433_UART|role=c|cycle=2|I (29) boot: Multicore bootloader
+H433_UART|role=c|cycle=2|I (30) boot: chip revision: v1.0
+H433_UART|role=c|cycle=2|I (33) boot.esp32: SPI Speed      : 40MHz
+H433_UART|role=c|cycle=2|I (36) boot.esp32: SPI Mode       : DIO
+H433_UART|role=c|cycle=2|I (40) boot.esp32: SPI Flash Size : 4MB
+H433_UART|role=c|cycle=2|I (43) boot: Enabling RNG early entropy source...
+H433_UART|role=c|cycle=2|I (48) boot: Partition Table:
+H433_UART|role=c|cycle=2|I (50) boot: ## Label            Usage          Type ST Offset   Length
+H433_UART|role=c|cycle=2|I (57) boot:  0 nvs              WiFi data        01 02 00009000 00005000
+H433_UART|role=c|cycle=2|I (63) boot:  1 phy_init         RF data          01 01 0000e000 00001000
+H433_UART|role=c|cycle=2|I (70) boot:  2 factory          factory app      00 00 00010000 00180000
+H433_UART|role=c|cycle=2|I (76) boot:  3 storage          Unknown data     01 82 00190000 00270000
+H433_UART|role=c|cycle=2|I (83) boot: End of partition table
+H433_UART|role=c|cycle=2|I (86) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=09888h ( 39048) map
+H433_UART|role=c|cycle=2|I (107) esp_image: segment 1: paddr=000198b0 vaddr=3ffb0000 size=028a8h ( 10408) load
+H433_UART|role=c|cycle=2|I (111) esp_image: segment 2: paddr=0001c160 vaddr=40080000 size=03eb8h ( 16056) load
+H433_UART|role=c|cycle=2|I (118) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=104c8h ( 66760) map
+H433_UART|role=c|cycle=2|I (141) esp_image: segment 4: paddr=000304f0 vaddr=40083eb8 size=090a8h ( 37032) load
+H433_UART|role=c|cycle=2|I (156) esp_image: segment 5: paddr=000395a0 vaddr=50000000 size=00020h (    32) load
+H433_UART|role=c|cycle=2|I (163) boot: Loaded app from partition at offset 0x10000
+H433_UART|role=c|cycle=2|I (163) boot: Disabling RNG early entropy source...
+H433_UART|role=c|cycle=2|I (174) cpu_start: Multicore app
+H433_UART|role=c|cycle=2|I (183) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+H433_UART|role=c|cycle=2|I (183) cpu_start: Pro cpu start user code
+H433_UART|role=c|cycle=2|I (183) cpu_start: cpu freq: 160000000 Hz
+H433_UART|role=c|cycle=2|I (185) app_init: Application information:
+H433_UART|role=c|cycle=2|I (188) app_init: Project name:     h433_native_atomic_qualificatio
+H433_UART|role=c|cycle=2|I (194) app_init: App version:      6518118
+H433_UART|role=c|cycle=2|I (198) app_init: Compile time:     Oct 19 2026 16:28:04
+H433_UART|role=c|cycle=2|I (203) app_init: ELF file SHA256:  85163cb01...
+H433_UART|role=c|cycle=2|I (208) app_init: ESP-IDF:          5.5.5
+H433_UART|role=c|cycle=2|I (211) efuse_init: Min chip rev:     v0.0
+H433_UART|role=c|cycle=2|I (215) efuse_init: Max chip rev:     v3.99
+H433_UART|role=c|cycle=2|I (219) efuse_init: Chip rev:         v1.0
+H433_UART|role=c|cycle=2|I (223) heap_init: Initializing. RAM available for dynamic allocation:
+H433_UART|role=c|cycle=2|I (230) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+H433_UART|role=c|cycle=2|I (235) heap_init: At 3FFB5448 len 0002ABB8 (170 KiB): DRAM
+H433_UART|role=c|cycle=2|I (240) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+H433_UART|role=c|cycle=2|I (245) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+H433_UART|role=c|cycle=2|I (251) heap_init: At 4008CF60 len 000130A0 (76 KiB): IRAM
+H433_UART|role=c|cycle=2|I (257) spi_flash: detected chip: generic
+H433_UART|role=c|cycle=2|I (260) spi_flash: flash io: dio
+H433_UART|role=c|cycle=2|I (263) main_task: Started on CPU0
+H433_UART|role=c|cycle=2|I (263) main_task: Calling app_main()
+H433_UART|role=c|cycle=2|H433_QUALIFIED_ENTROPY_BEGIN|mac=98:cd:ac:45:98:a0|entropy_reserved=1|internal=1
+H433_UART|role=c|cycle=2|H433_QUALIFIED_ENTROPY_LIFETIME_PASS|default_refuses=1|cross_tu=1|destructor=1|random_material_logged=0
+H433_UART|role=c|cycle=2|H433_QUALIFIED_ENTROPY_TWO_CORE_PASS|winners=1|busy=1|core0=0|core1=1|stack_bytes_each=4096|rf=0|nvs_writes=0|mesh_clock_present=0
+H433_PHYSICAL_CYCLE_PASS|role=c|cycle=2|mac=98:cd:ac:45:98:a0
+esptool v5.4.0
+Serial port /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Connecting.......
+Connected to ESP32 on /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Chip type:          ESP32-D0WD (revision v1.0)
+Features:           Wi-Fi, BT, Dual Core + LP Core, 240MHz, Vref calibration in eFuse, Coding Scheme None
+Crystal frequency:  40MHz
+MAC:                98:cd:ac:45:98:a0
+
+Uploading stub flasher...
+Running stub flasher...
+Stub flasher running.
+
+Configuring flash size...
+Reading from 0x0000a000 ━━━━━━                          20.0% 4.00kB/20.00kB [0s] 
+Reading from 0x0000b000 ━━━━━━━━━━━━                    40.0% 8.00kB/20.00kB [0s] 
+Reading from 0x0000c000 ━━━━━━━━━━━━━━━━━━              60.0% 12.00kB/20.00kB [1s] 
+Reading from 0x0000d000 ━━━━━━━━━━━━━━━━━━━━━━━━        80.0% 16.00kB/20.00kB [1s] 
+Reading from 0x0000e000 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.0% 20.00kB/20.00kB [1s] 
+Read 20480 bytes from 0x00009000 in 1.8 seconds (89.9 kbit/s) to '/srv/espressio/evidence/H433-C-20261019-1630/nvs-after.bin'.
+
+Staying in bootloader.
+H433_NVS_UNCHANGED_PASS|bytes=20480|sha256=ddba1f477967635218216bbc96ff7bdef3f9077a907bb06c8e5e161a7f094f48
+esptool v5.4.0
+Serial port /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Connecting.....
+Connected to ESP32 on /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:
+Chip type:          ESP32-D0WD (revision v1.0)
+Features:           Wi-Fi, BT, Dual Core + LP Core, 240MHz, Vref calibration in eFuse, Coding Scheme None
+Crystal frequency:  40MHz
+MAC:                98:cd:ac:45:98:a0
+
+Uploading stub flasher...
+Running stub flasher...
+Stub flasher running.
+
+
+Hard resetting via RTS pin...
+H433_HIL_PASS|role=c|cycles=2|mac=98:cd:ac:45:98:a0|mesh_clock_present=0|rf=0|nvs_writes=0
