@@ -19,3 +19,5 @@ Every production header under `src/` is represented below. Reference pages prese
 | `src/synchronization/SpinLockProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 12 | [open](Reference-synchronization-SpinLockProvider) |
 
 > Source baseline: `524a881b9ed27a86c5b886429558242d88962b70`.
+
+- [H428 Xtensa atomic-word provider](Reference-AtomicWord32-ESP-IDF)

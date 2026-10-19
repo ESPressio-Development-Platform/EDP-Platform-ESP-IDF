@@ -33,3 +33,5 @@ During Mesh V1 feature integration the package manifest selects EDP-Security's `
 ## Navigation
 
 Start with [Architecture](Architecture.md), then use [Composition](Composition.md) and [Dependency Contracts](Dependency-Contracts.md) for provider wiring. [Resources / Lifecycle / Concurrency](Resources-Lifecycle-Concurrency.md) describes bounded state and ownership. [Build / Test / Source](Build-Test-Source.md) records validation and source navigation. Every production header is indexed by [Reference Index](Reference-Index.md).
+
+- [H428 ESP-IDF Xtensa hardware AtomicWord32](Reference-AtomicWord32-ESP-IDF)

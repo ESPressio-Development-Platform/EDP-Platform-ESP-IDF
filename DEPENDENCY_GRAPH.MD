@@ -55,3 +55,5 @@ ESP-IDF and its FreeRTOS extensions are target facilities, not ESPressio-library
 The graph remains acyclic because `EDP-Security` depends on abstract `EDP-Platform`, `EDP-Memory` and their acyclic dependencies, never on this concrete provider repository. The concrete deployment-key source points toward the generic EDP-Security contract; EDP-Security does not point back toward this repository.
 
 The narrow `ESPressio_Platform_ESP_IDF_SpinLock.hpp` public entry point introduces no additional dependency edge; it is only a reduced include surface over the existing ESP-IDF SpinLock provider and its existing `EDP-Platform` contract.
+
+H428: native Xtensa AtomicWord32 depends solely on the existing EDP-Platform Composition contract and ESP-IDF esp_cpu.h; no new EDP dependency. Explicit opt-in avoids exposing unsupported lock-free guarantee on other architecture targets. [Contract and qualification](docs/ATOMIC-WORD-32.MD).

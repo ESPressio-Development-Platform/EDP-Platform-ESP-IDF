@@ -14,3 +14,5 @@ The deployment-key SHA-256 host seam delegates digest computation to OpenSSL. It
 Provider headers instantiate their corresponding EDP-Platform, EDP-Memory or EDP-Security contract traits, so incompatible surfaces fail at the provider definition boundary.
 
 Buildable demos under `./demos` exercise the target-owned paths. In particular, `deployment-key-source-basic` composes the two concrete ESP-IDF security providers with EDP-Security's generic bounded deployment-key lifecycle.
+
+H428: S3 real 2-core hardware CAS 50,000-count and certified ClockCoordinator Root-refusal physical test lives in EDP-Labs/Mesh-Concurrency-Qualification docs/H428-D-CERTIFIED-RECEIVER-GUARD-ATOMIC-STRESS.MD; WROOM ESP-IDF build succeeded. Xtensa target-only provider, no host execution claims.

@@ -95,3 +95,7 @@ Buildable demonstrations are provided under [`./demos`](./demos), including end-
 ## C++ Language Baseline
 
 ESPressio requires C++20. PlatformIO-compatible ESP32 examples should use a maintained C++20-capable PIOArduino platform package rather than the outdated Arduino-ESP32 package bundled by stock PlatformIO. Native ESP-IDF builds must likewise use a C++20-capable toolchain.
+
+H428: Xtensa ESP32-family target-only truly hardware CAS 32-bit AtomicWord32 provider in src/concurrency/AtomicWord32Provider.hpp. Tested on ESP32-S3 two pinned cores for 50,000 CAS increments under FreeRTOS; separate from unsupported portable std::atomic target.
+
+H428: **opt-in** Xtensa hardware \`AtomicWord32Provider\` implements the EDP-Platform lock-free 4B contract using ESP-IDF \`esp_cpu_compare_and_set\` and MEMW. S3 physically stressed 2 pinned cores/50k CAS, WROOM cross-build PASS. Include \`<concurrency/AtomicWord32Provider.hpp>\` explicitly; not an umbrella default. [Details](docs/ATOMIC-WORD-32.MD).
