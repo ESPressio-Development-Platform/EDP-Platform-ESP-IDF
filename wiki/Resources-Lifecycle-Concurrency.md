@@ -33,3 +33,12 @@ The zeroizer must outlive the source. The source must outlive the generic deploy
 Operations on one source/key-provider instance are caller-serialized. Neither owns synchronization. Applications requiring cross-context access must serialize at a higher layer or confine ownership.
 
 Provisioning, derivation and key rotation are not ISR operations. Provider-specific ISR support remains explicit for the separate SpinLock operations.
+
+
+## H429 native atomic qualification
+
+The opt-in native atomic provider requires ESP32 or ESP32-S3, __XTENSA__
+and XCHAL_HAVE_S32C1I. All complete Word storage must be internal DRAM,
+checked before initialization. ESP32-S2 and external/RTC storage are refused;
+there is no emulation, additional storage, task or lock. See
+[provider reference](Reference-AtomicWord32-ESP-IDF).

@@ -16,3 +16,14 @@ Provider headers instantiate their corresponding EDP-Platform, EDP-Memory or EDP
 Buildable demos under `./demos` exercise the target-owned paths. In particular, `deployment-key-source-basic` composes the two concrete ESP-IDF security providers with EDP-Security's generic bounded deployment-key lifecycle.
 
 H428: S3 real 2-core hardware CAS 50,000-count and certified ClockCoordinator Root-refusal physical test lives in EDP-Labs/Mesh-Concurrency-Qualification docs/H428-D-CERTIFIED-RECEIVER-GUARD-ATOMIC-STRESS.MD; WROOM ESP-IDF build succeeded. Xtensa target-only provider, no host execution claims.
+
+
+## Native AtomicWord32 target/storage refusal
+
+Run `python3 tests/host/AtomicWord32StorageContractTests.py` with sibling
+EDP-Platform and EDP-System checkouts, or supply --platform and --system.
+GCC and Clang must be available. Controlled SDK stubs verify constructor
+refusal under NDEBUG and unsupported-target rejection; no Xtensa CAS is
+executed on the host. CTest registers this suite and the four existing
+portable host provider executables, retaining assertions in release builds.
+The dedicated EDP-Labs H429 application supplies actual hardware evidence.

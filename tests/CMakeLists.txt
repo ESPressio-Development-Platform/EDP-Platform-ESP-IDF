@@ -276,3 +276,22 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
             -Werror
     )
 endif()
+
+# H429: make the existing host executable oracles and native atomic refusal contract discoverable.
+enable_testing()
+foreach(test_name
+    espidf_memory_provider_host_tests
+    espidf_random_provider_host_tests
+    espidf_aes256_gcm_provider_host_tests
+    espidf_deployment_key_source_provider_host_tests)
+    add_test(NAME ${test_name} COMMAND ${test_name})
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        target_compile_options(${test_name} PRIVATE -UNDEBUG)
+    endif()
+endforeach()
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+add_test(NAME espidf_atomic_word32_target_storage_contract
+    COMMAND ${Python3_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/host/AtomicWord32StorageContractTests.py
+        --platform ${EDP_PLATFORM_SOURCE_DIR}
+        --system ${EDP_SYSTEM_SOURCE_DIR})

@@ -42,3 +42,12 @@ All new provider instance storage and derivation scratch are compile-time bounde
 - Neither security provider owns a task, queue, worker or lock.
 
 API ownership remains explicit: portable primitives stay portable, generic security remains generic and only ESP-IDF-specific integration lives here.
+
+
+## H429 native atomic qualification
+
+The opt-in native atomic provider requires ESP32 or ESP32-S3, __XTENSA__
+and XCHAL_HAVE_S32C1I. All complete Word storage must be internal DRAM,
+checked before initialization. ESP32-S2 and external/RTC storage are refused;
+there is no emulation, additional storage, task or lock. See
+[provider reference](Reference-AtomicWord32-ESP-IDF).

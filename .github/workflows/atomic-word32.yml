@@ -1,0 +1,34 @@
+name: Native AtomicWord32 contracts
+on:
+  push:
+    paths:
+      - src/concurrency/AtomicWord32Provider.hpp
+      - tests/host/AtomicWord32StorageContractTests.py
+      - .github/workflows/atomic-word32.yml
+  pull_request:
+    paths:
+      - src/concurrency/AtomicWord32Provider.hpp
+      - tests/host/AtomicWord32StorageContractTests.py
+      - .github/workflows/atomic-word32.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  target-storage-refusal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: EDP-Platform-ESP-IDF
+      - uses: actions/checkout@v4
+        with:
+          repository: ESPressio-Development-Platform/EDP-Platform
+          ref: main
+          path: EDP-Platform
+      - uses: actions/checkout@v4
+        with:
+          repository: ESPressio-Development-Platform/EDP-System
+          ref: main
+          path: EDP-System
+      - name: GCC and Clang refusal and storage contract
+        run: python3 EDP-Platform-ESP-IDF/tests/host/AtomicWord32StorageContractTests.py

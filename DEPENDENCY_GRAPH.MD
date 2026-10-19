@@ -57,3 +57,8 @@ The graph remains acyclic because `EDP-Security` depends on abstract `EDP-Platfo
 The narrow `ESPressio_Platform_ESP_IDF_SpinLock.hpp` public entry point introduces no additional dependency edge; it is only a reduced include surface over the existing ESP-IDF SpinLock provider and its existing `EDP-Platform` contract.
 
 H428: native Xtensa AtomicWord32 depends solely on the existing EDP-Platform Composition contract and ESP-IDF esp_cpu.h; no new EDP dependency. Explicit opt-in avoids exposing unsupported lock-free guarantee on other architecture targets. [Contract and qualification](docs/ATOMIC-WORD-32.MD).
+
+H429 / #9: target/storage qualification additionally consumes ESP-IDF
+esp_memory_utils.h and Xtensa core-isa.h, plus standard abort. The existing
+EDP-Platform/System edge is unchanged. Native internal-DRAM CAS only;
+ESP32-S2 and external RAM emulation cannot satisfy LockFree=true.

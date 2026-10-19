@@ -50,7 +50,7 @@ The Memory providers use ESP-IDF heap-capability APIs. ByteOperations remains ow
 
 FreeRTOS mutexes, semaphores and signals remain owned by `EDP-Platform-FreeRTOS` because their implementations use portable FreeRTOS APIs rather than ESP-IDF-specific APIs.
 
-`AtomicWord32` remains owned by `EDP-Platform-Portable` only on targets where the Standard C++ implementation can prove the required always-lock-free contract. ESP-IDF's target-specific compare-and-set facilities are not exposed here as a generic `AtomicWord32` provider because their lock-free behavior can depend on storage location.
+The explicit-include native `AtomicWord32Provider` supports only ESP32 and ESP32-S3 with native S32C1I and complete Word storage in internal DRAM. Unsupported targets are rejected at compile time; unsupported storage aborts construction before its first store. ESP32-S2, external RAM, RTC memory and RISC-V are outside this provider's contract. See [native atomic contract](./docs/ATOMIC-WORD-32.MD).
 
 Consumers which need only the ESP-IDF SpinLock concrete may include the narrow `<ESPressio_Platform_ESP_IDF_SpinLock.hpp>` entry point. It imports only `SpinLockProvider` and avoids pulling the broad execution/memory/randomness/security provider umbrella into narrow synchronization consumers.
 
@@ -95,7 +95,3 @@ Buildable demonstrations are provided under [`./demos`](./demos), including end-
 ## C++ Language Baseline
 
 ESPressio requires C++20. PlatformIO-compatible ESP32 examples should use a maintained C++20-capable PIOArduino platform package rather than the outdated Arduino-ESP32 package bundled by stock PlatformIO. Native ESP-IDF builds must likewise use a C++20-capable toolchain.
-
-H428: Xtensa ESP32-family target-only truly hardware CAS 32-bit AtomicWord32 provider in src/concurrency/AtomicWord32Provider.hpp. Tested on ESP32-S3 two pinned cores for 50,000 CAS increments under FreeRTOS; separate from unsupported portable std::atomic target.
-
-H428: **opt-in** Xtensa hardware \`AtomicWord32Provider\` implements the EDP-Platform lock-free 4B contract using ESP-IDF \`esp_cpu_compare_and_set\` and MEMW. S3 physically stressed 2 pinned cores/50k CAS, WROOM cross-build PASS. Include \`<concurrency/AtomicWord32Provider.hpp>\` explicitly; not an umbrella default. [Details](docs/ATOMIC-WORD-32.MD).

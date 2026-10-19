@@ -23,3 +23,12 @@ The deployment-key provider does **not** require `CONFIG_MBEDTLS_HKDF_C`. It use
 Other ESP-IDF/FreeRTOS `CONFIG_*` and port macros may conditionally expose native facilities such as stack telemetry. They remain SDK-owned inputs. Concrete provider properties must truthfully reflect the compiled native capabilities.
 
 > Build/conditional-compilation audit baseline: `f7c5667e8359e29d9c2a23f4aa44b8761ca6ac60` on `mesh_v1`.
+
+
+## H429 native atomic qualification
+
+The opt-in native atomic provider requires ESP32 or ESP32-S3, __XTENSA__
+and XCHAL_HAVE_S32C1I. All complete Word storage must be internal DRAM,
+checked before initialization. ESP32-S2 and external/RTC storage are refused;
+there is no emulation, additional storage, task or lock. See
+[provider reference](Reference-AtomicWord32-ESP-IDF).

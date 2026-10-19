@@ -1,67 +1,134 @@
 #pragma once
-// ESP-IDF H428: Xtensa S32C1I-based hardware CAS, fixed 4-byte atomic
-// provider for coherent ClockCoordinator snapshots. No heap or mutex.
-// Other architectures must provide independently qualified implementations.
 
 #include <cstdint>
+#include <cstdlib>
 #include <type_traits>
+
 #include <esp_cpu.h>
+#include <esp_memory_utils.h>
 #include <ESPressio_Platform.hpp>
 
 #if !defined(__XTENSA__) || \
-    (!defined(CONFIG_IDF_TARGET_ESP32) && !defined(CONFIG_IDF_TARGET_ESP32S2) && \
-     !defined(CONFIG_IDF_TARGET_ESP32S3))
-#error "ESPIDF AtomicWord32Provider requires a qualified Xtensa ESP32 target"
+    (!defined(CONFIG_IDF_TARGET_ESP32) && !defined(CONFIG_IDF_TARGET_ESP32S3))
+#error "ESPIDF AtomicWord32Provider requires ESP32 or ESP32-S3 native hardware CAS"
+#endif
+
+#include <xtensa/config/core-isa.h>
+
+#if !defined(XCHAL_HAVE_S32C1I) || !XCHAL_HAVE_S32C1I
+#error "ESPIDF AtomicWord32Provider requires the native S32C1I instruction"
 #endif
 
 namespace ESPressio::Platform::ESPIDF::Concurrency {
 
-class AtomicWord32Provider final : public System::CompositionFramework::Provider<
-    ESPressio::Platform::Domain,
-    System::CompositionFramework::Offers<
-        System::CompositionFramework::Offer<
-            ESPressio::Platform::Concurrency::AtomicWord32,
-            System::CompositionFramework::PropertyValue<
-                ESPressio::Platform::Concurrency::LockFree,true>,
-            System::CompositionFramework::PropertyValue<
-                ESPressio::Platform::Concurrency::AtomicWordStorageBytes,4U>
+    /// Hardware-only four-byte atomic provider for ESP32 and ESP32-S3 internal DRAM.
+    /// Bootstrap must keep every Word, including containing snapshots, in internal DRAM.
+    /// Unsupported storage terminates construction before the first value store; ESP-IDF's
+    /// interrupt-masking/external-RAM CAS emulation is never an allowed implementation.
+    class AtomicWord32Provider final : public System::CompositionFramework::Provider<
+        ESPressio::Platform::Domain,
+        System::CompositionFramework::Offers<
+            System::CompositionFramework::Offer<
+                ESPressio::Platform::Concurrency::AtomicWord32,
+                System::CompositionFramework::PropertyValue<
+                    ESPressio::Platform::Concurrency::LockFree,
+                    true
+                >,
+                System::CompositionFramework::PropertyValue<
+                    ESPressio::Platform::Concurrency::AtomicWordStorageBytes,
+                    4U
+                >
+            >
         >
-    >
-> {
-public:
-    class Word final {
-        alignas(4) volatile std::uint32_t _value{0U};
-
-        static inline void MemoryBarrier() noexcept {
-            __asm__ __volatile__("memw" ::: "memory");
-        }
+    > {
     public:
-        Word() noexcept = default;
-        Word(const Word&)=delete;
-        Word& operator=(const Word&)=delete;
-        Word(Word&&)=delete;
-        Word& operator=(Word&&)=delete;
+        /// Noncopyable, nonmovable atomic word whose complete storage must be internal DRAM.
+        class Word final {
+        private:
+            // The constructor validates the complete address range before initializing the value.
+            /// Sole aligned hardware atomic value, initialized only after storage qualification.
+            alignas(4) volatile std::uint32_t _value;
 
-        std::uint32_t LoadRelaxed() const noexcept {return _value;}
-        std::uint32_t LoadAcquire() const noexcept {
-            const auto v=_value; MemoryBarrier();return v;
-        }
-        void StoreRelaxed(std::uint32_t v) noexcept {_value=v;}
-        void StoreRelease(std::uint32_t v) noexcept {
-            MemoryBarrier();_value=v;
-        }
-        bool CompareExchangeAcqRel(
-            std::uint32_t& expected,std::uint32_t desired
-        ) noexcept {
-            MemoryBarrier();
-            const bool success=esp_cpu_compare_and_set(&_value,expected,desired);
-            MemoryBarrier();
-            if(!success)expected=_value;
-            return success;
-        }
+            /// Orders memory operations on either side of an acquire/release boundary.
+            static inline void MemoryBarrier() noexcept {
+                __asm__ __volatile__("memw" ::: "memory");
+            }
+
+            /// Refuses external RAM, RTC memory and any straddling address range without emulation.
+            void RequireInternalStorage() const noexcept {
+                const auto* first = reinterpret_cast<const std::uint8_t*>(this);
+                if (!esp_ptr_in_dram(first) || !esp_ptr_in_dram(first + sizeof(Word) - 1U)) {
+                    std::abort();
+                }
+            }
+
+        public:
+            /// Constructs a zero word only in supported internal DRAM; invalid placement is fatal.
+            Word() noexcept {
+                RequireInternalStorage();
+                _value = 0U;
+            }
+
+            /// An atomic word cannot acquire a second storage identity by copying.
+            Word(const Word&) = delete;
+
+            /// Assignment cannot replace a live atomic word.
+            Word& operator=(const Word&) = delete;
+
+            /// Moving would bypass the original storage qualification.
+            Word(Word&&) = delete;
+
+            /// Move assignment cannot replace a live atomic word.
+            Word& operator=(Word&&) = delete;
+
+            // Canonical AtomicWord32 operations; construction has already qualified immutable storage.
+
+            /// Reads the naturally atomic aligned value without ordering other memory.
+            std::uint32_t LoadRelaxed() const noexcept {
+                return _value;
+            }
+
+            /// Reads the value before publishing an acquire boundary to subsequent memory accesses.
+            std::uint32_t LoadAcquire() const noexcept {
+                const auto value = _value;
+                MemoryBarrier();
+                return value;
+            }
+
+            /// Stores one naturally atomic aligned value without ordering other memory.
+            void StoreRelaxed(std::uint32_t value) noexcept {
+                _value = value;
+            }
+
+            /// Publishes earlier writes before storing the released value.
+            void StoreRelease(std::uint32_t value) noexcept {
+                MemoryBarrier();
+                _value = value;
+            }
+
+            /// Attempts native hardware CAS with acquire/release ordering and refreshed failure evidence.
+            bool CompareExchangeAcqRel(
+                std::uint32_t& expected,
+                std::uint32_t desired
+            ) noexcept {
+                MemoryBarrier();
+                const bool success = esp_cpu_compare_and_set(
+                    &_value,
+                    expected,
+                    desired
+                );
+                MemoryBarrier();
+                if (!success) {
+                    expected = _value;
+                }
+                return success;
+            }
+        };
+
+        static_assert(sizeof(Word) == 4U);
+        static_assert(alignof(Word) == 4U);
+        static_assert(!std::is_copy_constructible_v<Word>);
+        static_assert(!std::is_move_constructible_v<Word>);
     };
-    static_assert(sizeof(Word)==4U);
-    static_assert(alignof(Word)==4U);
-    static_assert(!std::is_copy_constructible_v<Word>);
-};
-} // namespace ESPressio::Platform::ESPIDF::Concurrency
+
+} // ESPressio::Platform::ESPIDF::Concurrency
