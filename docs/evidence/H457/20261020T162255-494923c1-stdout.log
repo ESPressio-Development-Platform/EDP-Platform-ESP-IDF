@@ -1,0 +1,14 @@
+H457_METADATA_PASS EDP-Mesh direct 15 closure 19 src 99387e4fc662eb2cd9b78d218c905bf7afd3e13f
+ DEPENDENCY_GRAPH.MD | 113 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+ README.MD           |  85 +++++++++++++++++++++++++++++++++++++++
+ library.json        |   5 +++
+ library.properties  |   2 +-
+ 4 files changed, 203 insertions(+), 2 deletions(-)
+
+H457_METADATA_PASS EDP-Platform-ESP-IDF direct 5 closure 7 src 9fb244332fa9d006db586ea49d46faec7cc3a1e0
+ DEPENDENCY_GRAPH.MD | 38 +++++++++++++++++++++++++++++---------
+ README.MD           | 24 +++++++++++++-----------
+ library.json        |  4 ++++
+ library.properties  |  2 +-
+ 4 files changed, 47 insertions(+), 21 deletions(-)
+

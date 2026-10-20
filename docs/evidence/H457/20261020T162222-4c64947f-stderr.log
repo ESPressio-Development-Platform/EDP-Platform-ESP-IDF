@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/srv/espressio/scratch/h457_metadata.py", line 63, in <module>
+    assert package_names==arduino,(package_names,arduino)
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ({'EDP-Platform', 'EDP-Memory', 'EDP-System', 'EDP-Security', 'EDP-Persistence'}, {'EDP-BoundedTopology', 'EDP-State', 'EDP-Primitives', 'EDP-Serialisation', 'EDP-Platform', 'EDP-Radio', 'EDP-Command', 'EDP-Memory', 'EDP-System', 'EDP-Event', 'EDP-Clock', 'EDP-Security', 'EDP-Threading', 'EDP-Persistence', 'EDP-RemoteSystem'})
