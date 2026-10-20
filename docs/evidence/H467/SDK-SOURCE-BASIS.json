@@ -1,0 +1,24 @@
+{
+  "sdk_version": "5.5.5",
+  "source_sha256": {
+    "components/esp_common/include/esp_idf_version.h": "374e0785047d9f656362eb4c750d936439dd871dbb38261570400dc9b3ad57c9",
+    "components/esp_timer/include/esp_timer.h": "9ef47843590090f5ffccdc956c924e650cfb479ad4d7b2553bf0453ffac492fd",
+    "components/esp_timer/src/esp_timer.c": "31715c3ff0931d6957df398efdc5e58a052a17cf88091752648192941d466c0b",
+    "components/esp_timer/src/esp_timer_impl_lac.c": "a3f4b9cb75527361aaf30f8a8be029a324f43b3130a78b100c4b6be7e79dfb89",
+    "components/esp_timer/src/esp_timer_impl_systimer.c": "6dbd98e996db47c23967b4a759511bf779d836d70dd69a9112b4f3e1b832c180",
+    "components/esp_hw_support/include/esp_clk_tree.h": "d693b68de67d16b685955ad3d611cacfcfd1adb6d91311a2913b43444233836e",
+    "components/esp_hw_support/include/esp_cpu.h": "59f4ba4f23a16c36689b79d53e488dc6847ced7beae96e212d62639e76722511",
+    "components/hal/include/hal/systimer_hal.h": "69d577ef581515b51497c7143ff62907450c021c5c08db2ae19b2307cdfd6317",
+    "components/hal/esp32s3/include/hal/systimer_ll.h": "e6a33d41472e315383801ebf2298a39519ec8ea12658f47b49f74465d0cb309e",
+    "components/soc/esp32s3/include/soc/clk_tree_defs.h": "d3e24702e9c367a172e47077f551ff06d936ab4786484959f5368f9d9647cf2d",
+    "components/esp_hw_support/port/esp32/esp_clk_tree.c": "5b7ce0c736589e09032d9ced7df425a3126e53d8e670aee164672d963882eba1",
+    "components/esp_hw_support/port/esp32s3/esp_clk_tree.c": "498570cb6bf6b14a5202b25a19f164221e4bedd8f4afd8bf41a6c29dd8b23bd0"
+  },
+  "nominal_queries_measure_physical_frequency": false,
+  "independent_rate_calibration": false,
+  "preserved_inputs": {
+    "rate_ppm": 150,
+    "counter_additional_ns": 25000,
+    "full_resolution_ns": 1000
+  }
+}

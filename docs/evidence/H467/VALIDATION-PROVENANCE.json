@@ -1,0 +1,16 @@
+{
+  "checkpoint": "H467",
+  "runs": [
+    "20261020T211158-64c8fcc7",
+    "20261020T211954-2118708a",
+    "20261020T211954-27d62650",
+    "20261020T211956-e836c2cd",
+    "20261020T212244-eb78d6f4"
+  ],
+  "original_failed_graph_harness_run": "20261020T212207-e9c9d338",
+  "failure_reason": "Graph harness incorrectly assumed legacy native NVS repository has library.json; corrected to its existing explicit dependency documentation. No production failure or device action.",
+  "initial_normal_run_precedes_added_raw-boundary_regression": "20261020T211158-64c8fcc7",
+  "final_raw_boundary_regression_in_ctest_quality_run": "20261020T211954-2118708a",
+  "hardware": false,
+  "root": false
+}

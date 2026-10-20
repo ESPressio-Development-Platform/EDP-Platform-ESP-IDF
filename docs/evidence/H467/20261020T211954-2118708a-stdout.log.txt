@@ -1,0 +1,143 @@
+H467 host ['cmake', '-S', '/srv/espressio/repos/EDP-Platform-ESP-IDF/tests', '-B', '/srv/espressio/builds/H467-platform-gpp', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_CXX_COMPILER=g++', '-DEDP_PLATFORM_SOURCE_DIR=/srv/espressio/repos/EDP-Platform', '-DEDP_SYSTEM_SOURCE_DIR=/srv/espressio/repos/EDP-System', '-DEDP_MEMORY_SOURCE_DIR=/srv/espressio/repos/EDP-Memory', '-DEDP_SECURITY_SOURCE_DIR=/srv/espressio/repos/EDP-Security', '-DEDP_BOUNDED_TOPOLOGY_SOURCE_DIR=/srv/espressio/repos/EDP-BoundedTopology', '-DEDP_CLOCK_SOURCE_DIR=/srv/espressio/repos/EDP-Clock']
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.5.7")
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /srv/espressio/builds/H467-platform-gpp
+H467 host ['cmake', '--build', '/srv/espressio/builds/H467-platform-gpp', '-j', '2']
+[ 25%] Building CXX object CMakeFiles/espidf_random_provider_host_tests.dir/host/RandomByteSourceProviderHostTests.cpp.o
+[ 25%] Building CXX object CMakeFiles/espidf_memory_provider_host_tests.dir/host/MemoryResourceProviderHostTests.cpp.o
+[ 37%] Linking CXX executable espidf_random_provider_host_tests
+[ 37%] Built target espidf_random_provider_host_tests
+[ 50%] Building CXX object CMakeFiles/espidf_aes256_gcm_provider_host_tests.dir/host/Aes256GcmProviderHostTests.cpp.o
+[ 62%] Linking CXX executable espidf_memory_provider_host_tests
+[ 62%] Built target espidf_memory_provider_host_tests
+[ 75%] Building CXX object CMakeFiles/espidf_deployment_key_source_provider_host_tests.dir/host/DeploymentKeySourceProviderHostTests.cpp.o
+[ 87%] Linking CXX executable espidf_aes256_gcm_provider_host_tests
+[ 87%] Built target espidf_aes256_gcm_provider_host_tests
+[100%] Linking CXX executable espidf_deployment_key_source_provider_host_tests
+[100%] Built target espidf_deployment_key_source_provider_host_tests
+H467 host ['ctest', '--test-dir', '/srv/espressio/builds/H467-platform-gpp', '--output-on-failure']
+Internal ctest changing into directory: /srv/espressio/builds/H467-platform-gpp
+Test project /srv/espressio/builds/H467-platform-gpp
+    Start 1: espidf_memory_provider_host_tests
+1/6 Test #1: espidf_memory_provider_host_tests ..................   Passed    0.00 sec
+    Start 2: espidf_random_provider_host_tests
+2/6 Test #2: espidf_random_provider_host_tests ..................   Passed    0.00 sec
+    Start 3: espidf_aes256_gcm_provider_host_tests
+3/6 Test #3: espidf_aes256_gcm_provider_host_tests ..............   Passed    0.00 sec
+    Start 4: espidf_deployment_key_source_provider_host_tests
+4/6 Test #4: espidf_deployment_key_source_provider_host_tests ...   Passed    0.00 sec
+    Start 5: espidf_atomic_word32_target_storage_contract
+5/6 Test #5: espidf_atomic_word32_target_storage_contract .......   Passed    2.56 sec
+    Start 6: espidf_native_monotonic_timebase_contract
+6/6 Test #6: espidf_native_monotonic_timebase_contract ..........   Passed    3.67 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   6.23 sec
+H467 host ['cmake', '-S', '/srv/espressio/repos/EDP-Platform-ESP-IDF/tests', '-B', '/srv/espressio/builds/H467-platform-clangpp', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_CXX_COMPILER=clang++', '-DEDP_PLATFORM_SOURCE_DIR=/srv/espressio/repos/EDP-Platform', '-DEDP_SYSTEM_SOURCE_DIR=/srv/espressio/repos/EDP-System', '-DEDP_MEMORY_SOURCE_DIR=/srv/espressio/repos/EDP-Memory', '-DEDP_SECURITY_SOURCE_DIR=/srv/espressio/repos/EDP-Security', '-DEDP_BOUNDED_TOPOLOGY_SOURCE_DIR=/srv/espressio/repos/EDP-BoundedTopology', '-DEDP_CLOCK_SOURCE_DIR=/srv/espressio/repos/EDP-Clock']
+-- The CXX compiler identification is Clang 19.1.7
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.5.7")
+-- Found Python3: /usr/bin/python3 (found version "3.13.5") found components: Interpreter
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /srv/espressio/builds/H467-platform-clangpp
+H467 host ['cmake', '--build', '/srv/espressio/builds/H467-platform-clangpp', '-j', '2']
+[ 12%] Building CXX object CMakeFiles/espidf_memory_provider_host_tests.dir/host/MemoryResourceProviderHostTests.cpp.o
+[ 25%] Building CXX object CMakeFiles/espidf_random_provider_host_tests.dir/host/RandomByteSourceProviderHostTests.cpp.o
+[ 37%] Linking CXX executable espidf_random_provider_host_tests
+[ 37%] Built target espidf_random_provider_host_tests
+[ 50%] Building CXX object CMakeFiles/espidf_aes256_gcm_provider_host_tests.dir/host/Aes256GcmProviderHostTests.cpp.o
+[ 62%] Linking CXX executable espidf_memory_provider_host_tests
+[ 62%] Built target espidf_memory_provider_host_tests
+[ 75%] Building CXX object CMakeFiles/espidf_deployment_key_source_provider_host_tests.dir/host/DeploymentKeySourceProviderHostTests.cpp.o
+[ 87%] Linking CXX executable espidf_aes256_gcm_provider_host_tests
+[ 87%] Built target espidf_aes256_gcm_provider_host_tests
+[100%] Linking CXX executable espidf_deployment_key_source_provider_host_tests
+[100%] Built target espidf_deployment_key_source_provider_host_tests
+H467 host ['ctest', '--test-dir', '/srv/espressio/builds/H467-platform-clangpp', '--output-on-failure']
+Internal ctest changing into directory: /srv/espressio/builds/H467-platform-clangpp
+Test project /srv/espressio/builds/H467-platform-clangpp
+    Start 1: espidf_memory_provider_host_tests
+1/6 Test #1: espidf_memory_provider_host_tests ..................   Passed    0.04 sec
+    Start 2: espidf_random_provider_host_tests
+2/6 Test #2: espidf_random_provider_host_tests ..................   Passed    0.04 sec
+    Start 3: espidf_aes256_gcm_provider_host_tests
+3/6 Test #3: espidf_aes256_gcm_provider_host_tests ..............   Passed    0.02 sec
+    Start 4: espidf_deployment_key_source_provider_host_tests
+4/6 Test #4: espidf_deployment_key_source_provider_host_tests ...   Passed    0.02 sec
+    Start 5: espidf_atomic_word32_target_storage_contract
+5/6 Test #5: espidf_atomic_word32_target_storage_contract .......   Passed    7.16 sec
+    Start 6: espidf_native_monotonic_timebase_contract
+6/6 Test #6: espidf_native_monotonic_timebase_contract ..........   Passed    4.82 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =  12.09 sec
+H467 host ['python3', '/srv/espressio/repos/EDP-Platform-ESP-IDF/tests/host/NativeMonotonicTimebaseContractTests.py', '--mode', 'release', '--results', '/srv/espressio/scratch/H467-RELEASE-RESULTS.json']
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_NATIVE_TIMEBASE_MODEL_RELEASE_PASS|variants=24|hardware=0|physical_rate_measured=0
+H467 host ['python3', '/srv/espressio/repos/EDP-Platform-ESP-IDF/tests/host/NativeMonotonicTimebaseContractTests.py', '--mode', 'sanitize', '--results', '/srv/espressio/scratch/H467-SANITIZE-RESULTS.json']
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_SAME_CANONICAL_COUNTER_TYPED_SOURCE_CONFIG_DEBUG_AND_ZERO_REFUSALS_PASS|sdk=MODEL|hardware=0|physical_rate_measured=0|authority=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_BUILD_VARIANT_PREREQUISITES_DENIED|sdk=MODEL|physical_rate_measured=0
+H467_NATIVE_TIMEBASE_MODEL_SANITIZE_PASS|variants=24|hardware=0|physical_rate_measured=0
+H467 host ['python3', '/srv/espressio/repos/EDP-Platform-ESP-IDF/tests/host/NativeMonotonicTimebaseContractTests.py', '--mode', 'analyze', '--results', '/srv/espressio/scratch/H467-ANALYZE-RESULTS.json']
+H467_NATIVE_TIMEBASE_MODEL_ANALYZE_PASS|variants=12|hardware=0|physical_rate_measured=0
+H467_OWNING_RELEASE_CTEST_BOTH_COMPILERS_AND_NATIVE_MODEL_QUALITY_PASS|hardware=0

@@ -1,0 +1,26 @@
+{
+  "Mesh-Concurrency-Qualification/H436-Actual-Canonical-NRF-Voter-Clock/src/main.cpp": {
+    "before_sha256": "5e9fe83bf6f1d195f19afd19cea7f31f078b2fdb2ed2073bd978c7f07594e9ff",
+    "after_sha256": "5528e5b203758bc4b7d68d55ead0801e0b4a815cd2f27033dc8bc97062a4551d",
+    "old_wrapper": "struct Timebase final:Clock::MonotonicTimebaseProvider<1000000U> {\n    std::uint64_t CurrentCount() const noexcept {\n        const auto now=esp_timer_get_time();\n        return now>0?static_cast<std::uint64_t>(now):0U;\n    }\n};",
+    "hardware": false
+  },
+  "Mesh-Concurrency-Qualification/H447-Native-Qualified-Local-Self-Grant/PlatformIO_ESP-IDF/src/Example.hpp": {
+    "before_sha256": "312784ed3f60786ebe4d0b68248f7fc4a273e3df3b441e9cbdf91ec56f986927",
+    "after_sha256": "61853d4a945b96112df852371ddae6c1a688bfc3dc624d71af2dffb0b7b4856d",
+    "old_wrapper": "struct Timebase final : Clock::MonotonicTimebaseProvider<1000000U> {\n        std::uint64_t CurrentCount() const noexcept {\n            const auto count = esp_timer_get_time();\n            return count > 0 ? static_cast<std::uint64_t>(count) : 0U;\n        }\n    };",
+    "hardware": false
+  },
+  "Mesh-Concurrency-Qualification/H447-Native-Qualified-Local-Self-Grant/PlatformIO_Arduino/src/Example.hpp": {
+    "before_sha256": "312784ed3f60786ebe4d0b68248f7fc4a273e3df3b441e9cbdf91ec56f986927",
+    "after_sha256": "61853d4a945b96112df852371ddae6c1a688bfc3dc624d71af2dffb0b7b4856d",
+    "old_wrapper": "struct Timebase final : Clock::MonotonicTimebaseProvider<1000000U> {\n        std::uint64_t CurrentCount() const noexcept {\n            const auto count = esp_timer_get_time();\n            return count > 0 ? static_cast<std::uint64_t>(count) : 0U;\n        }\n    };",
+    "hardware": false
+  },
+  "Mesh-Concurrency-Qualification/H447-Native-Qualified-Local-Self-Grant/Arduino_IDE/Example.hpp": {
+    "before_sha256": "312784ed3f60786ebe4d0b68248f7fc4a273e3df3b441e9cbdf91ec56f986927",
+    "after_sha256": "61853d4a945b96112df852371ddae6c1a688bfc3dc624d71af2dffb0b7b4856d",
+    "old_wrapper": "struct Timebase final : Clock::MonotonicTimebaseProvider<1000000U> {\n        std::uint64_t CurrentCount() const noexcept {\n            const auto count = esp_timer_get_time();\n            return count > 0 ? static_cast<std::uint64_t>(count) : 0U;\n        }\n    };",
+    "hardware": false
+  }
+}

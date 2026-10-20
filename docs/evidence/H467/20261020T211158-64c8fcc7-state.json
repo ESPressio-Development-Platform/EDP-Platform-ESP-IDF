@@ -1,0 +1,7 @@
+{
+  "state": "PASS",
+  "exit_code": "0",
+  "started_at": "2026-10-20T21:11:58+02:00",
+  "finished_at": "2026-10-20T21:12:01+02:00",
+  "command.txt": "python3 /srv/espressio/repos/EDP-Platform-ESP-IDF/tests/host/NativeMonotonicTimebaseContractTests.py --results /srv/espressio/scratch/H467-HOST-RESULTS.json"
+}

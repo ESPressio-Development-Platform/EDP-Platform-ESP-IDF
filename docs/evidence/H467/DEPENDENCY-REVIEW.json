@@ -1,0 +1,176 @@
+{
+  "checkpoint": "H467",
+  "owning_graph": {
+    "EDP-Platform-ESP-IDF": [
+      "EDP-Platform",
+      "EDP-Memory",
+      "EDP-Security",
+      "EDP-Persistence",
+      "EDP-System",
+      "EDP-Clock"
+    ],
+    "EDP-Platform": [
+      "EDP-System"
+    ],
+    "EDP-System": [],
+    "EDP-Memory": [
+      "EDP-System",
+      "EDP-Platform",
+      "EDP-BoundedTopology"
+    ],
+    "EDP-BoundedTopology": [],
+    "EDP-Security": [
+      "EDP-System",
+      "EDP-Platform",
+      "EDP-Memory"
+    ],
+    "EDP-Persistence": [
+      "EDP-System"
+    ],
+    "EDP-Clock": [
+      "EDP-System",
+      "EDP-Platform"
+    ]
+  },
+  "complete_native_application_graph": {
+    "EDP-Mesh": [
+      "EDP-System",
+      "EDP-Persistence",
+      "EDP-BoundedTopology",
+      "EDP-RemoteSystem",
+      "EDP-Primitives",
+      "EDP-Radio",
+      "EDP-Security",
+      "EDP-Threading",
+      "EDP-Clock",
+      "EDP-Memory",
+      "EDP-Serialisation",
+      "EDP-Command",
+      "EDP-Event",
+      "EDP-State",
+      "EDP-Platform"
+    ],
+    "EDP-System": [],
+    "EDP-Persistence": [
+      "EDP-System"
+    ],
+    "EDP-BoundedTopology": [],
+    "EDP-RemoteSystem": [
+      "EDP-System",
+      "EDP-BoundedTopology",
+      "EDP-Memory",
+      "EDP-Threading"
+    ],
+    "EDP-Memory": [
+      "EDP-System",
+      "EDP-Platform",
+      "EDP-BoundedTopology"
+    ],
+    "EDP-Platform": [
+      "EDP-System"
+    ],
+    "EDP-Threading": [
+      "EDP-System",
+      "EDP-Platform",
+      "EDP-Clock",
+      "EDP-BoundedTopology",
+      "EDP-Memory"
+    ],
+    "EDP-Clock": [
+      "EDP-System",
+      "EDP-Platform"
+    ],
+    "EDP-Primitives": [
+      "EDP-System",
+      "EDP-Serialisation"
+    ],
+    "EDP-Serialisation": [
+      "EDP-System",
+      "EDP-BoundedTypes",
+      "EDP-BoundedTopology",
+      "EDP-Memory",
+      "EDP-Platform-Portable",
+      "EDP-Localisation"
+    ],
+    "EDP-BoundedTypes": [
+      "EDP-Memory",
+      "EDP-Platform-Portable"
+    ],
+    "EDP-Platform-Portable": [
+      "EDP-Platform",
+      "EDP-Memory"
+    ],
+    "EDP-Localisation": [
+      "EDP-System",
+      "EDP-Memory"
+    ],
+    "EDP-Radio": [
+      "EDP-System",
+      "EDP-Clock",
+      "EDP-RemoteSystem"
+    ],
+    "EDP-Security": [
+      "EDP-System",
+      "EDP-Platform",
+      "EDP-Memory"
+    ],
+    "EDP-Command": [
+      "EDP-System",
+      "EDP-Primitives",
+      "EDP-Memory",
+      "EDP-Threading",
+      "EDP-Clock",
+      "EDP-Serialisation"
+    ],
+    "EDP-Event": [
+      "EDP-System",
+      "EDP-Primitives",
+      "EDP-Memory",
+      "EDP-Threading",
+      "EDP-Clock",
+      "EDP-BoundedTopology",
+      "EDP-BoundedTypes"
+    ],
+    "EDP-State": [
+      "EDP-Primitives",
+      "EDP-System",
+      "EDP-BoundedTypes",
+      "EDP-Clock",
+      "EDP-RemoteSystem",
+      "EDP-BoundedTopology",
+      "EDP-Memory",
+      "EDP-Threading"
+    ],
+    "EDP-Platform-ESP-IDF": [
+      "EDP-Platform",
+      "EDP-Memory",
+      "EDP-Security",
+      "EDP-Persistence",
+      "EDP-System",
+      "EDP-Clock"
+    ],
+    "EDP-Platform-FreeRTOS": [
+      "EDP-Platform"
+    ],
+    "EDP-Persistence-ESP-IDF": [
+      "EDP-Persistence",
+      "EDP-Memory"
+    ],
+    "EDP-Radio-NRF24": [
+      "EDP-Radio"
+    ]
+  },
+  "new_mandatory_edges": [
+    [
+      "EDP-Platform-ESP-IDF",
+      "EDP-Clock"
+    ]
+  ],
+  "new_nodes_in_native_application_closure": 0,
+  "acyclic": true,
+  "version": "0.1.0",
+  "legacy_documented_dependency_source": {
+    "EDP-Persistence-ESP-IDF": "DEPENDENCY_GRAPH.MD (no library.json)"
+  },
+  "optional_edp_dependencies": []
+}

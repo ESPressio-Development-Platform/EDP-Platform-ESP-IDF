@@ -22,3 +22,5 @@ The `spin-lock-basic` variants intentionally include the narrow `<ESPressio_Plat
 ## C++ Language Baseline
 
 All PlatformIO-compatible demos require C++20 and explicitly select a maintained PIOArduino ESP32 platform package. PIOArduino is the recommended ESP32 PlatformIO-compatible environment for ESPressio.
+
+H467: `native-monotonic-timebase` supplies all three example forms for the native SDK timebase and existing canonical Clock, with explicit prerequisite/physical-qualification distinctions.

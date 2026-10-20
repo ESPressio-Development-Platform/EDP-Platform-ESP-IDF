@@ -68,6 +68,9 @@ EDP-Platform-ESP-IDF
 │   ├── EDP-System [mandatory, transitive]
 │   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
 │   └── EDP-Memory [mandatory, transitive; dependencies expanded above]
+├── EDP-Clock [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   └── EDP-Platform [mandatory, transitive; dependencies expanded above]
 ├── EDP-Persistence [mandatory]
 │   └── EDP-System [mandatory, transitive]
 └── EDP-System [mandatory]
@@ -99,3 +102,16 @@ Buildable demonstrations are provided under [`./demos`](./demos), including end-
 ESPressio requires C++20. PlatformIO-compatible ESP32 examples should use a maintained C++20-capable PIOArduino platform package rather than the outdated Arduino-ESP32 package bundled by stock PlatformIO. Native ESP-IDF builds must likewise use a C++20-capable toolchain.
 
 H433: native cryptographic randomness requires [explicit SDK entropy ownership](docs/EXPLICIT-ENTROPY-OWNERSHIP.MD). Default nonzero requests now refuse; migrate Bootstrap before use.
+
+
+## H467 native canonical timebase
+
+The stateless `Timing::EspTimerMonotonicTimebaseProvider` offers the existing SDK
+microsecond counter through EDP-Clock's existing MonotonicTimebase capability.
+Bootstrap supplies it to one canonical MonotonicClock; no timer, clock service,
+task, lock, heap allocation, synchronization estimator or counter reset is added.
+The mandatory native-provider to abstract EDP-Clock contract edge is intentional.
+EDP-Clock depends only on EDP-System and abstract EDP-Platform, so there is no cycle.
+All six native direct dependencies and their complete closure are shown above.
+Version remains 0.1.0. See [the specification contract and limits](docs/NATIVE-MONOTONIC-TIMEBASE.MD)
+and [the three-form example](demos/native-monotonic-timebase/README.MD).

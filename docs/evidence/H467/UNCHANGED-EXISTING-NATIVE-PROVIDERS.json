@@ -1,0 +1,25 @@
+{
+  "all_existing_provider_files_unchanged": true,
+  "unchanged_files": {
+    "src/ESPressio_Platform_ESP_IDF_SpinLock.hpp": "fa7f32998c2619106c85d3d3bee573f07d6fb6831b4f2ab0c6f062fad5d454b4",
+    "src/security/SecretZeroizationProvider.hpp": "cd20a142caf6d78b45ea896dc7df8eb6d52cacf7a6e937e529bd0c7deb6090bf",
+    "src/security/DevelopmentP256KeySource.hpp": "2e1103907902dc6d32ec3552edf9ae0c2835a6880a0f0a056708090fadc11660",
+    "src/security/Aes256GcmProvider.hpp": "a6bfaf827b08d9039132bd6feff5ee6a70b7fed378f441b9df823015f7171bc5",
+    "src/security/EcdsaP256Sha256Provider.hpp": "d4f49f18bc9bd5b8b3a8a8264feb4437e80076d05d537e893c191af6356b5cdc",
+    "src/security/DeploymentKeySourceProvider.hpp": "0f6afd388f47b975b0482966ecd9ccf625eea35861deb0297dea1c0887b62c51",
+    "src/concurrency/AtomicWord32Provider.hpp": "0f84c98494d2dcbb970af65ed840e5c08583251f0d75230a2a85888208d18237",
+    "src/synchronization/SpinLockProvider.hpp": "76030c0d4a04a0cc8ef59281333fc5a975735aaac4f718a5573ea24a326d198e",
+    "src/memory/MemoryResourceProviders.hpp": "c8bc1ad31a0d041fa83ed6b6c1918a1fd9dad43bf6984b628df09a537cf1655b",
+    "src/randomness/RandomByteSourceProvider.hpp": "7db563c52573f5c1d7b2df726751ed6633b685508f67bbdc2916242fcfe2b6d3",
+    "src/detail/ExecutionPriority.hpp": "e04245963281c9a1e5cc96070948111122fa237975c642bbe1abb595c359573a",
+    "src/detail/ESPIdfWait.hpp": "65ac8c14ba4293074ac4fea846198e056260e51786964a35cf6808a0d1a9a807",
+    "src/execution/ExecutionContextProvider.hpp": "544f9bbf9b63d63a649ec7c89e81b1ea91d204d4def255221e2f5b884d885490"
+  },
+  "only_existing_changed_file": [
+    "src/ESPressio_Platform_ESP_IDF.hpp"
+  ],
+  "new_provider_empty_object_bytes": 1,
+  "new_clock_objects": 0,
+  "new_timers_tasks_locks_allocations": 0,
+  "hardware": false
+}

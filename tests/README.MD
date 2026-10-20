@@ -27,3 +27,14 @@ refusal under NDEBUG and unsupported-target rejection; no Xtensa CAS is
 executed on the host. CTest registers this suite and the four existing
 portable host provider executables, retaining assertions in release builds.
 The dedicated EDP-Labs H429 application supplies actual hardware evidence.
+
+
+## Native canonical timebase (H467)
+
+`NativeMonotonicTimebaseContractTests.py` instantiates the actual native provider
+with explicit SDK MODEL headers, twelve target/configuration variants on each
+of GCC/Clang, typed source/debug/query/counter refusals and canonical conversion.
+Use --mode normal, release, sanitize or analyze (Clang). CTest requires
+EDP_CLOCK_SOURCE_DIR and registers the same runner; EDP_NATIVE_TIMEBASE_CONTRACT_MODE
+selects its mode. These seams make no native instruction or physical rate claim.
+See [the native contract](../docs/NATIVE-MONOTONIC-TIMEBASE.MD).

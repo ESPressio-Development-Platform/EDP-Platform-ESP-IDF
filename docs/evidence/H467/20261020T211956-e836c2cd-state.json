@@ -1,0 +1,7 @@
+{
+  "state": "PASS",
+  "exit_code": "0",
+  "started_at": "2026-10-20T21:19:56+02:00",
+  "finished_at": "2026-10-20T21:21:26+02:00",
+  "command.txt": "/srv/espressio/cache/espressif/python_env/idf6.0_py3.13_env/bin/python /srv/espressio/scratch/h467_validate.py native"
+}

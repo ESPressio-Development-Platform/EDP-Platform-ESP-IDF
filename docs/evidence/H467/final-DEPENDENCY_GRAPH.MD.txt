@@ -1,0 +1,104 @@
+# EDP-Platform-ESP-IDF Dependency Graph
+
+> H363 (2026-10-15): optional development-only P-256 signing-key helper consumes the **neutral EDP-Persistence KeyValueStorage contract** via Bootstrap-injected NVS; EDP-Persistence added as mandatory package dependency. NO hardware key hardening or RF election authority.
+
+> H360 (2026-10-15): added real P-256/SHA-256 EDP-Security DigitalSignature provider via existing EDP-Platform and EDP-Security mandatory dependencies and existing ESP-IDF Mbed TLS. **No new package dependency, NVS key store or elected Clock authority.**
+
+> Revalidated: 2026-10-03 — provisioned DeploymentKeySource and SecretZeroization providers extend the existing mandatory EDP-Security contract edge. EDP-BoundedTopology is now shown as the mandatory transitive dependency introduced by EDP-Memory; no new direct package edge is created here.
+
+> Revalidated: 2026-09-23 — Composition Framework enhancement migration changes compile-time provider/requirement metadata and validation only; no ESPressio-library dependency edge changed.
+
+> Revalidated: 2026-09-22 — AES-256-GCM concrete provider adds mandatory EDP-Security contract dependency; graph remains acyclic.
+
+> Revalidated: 2026-09-22 — ESP-IDF RandomByteSource provider uses the existing EDP-Platform contract and introduces no new ESPressio-library dependency.
+
+> Revalidated: 2026-09-20 — V2 compliance audit and execution-demo priority migration introduced no new ESPressio-library dependency.
+
+> Revalidated: 2026-09-19 — execution-priority contract alignment introduced no new ESPressio-library dependency.
+
+## Library Dependency Tree
+
+```text
+EDP-Platform-ESP-IDF
+├── EDP-Platform [mandatory]
+│   └── EDP-System [mandatory, transitive]
+├── EDP-Memory [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
+│   └── EDP-BoundedTopology [mandatory, transitive]
+├── EDP-Security [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
+│   └── EDP-Memory [mandatory, transitive; dependencies expanded above]
+├── EDP-Clock [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   └── EDP-Platform [mandatory, transitive; dependencies expanded above]
+├── EDP-Persistence [mandatory]
+│   └── EDP-System [mandatory, transitive]
+└── EDP-System [mandatory]
+```
+
+## Mandatory Dependencies
+
+- `EDP-Clock` — defines the existing MonotonicTimebase capability implemented by the native SDK counter provider.
+- `EDP-System` — directly supplies DeviceIdentifier used by DevelopmentP256KeySource.
+
+- `EDP-Platform` — defines the ESP-IDF-owned ExecutionContext, SpinLock and RandomByteSource contracts implemented here.
+- `EDP-Memory` — defines the MemoryResource contract implemented by the ESP-IDF heap-capability providers and ByteOperations contract consumed by the AES-GCM provider.
+- `EDP-Security` — defines the AuthenticatedCrypto, SecretZeroization and DeploymentKeySource capabilities implemented here, plus the generic key lifecycle and derivation request contracts consumed by the provisioned source.
+- `EDP-Persistence` — supplies the neutral KeyValueStorage contract consumed by H363 DevelopmentP256KeySource; concrete NVS storage is selected by application Bootstrap.
+
+`EDP-BoundedTopology` is required transitively by `EDP-Memory`; no production source in this repository includes it directly.
+
+ESP-IDF and its FreeRTOS extensions are target facilities, not ESPressio-library dependencies.
+
+## Optional Dependencies
+
+`EDP-Platform-ESP-IDF` has no optional EDP package dependencies. The development-key helper is opt-in at the source/API level; EDP-Persistence is declared in library.json as a required neutral contract dependency.
+
+## Dependency direction
+
+The graph remains acyclic because `EDP-Security` depends on abstract `EDP-Platform`, `EDP-Memory` and their acyclic dependencies, never on this concrete provider repository. The concrete deployment-key source points toward the generic EDP-Security contract; EDP-Security does not point back toward this repository.
+
+The narrow `ESPressio_Platform_ESP_IDF_SpinLock.hpp` public entry point introduces no additional dependency edge; it is only a reduced include surface over the existing ESP-IDF SpinLock provider and its existing `EDP-Platform` contract.
+
+H428: native Xtensa AtomicWord32 depends solely on the existing EDP-Platform Composition contract and ESP-IDF esp_cpu.h; no new EDP dependency. Explicit opt-in avoids exposing unsupported lock-free guarantee on other architecture targets. [Contract and qualification](docs/ATOMIC-WORD-32.MD).
+
+H429 / #9: target/storage qualification additionally consumes ESP-IDF
+esp_memory_utils.h and Xtensa core-isa.h, plus standard abort. The existing
+EDP-Platform/System edge is unchanged. Native internal-DRAM CAS only;
+ESP32-S2 and external RAM emulation cannot satisfy LockFree=true.
+
+H433: RandomByteSourceProvider reuses the existing same-repository native AtomicWord32 for exclusive SDK entropy lifetime. No package edge or RNG/crypto/task/mutex backend added.
+
+
+## Complete dependency review (H457, updated H467 on 2026-10-20)
+
+Package declarations now match the existing direct source imports. H457 aligned existing imports; H467 adds the justified EDP-Clock contract edge. All versions remain 0.1.0.
+
+| Library | Mandatory direct dependencies |
+|---|---|
+| EDP-Platform-ESP-IDF | EDP-Platform, EDP-Memory, EDP-Security, EDP-Persistence, EDP-System, EDP-Clock |
+| EDP-Clock | EDP-System, EDP-Platform |
+| EDP-Platform | EDP-System |
+| EDP-System | None |
+| EDP-Memory | EDP-System, EDP-Platform, EDP-BoundedTopology |
+| EDP-BoundedTopology | None |
+| EDP-Security | EDP-System, EDP-Platform, EDP-Memory |
+| EDP-Persistence | EDP-System |
+
+
+No direct optional package dependencies are introduced. ESP-IDF/FreeRTOS and standard C++ remain target/runtime facilities.
+
+
+## H467 native canonical timebase
+
+The stateless `Timing::EspTimerMonotonicTimebaseProvider` offers the existing SDK
+microsecond counter through EDP-Clock's existing MonotonicTimebase capability.
+Bootstrap supplies it to one canonical MonotonicClock; no timer, clock service,
+task, lock, heap allocation, synchronization estimator or counter reset is added.
+The mandatory native-provider to abstract EDP-Clock contract edge is intentional.
+EDP-Clock depends only on EDP-System and abstract EDP-Platform, so there is no cycle.
+All six native direct dependencies and their complete closure are shown above.
+Version remains 0.1.0. See [the specification contract and limits](docs/NATIVE-MONOTONIC-TIMEBASE.MD)
+and [the three-form example](demos/native-monotonic-timebase/README.MD).

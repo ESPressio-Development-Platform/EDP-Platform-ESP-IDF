@@ -30,6 +30,9 @@ EDP-Platform-ESP-IDF
 │   ├── EDP-System [mandatory, transitive]
 │   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
 │   └── EDP-Memory [mandatory, transitive; dependencies expanded above]
+├── EDP-Clock [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   └── EDP-Platform [mandatory, transitive; dependencies expanded above]
 ├── EDP-Persistence [mandatory]
 │   └── EDP-System [mandatory, transitive]
 └── EDP-System [mandatory]
@@ -37,6 +40,7 @@ EDP-Platform-ESP-IDF
 
 ## Mandatory Dependencies
 
+- `EDP-Clock` — defines the existing MonotonicTimebase capability implemented by the native SDK counter provider.
 - `EDP-System` — directly supplies DeviceIdentifier used by DevelopmentP256KeySource.
 
 - `EDP-Platform` — defines the ESP-IDF-owned ExecutionContext, SpinLock and RandomByteSource contracts implemented here.
@@ -68,13 +72,14 @@ ESP32-S2 and external RAM emulation cannot satisfy LockFree=true.
 H433: RandomByteSourceProvider reuses the existing same-repository native AtomicWord32 for exclusive SDK entropy lifetime. No package edge or RNG/crypto/task/mutex backend added.
 
 
-## H457 complete dependency review (2026-10-20)
+## Complete dependency review (H457, updated H467 on 2026-10-20)
 
-Package declarations now match the existing direct source imports. This is metadata/documentation maintenance only; production source and all 0.1.0 versions are unchanged.
+Package declarations now match the existing direct source imports. H457 aligned existing imports; H467 adds the justified EDP-Clock contract edge. All versions remain 0.1.0.
 
 | Library | Mandatory direct dependencies |
 |---|---|
-| EDP-Platform-ESP-IDF | EDP-Platform, EDP-Memory, EDP-Security, EDP-Persistence, EDP-System |
+| EDP-Platform-ESP-IDF | EDP-Platform, EDP-Memory, EDP-Security, EDP-Persistence, EDP-System, EDP-Clock |
+| EDP-Clock | EDP-System, EDP-Platform |
 | EDP-Platform | EDP-System |
 | EDP-System | None |
 | EDP-Memory | EDP-System, EDP-Platform, EDP-BoundedTopology |
@@ -84,3 +89,16 @@ Package declarations now match the existing direct source imports. This is metad
 
 
 No direct optional package dependencies are introduced. ESP-IDF/FreeRTOS and standard C++ remain target/runtime facilities.
+
+
+## H467 native canonical timebase
+
+The stateless `Timing::EspTimerMonotonicTimebaseProvider` offers the existing SDK
+microsecond counter through EDP-Clock's existing MonotonicTimebase capability.
+Bootstrap supplies it to one canonical MonotonicClock; no timer, clock service,
+task, lock, heap allocation, synchronization estimator or counter reset is added.
+The mandatory native-provider to abstract EDP-Clock contract edge is intentional.
+EDP-Clock depends only on EDP-System and abstract EDP-Platform, so there is no cycle.
+All six native direct dependencies and their complete closure are shown above.
+Version remains 0.1.0. See [the specification contract and limits](docs/NATIVE-MONOTONIC-TIMEBASE.MD)
+and [the three-form example](demos/native-monotonic-timebase/README.MD).

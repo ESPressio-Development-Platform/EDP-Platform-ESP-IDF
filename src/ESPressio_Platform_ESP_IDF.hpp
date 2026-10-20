@@ -8,3 +8,5 @@
 #include "security/DeploymentKeySourceProvider.hpp"
 #include "security/SecretZeroizationProvider.hpp"
 #include "synchronization/SpinLockProvider.hpp"
+
+#include "timing/EspTimerMonotonicTimebaseProvider.hpp"

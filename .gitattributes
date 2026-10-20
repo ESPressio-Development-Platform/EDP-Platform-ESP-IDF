@@ -1,3 +1,5 @@
 
 # Preserve original tool evidence spacing verbatim.
 docs/evidence/** -whitespace
+
+docs/evidence/H467/*.log.txt -whitespace

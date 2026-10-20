@@ -1,0 +1,39 @@
+name: Native monotonic timebase contracts
+on:
+  push:
+    paths: [src/timing/**, tests/host/NativeMonotonicTimebase*, tests/host/include/esp_*, .github/workflows/native-monotonic-timebase.yml]
+  pull_request:
+    paths: [src/timing/**, tests/host/NativeMonotonicTimebase*, tests/host/include/esp_*, .github/workflows/native-monotonic-timebase.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  provider-contract:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mode: [normal, release, sanitize, analyze]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: EDP-Platform-ESP-IDF
+      - uses: actions/checkout@v4
+        with:
+          repository: ESPressio-Development-Platform/EDP-Clock
+          ref: fabe5a15dc5788f8da2e5d0a91e8afe398d462f8
+          path: EDP-Clock
+          token: ${{ secrets.EDP_REPOSITORY_READ_TOKEN }}
+      - uses: actions/checkout@v4
+        with:
+          repository: ESPressio-Development-Platform/EDP-Platform
+          ref: e653cb0e4428fed0cfcf61f890d1da81dcbd01be
+          path: EDP-Platform
+          token: ${{ secrets.EDP_REPOSITORY_READ_TOKEN }}
+      - uses: actions/checkout@v4
+        with:
+          repository: ESPressio-Development-Platform/EDP-System
+          ref: c69d4b082db5dc5227cd332f4578a067ad64f662
+          path: EDP-System
+          token: ${{ secrets.EDP_REPOSITORY_READ_TOKEN }}
+      - name: Actual provider with explicit SDK MODEL seams
+        run: python3 EDP-Platform-ESP-IDF/tests/host/NativeMonotonicTimebaseContractTests.py --mode ${{ matrix.mode }}

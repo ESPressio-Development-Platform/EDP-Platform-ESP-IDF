@@ -6,6 +6,13 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Normalize caller-supplied sibling paths relative to the repository root.
+if(DEFINED EDP_CLOCK_SOURCE_DIR)
+    get_filename_component(EDP_CLOCK_SOURCE_DIR "${EDP_CLOCK_SOURCE_DIR}"
+        ABSOLUTE BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
+endif()
+if(NOT EDP_CLOCK_SOURCE_DIR OR NOT EXISTS "${EDP_CLOCK_SOURCE_DIR}/src/clock/MonotonicTimebaseProvider.hpp")
+    message(FATAL_ERROR "EDP_CLOCK_SOURCE_DIR must point at an EDP-Clock checkout")
+endif()
 if(DEFINED EDP_PLATFORM_SOURCE_DIR)
     get_filename_component(
         EDP_PLATFORM_SOURCE_DIR
@@ -295,3 +302,14 @@ add_test(NAME espidf_atomic_word32_target_storage_contract
         ${CMAKE_CURRENT_SOURCE_DIR}/host/AtomicWord32StorageContractTests.py
         --platform ${EDP_PLATFORM_SOURCE_DIR}
         --system ${EDP_SYSTEM_SOURCE_DIR})
+
+# H467 actual provider with explicit SDK MODEL seams; no physical rate claim.
+set(EDP_NATIVE_TIMEBASE_CONTRACT_MODE "normal" CACHE STRING
+    "Native timebase host contract mode: normal, release, sanitize, analyze")
+add_test(NAME espidf_native_monotonic_timebase_contract
+    COMMAND ${Python3_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/host/NativeMonotonicTimebaseContractTests.py
+        --clock ${EDP_CLOCK_SOURCE_DIR}
+        --platform ${EDP_PLATFORM_SOURCE_DIR}
+        --system ${EDP_SYSTEM_SOURCE_DIR}
+        --mode ${EDP_NATIVE_TIMEBASE_CONTRACT_MODE})
