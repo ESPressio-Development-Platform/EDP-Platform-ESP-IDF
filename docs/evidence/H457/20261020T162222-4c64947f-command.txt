@@ -1,0 +1,1 @@
+python3 /srv/espressio/scratch/h457_metadata.py

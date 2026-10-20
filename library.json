@@ -42,6 +42,10 @@
     {
       "name": "EDP-Persistence",
       "version": "https://github.com/ESPressio-Development-Platform/EDP-Persistence.git#main"
+    },
+    {
+      "name": "EDP-System",
+      "version": "https://github.com/ESPressio-Development-Platform/EDP-System.git#main"
     }
   ]
 }

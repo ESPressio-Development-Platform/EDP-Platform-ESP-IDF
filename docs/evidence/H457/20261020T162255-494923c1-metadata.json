@@ -1,0 +1,15 @@
+{
+  "agent_id": "GPT6-H442-20261020T0448Z-7e36-MESH",
+  "appliance": "AI-AGENT-02",
+  "command": [
+    "python3",
+    "/srv/espressio/scratch/h457_metadata_finish.py"
+  ],
+  "created_at": "2026-10-20T16:22:55+02:00",
+  "cwd": "/srv/espressio/toolchains/desktop-commander/node_modules/@wonderwhy-er/desktop-commander/dist",
+  "label": "H457 finish metadata graph documentation and validation after helper variable correction",
+  "path_env": "/srv/espressio/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games",
+  "run_id": "20261020T162255-494923c1",
+  "schema": 1,
+  "tmux_session": "edp_20261020T162255_494923c1"
+}

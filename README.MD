@@ -59,22 +59,24 @@ Consumers which need only the ESP-IDF SpinLock concrete may include the narrow `
 ```text
 EDP-Platform-ESP-IDF
 ├── EDP-Platform [mandatory]
-│   └── EDP-System [mandatory]
+│   └── EDP-System [mandatory, transitive]
 ├── EDP-Memory [mandatory]
-│   ├── EDP-System [mandatory]
-│   ├── EDP-Platform [mandatory]
-│   └── EDP-BoundedTopology [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
+│   └── EDP-BoundedTopology [mandatory, transitive]
 ├── EDP-Security [mandatory]
-    ├── EDP-System [mandatory, transitive]
-    ├── EDP-Platform [mandatory, transitive]
-    ├── EDP-Memory [mandatory, transitive]
-    └── EDP-BoundedTopology [mandatory, transitive through EDP-Memory]
-└── EDP-Persistence [mandatory for lab-only P-256 key storage]
+│   ├── EDP-System [mandatory, transitive]
+│   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
+│   └── EDP-Memory [mandatory, transitive; dependencies expanded above]
+├── EDP-Persistence [mandatory]
+│   └── EDP-System [mandatory, transitive]
+└── EDP-System [mandatory]
 ```
 
-There are no optional ESPressio-library dependencies.
+Every mandatory transitive edge is listed in the linked graph; repeated tree nodes refer to the first expanded occurrence. Concrete providers are selected by application Bootstrap.
 
-See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD).
+
+See [DEPENDENCY_GRAPH.MD](./DEPENDENCY_GRAPH.MD) for the complete graph and ownership boundaries.
 
 ## Documentation
 

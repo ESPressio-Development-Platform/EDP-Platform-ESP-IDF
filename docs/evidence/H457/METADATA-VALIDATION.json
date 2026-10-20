@@ -1,0 +1,52 @@
+{
+  "repository": "EDP-Platform-ESP-IDF",
+  "base_commit": "840f896a0f73a2772ba851345105baa984730991",
+  "production_src_tree": "9fb244332fa9d006db586ea49d46faec7cc3a1e0",
+  "production_changed": false,
+  "package_direct_dependencies": [
+    "EDP-Memory",
+    "EDP-Persistence",
+    "EDP-Platform",
+    "EDP-Security",
+    "EDP-System"
+  ],
+  "graph": {
+    "EDP-Platform-ESP-IDF": [
+      "EDP-Platform",
+      "EDP-Memory",
+      "EDP-Security",
+      "EDP-Persistence",
+      "EDP-System"
+    ],
+    "EDP-Platform": [
+      "EDP-System"
+    ],
+    "EDP-System": [],
+    "EDP-Memory": [
+      "EDP-System",
+      "EDP-Platform",
+      "EDP-BoundedTopology"
+    ],
+    "EDP-BoundedTopology": [],
+    "EDP-Security": [
+      "EDP-System",
+      "EDP-Platform",
+      "EDP-Memory"
+    ],
+    "EDP-Persistence": [
+      "EDP-System"
+    ]
+  },
+  "source_basis": {
+    "EDP-Platform-ESP-IDF": "840f896a0f73a2772ba851345105baa984730991",
+    "EDP-Platform": "e653cb0e4428fed0cfcf61f890d1da81dcbd01be",
+    "EDP-System": "c69d4b082db5dc5227cd332f4578a067ad64f662",
+    "EDP-Memory": "5ee3b20b8053ae514231fdf895ff354ff1d020c5",
+    "EDP-BoundedTopology": "362042c3916d9649759bbe69bf53c920999cdcf8",
+    "EDP-Security": "a7482cbc5f455d407860ad36a2b1589441674c94",
+    "EDP-Persistence": "6f7134bb945f3f36d59a222cab4dc757c00cc14a"
+  },
+  "optional_transitive": null,
+  "hardware_access": false,
+  "version": "0.1.0"
+}

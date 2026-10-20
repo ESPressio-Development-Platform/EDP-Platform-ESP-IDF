@@ -21,21 +21,23 @@
 ```text
 EDP-Platform-ESP-IDF
 ├── EDP-Platform [mandatory]
-│   └── EDP-System [mandatory]
+│   └── EDP-System [mandatory, transitive]
 ├── EDP-Memory [mandatory]
-│   ├── EDP-System [mandatory]
-│   ├── EDP-Platform [mandatory]
-│   │   └── EDP-System [mandatory, transitive]
-│   └── EDP-BoundedTopology [mandatory]
+│   ├── EDP-System [mandatory, transitive]
+│   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
+│   └── EDP-BoundedTopology [mandatory, transitive]
 ├── EDP-Security [mandatory]
 │   ├── EDP-System [mandatory, transitive]
-│   ├── EDP-Platform [mandatory, transitive]
-│   ├── EDP-Memory [mandatory, transitive]
-│   └── EDP-BoundedTopology [mandatory, transitive through EDP-Memory]
-└── EDP-Persistence [mandatory, neutral KeyValueStorage contract]
+│   ├── EDP-Platform [mandatory, transitive; dependencies expanded above]
+│   └── EDP-Memory [mandatory, transitive; dependencies expanded above]
+├── EDP-Persistence [mandatory]
+│   └── EDP-System [mandatory, transitive]
+└── EDP-System [mandatory]
 ```
 
 ## Mandatory Dependencies
+
+- `EDP-System` — directly supplies DeviceIdentifier used by DevelopmentP256KeySource.
 
 - `EDP-Platform` — defines the ESP-IDF-owned ExecutionContext, SpinLock and RandomByteSource contracts implemented here.
 - `EDP-Memory` — defines the MemoryResource contract implemented by the ESP-IDF heap-capability providers and ByteOperations contract consumed by the AES-GCM provider.
@@ -64,3 +66,21 @@ EDP-Platform/System edge is unchanged. Native internal-DRAM CAS only;
 ESP32-S2 and external RAM emulation cannot satisfy LockFree=true.
 
 H433: RandomByteSourceProvider reuses the existing same-repository native AtomicWord32 for exclusive SDK entropy lifetime. No package edge or RNG/crypto/task/mutex backend added.
+
+
+## H457 complete dependency review (2026-10-20)
+
+Package declarations now match the existing direct source imports. This is metadata/documentation maintenance only; production source and all 0.1.0 versions are unchanged.
+
+| Library | Mandatory direct dependencies |
+|---|---|
+| EDP-Platform-ESP-IDF | EDP-Platform, EDP-Memory, EDP-Security, EDP-Persistence, EDP-System |
+| EDP-Platform | EDP-System |
+| EDP-System | None |
+| EDP-Memory | EDP-System, EDP-Platform, EDP-BoundedTopology |
+| EDP-BoundedTopology | None |
+| EDP-Security | EDP-System, EDP-Platform, EDP-Memory |
+| EDP-Persistence | EDP-System |
+
+
+No direct optional package dependencies are introduced. ESP-IDF/FreeRTOS and standard C++ remain target/runtime facilities.
