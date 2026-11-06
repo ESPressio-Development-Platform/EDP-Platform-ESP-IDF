@@ -56,6 +56,9 @@ Consumers which need only the ESP-IDF SpinLock concrete may include the narrow `
 
 ## Dependencies
 
+Clock dependency resolution: `EDP-Clock/main` (validated at commit `9a27b12d5938dbd1cb26af541a489531a848ba25` on 2026-11-06). No new direct or transitive library edges were introduced. Branch promotion is independent of versioning; all library versions remain `0.1.0`.
+
+
 ```text
 EDP-Platform-ESP-IDF
 ├── EDP-Platform [mandatory]

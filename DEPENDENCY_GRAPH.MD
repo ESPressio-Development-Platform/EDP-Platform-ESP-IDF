@@ -1,5 +1,7 @@
 # EDP-Platform-ESP-IDF Dependency Graph
 
+> V2 Clock-main pin migration (2026-11-06): the existing mandatory/transitive EDP-Clock dependency now resolves through `EDP-Clock/main`, qualified at `9a27b12d5938dbd1cb26af541a489531a848ba25`. The library dependency topology is unchanged; versions remain `0.1.0`.
+
 > H363 (2026-10-15): optional development-only P-256 signing-key helper consumes the **neutral EDP-Persistence KeyValueStorage contract** via Bootstrap-injected NVS; EDP-Persistence added as mandatory package dependency. NO hardware key hardening or RF election authority.
 
 > H360 (2026-10-15): added real P-256/SHA-256 EDP-Security DigitalSignature provider via existing EDP-Platform and EDP-Security mandatory dependencies and existing ESP-IDF Mbed TLS. **No new package dependency, NVS key store or elected Clock authority.**

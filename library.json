@@ -49,7 +49,7 @@
     },
     {
       "name": "EDP-Clock",
-      "version": "https://github.com/ESPressio-Development-Platform/EDP-Clock.git#mesh_v1"
+      "version": "https://github.com/ESPressio-Development-Platform/EDP-Clock.git#main"
     }
   ]
 }
