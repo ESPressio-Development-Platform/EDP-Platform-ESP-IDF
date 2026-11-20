@@ -22,7 +22,7 @@ Consumers requiring only the spin-lock provider may use:
 
 - Platform: execution context, spin lock and cryptographically suitable random bytes.
 - Memory: internal, external-only and external-preferred raw resources.
-- Security: AES-256-GCM, **real P-256 ECDSA/SHA-256 DigitalSignature** via Bootstrap-injected key/RNG providers, secure zeroization and Mesh V1 deployment-key derivation. ECDSA has genuine host+Xtensa tests but device-unique secure key persistence and elected Clock Reference remain unimplemented; see [H360 provider reference](Reference-security-EcdsaP256Sha256Provider.md).
+- Security: AES-256-GCM, **real P-256 ECDSA/SHA-256 DigitalSignature** via Bootstrap-injected key/RNG providers, secure zeroization and Mesh V1 deployment-key derivation. ECDSA has genuine host+Xtensa tests but device-unique secure key persistence and elected Clock Reference remain unimplemented; see [H360 provider reference](Reference-security-EcdsaP256Sha256Provider).
 
 ## Dependencies
 
@@ -32,8 +32,8 @@ During Mesh V1 feature integration the package manifest selects EDP-Security's `
 
 ## Navigation
 
-Start with [Architecture](Architecture.md), then use [Composition](Composition.md) and [Dependency Contracts](Dependency-Contracts.md) for provider wiring. [Resources / Lifecycle / Concurrency](Resources-Lifecycle-Concurrency.md) describes bounded state and ownership. [Build / Test / Source](Build-Test-Source.md) records validation and source navigation. Every production header is indexed by [Reference Index](Reference-Index.md).
+Start with [Architecture](Architecture), then use [Composition](Composition) and [Dependency Contracts](Dependency-Contracts) for provider wiring. [Resources / Lifecycle / Concurrency](Resources-Lifecycle-Concurrency) describes bounded state and ownership. [Build / Test / Source](Build-Test-Source) records validation and source navigation. Every production header is indexed by [Reference Index](Reference-Index).
 
 - [H428 ESP-IDF Xtensa hardware AtomicWord32](Reference-AtomicWord32-ESP-IDF)
 
-- [Native current-context binding](../docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.
+- [Native current-context binding](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.

@@ -1,6 +1,6 @@
 # Public API
 
-Concrete providers implement abstract Platform, Memory and Security capabilities. Exact declarations remain authoritative in exported headers and are exhaustively linked from [Reference Index](Reference-Index.md).
+Concrete providers implement abstract Platform, Memory and Security capabilities. Exact declarations remain authoritative in exported headers and are exhaustively linked from [Reference Index](Reference-Index).
 
 ## Entry points
 
@@ -39,6 +39,6 @@ Public operations are `Initialize`, `Destroy` and generic `Derive`. No operation
 
 The application normally combines this source and zeroizer with EDP-Security's `DeploymentKeyProvider` rather than invoking six derivations manually.
 
-H433 adds explicit RandomByteSourceProvider acquisition/release/status and actual ownership query; copy/move deleted, default nonzero fill refuses. [Reference](Reference-randomness-RandomByteSourceProvider.md).
+H433 adds explicit RandomByteSourceProvider acquisition/release/status and actual ownership query; copy/move deleted, default nonzero fill refuses. [Reference](Reference-randomness-RandomByteSourceProvider).
 
-- [Native current-context binding](../docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.
+- [Native current-context binding](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.

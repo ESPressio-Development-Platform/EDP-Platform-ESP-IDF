@@ -18,3 +18,9 @@ The source's SHA/HMAC/HKDF helpers are private implementation, but their invaria
 - provider failure clears output.
 
 These helpers are not extension points. A replacement root source should implement the generic `DeploymentKeySource` contract independently rather than reuse private functions.
+
+## Current-context and native lifetime extension
+
+Private execution lifecycle now retains _completionObserved across timed-out Join retries; WaitBudget::WaitUntil<TPredicate> returns NativeReadinessWaitResult and consumes the existing total budget. CurrentContextBindingProvider::_current is inline static constinit TLS; IsOrdinaryTaskContext rejects interrupts/startup before dereferencing that storage.
+
+See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).

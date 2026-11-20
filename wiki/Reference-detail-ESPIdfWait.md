@@ -141,3 +141,10 @@ bool Take(
             ) noexcept
 ```
 
+
+
+## Native parking extension
+
+Production-private [ESPIdfWait.hpp](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/b009a47d77bb8c20f97c62ce702bafe058d261b2/src/detail/ESPIdfWait.hpp) additionally defines NativeReadinessWaitResult with explicit Ready=0 and TimedOut=1 uint8 outcomes. WaitBudget::WaitUntil<TPredicate> requires a noexcept predicate; NoWait inspects once, Forever polls at the existing SDK tick quantum, and finite polling consumes the SAME _remainingTicks/_lastTick accounting as preceding Take operations. It adds no clock, task, heap allocation or probe-path wait. The existing Take implementation remains unchanged.
+
+The [execution reclamation document](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/NATIVE-EXECUTION-RECLAMATION.MD) explains why the native owner needs a stable parked-state proof after its completion semaphore.

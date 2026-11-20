@@ -22,4 +22,8 @@ Every production header under `src/` is represented below. Reference pages prese
 
 - [H428 Xtensa atomic-word provider](Reference-AtomicWord32-ESP-IDF)
 
-- [Native current-context binding](../docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.
+- [Native current-context binding](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.
+
+- [Current-context binding](Reference-execution-CurrentContextBindingProvider)
+- [Native execution lifetime](Reference-execution-ExecutionContextProvider)
+- [Native wait budget](Reference-detail-ESPIdfWait)

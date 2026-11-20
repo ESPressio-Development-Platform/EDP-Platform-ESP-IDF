@@ -51,8 +51,8 @@ ESP-IDF, FreeRTOS extensions and Mbed TLS are target SDK facilities, not ESPress
 
 ## Branch baseline
 
-The Mesh V1 branch manifest selects EDP-Security `mesh_v1` so the concrete provider and generic contract are mutually available before mainline integration. Other direct dependencies remain on `main`. All package versions remain `0.1.0`.
+The current native package selects reintegrated Security main (a7482cbc5f455d407860ad36a2b1589441674c94) and Platform feature/profiling-v1 (5d1ff9c79e230d7f7e243e6d35b5e05916d9c501) for the additive typed binding vocabulary. Other production dependencies retain their main selections. All versions remain 0.1.0. The AES demo selects only Portable's existing narrow ByteOperations capability; it introduces no production package edge or host synchronization/atomic provider.
 
-> Dependency/documentation baseline: `f7c5667e8359e29d9c2a23f4aa44b8761ca6ac60` (`mesh_v1`).
+> Historical pre-reintegration dependency/documentation baseline: `f7c5667e8359e29d9c2a23f4aa44b8761ca6ac60` (`mesh_v1`).
 
 The dependency direction is acyclic: EDP-Security depends only on abstract Platform/Memory contracts and never on EDP-Platform-ESP-IDF.

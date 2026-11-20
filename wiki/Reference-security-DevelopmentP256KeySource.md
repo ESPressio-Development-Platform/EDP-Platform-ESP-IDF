@@ -20,5 +20,5 @@ Bootstrap must enroll each board's public key in a fixed three-member
 electorate. A signature alone is NOT a durable vote, quorum or Clock
 Reference certificate.
 
-See [full contract and validation](../docs/DEVELOPMENT-P256-NVS-KEYS.MD)
+See [full contract and validation](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/DEVELOPMENT-P256-NVS-KEYS.MD)
 and Policy F12 H363 handoff for exact full-ESP32 physical results.

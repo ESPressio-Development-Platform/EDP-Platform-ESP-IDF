@@ -57,4 +57,4 @@ against H428. The H429 Labs app uses the real provider and two physical cores:
 boots each on WROOM32 and S3, no NVS writes or RF. Physical PSRAM construction
 was not tested. None of these results establishes a Clock certificate.
 
-See [normative contract](../docs/ATOMIC-WORD-32.MD).
+See [normative contract](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/ATOMIC-WORD-32.MD).

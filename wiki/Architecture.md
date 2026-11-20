@@ -52,4 +52,10 @@ checked before initialization. ESP32-S2 and external/RTC storage are refused;
 there is no emulation, additional storage, task or lock. See
 [provider reference](Reference-AtomicWord32-ESP-IDF).
 
-H433 native random is an explicit Bootstrap resource owner over SDK entropy, reusing the existing qualified native atomic. The feature flag alone is not readiness. [Contract](../docs/EXPLICIT-ENTROPY-OWNERSHIP.MD).
+H433 native random is an explicit Bootstrap resource owner over SDK entropy, reusing the existing qualified native atomic. The feature flag alone is not readiness. [Contract](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/EXPLICIT-ENTROPY-OWNERSHIP.MD).
+
+## Current-context and native lifetime extension
+
+CurrentContextBinding is a separate optional Platform capability. The native owner carries one caller-owned record through constant-initialized compiler TLS; it supplies no identities, Profiling domain, Threading registry, new task or clock. The narrow header isolates this selection. Actual Threading owner registration remains separate.
+
+See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).

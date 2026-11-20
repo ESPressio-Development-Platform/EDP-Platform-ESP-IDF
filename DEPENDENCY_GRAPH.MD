@@ -108,3 +108,8 @@ and [the three-form example](demos/native-monotonic-timebase/README.MD).
 ## Current-context binding source slice
 
 The new Platform vocabulary includes only Standard C++ and existing EDP-System composition facilities. The concrete native header adds ESP-IDF/FreeRTOS and Xtensa SDK headers within the SDK owner only. No Threading, Profiling or application domain dependency is introduced by either binding header. Native package selection currently pins Platform feature/profiling-v1 pending qualified reintegration; this is not an all-main release claim.
+
+
+## Qualified native working profile
+
+The new native package selects Platform feature/profiling-v1 (5d1ff9c79e230d7f7e243e6d35b5e05916d9c501) for its additive binding vocabulary and Security main (a7482cbc5f455d407860ad36a2b1589441674c94) after qualified reintegration. All authored Native demo Platform/Security URLs match these selected branches. The approved nine Profiling source owners are still feature branches: this is not an all-main Profiling release. Historical mesh_v1 consumers do not automatically receive a correction published only to Native main.

@@ -37,4 +37,10 @@ These are compile/link/size results, not physical flash/runtime evidence. Physic
 
 ## Source navigation
 
-Every production header is listed in [Reference Index](Reference-Index.md). Test mocks under `tests/host/include` are test-only seams and are not production Mbed TLS substitutes.
+Every production header is listed in [Reference Index](Reference-Index). Test mocks under `tests/host/include` are test-only seams and are not production Mbed TLS substitutes.
+
+## Current-context and native lifetime extension
+
+The current-context host CMake project contains actual-provider binding and execution-lifecycle SDK MODEL tests, including four compiler/mode combinations and sanitizer runs. The maintained target project builds native and Arduino ESP32/S3 fixtures. Actual four-profile physical results cover ISR rejection, core migration, raw task reuse and 100 real native-owner lifecycles per profile. Full Profiling/Threading integration is not thereby qualified.
+
+See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).

@@ -44,3 +44,9 @@ there is no emulation, additional storage, task or lock. See
 [provider reference](Reference-AtomicWord32-ESP-IDF).
 
 H433: reserve ADC/internal RF/ESP32 I2S while owning SDK entropy, serialize Bootstrap lifecycle and stop consumers before release. One reused inline native4B word plus compiler startup guard metadata; one boolean per provider. No heap/task/mutex/new RNG algorithm.
+
+## Current-context and native lifetime extension
+
+The binding pointer contributes four native TLS bytes; the measured empty SDK baseline grows by 16 aligned stack bytes per native task. Records stay valid through retirement and every borrow. Read rejects ISR/pre-scheduler access. Native execution Join additionally proves self-suspension after completion within one shared timeout before Destroy can reclaim static task storage. An unstarted task still reaching its private start gate may refuse destruction without releasing storage.
+
+See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).

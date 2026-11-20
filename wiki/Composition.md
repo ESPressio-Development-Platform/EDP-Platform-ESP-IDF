@@ -23,3 +23,9 @@ A future opaque-root source substitutes at the `DeploymentKeySource` capability 
 ## Other domains
 
 Execution, synchronization, randomness and memory providers retain their established offers and requirements. The new security facilities add no cycle: abstract EDP-Security does not depend on this concrete repository.
+
+## Current-context and native lifetime extension
+
+The native typed provider offers exclusive CurrentContextBinding plus true ConstantTimeLookup, AllocationFreeLookup, CurrentContextOnly and RejectsInterruptContexts properties. ContextRecord/ReadResult are exact typed aliases; selected records remain Bootstrap/owner resources. Select exactly one provider/record Type in composition and pass its instance explicitly; no runtime service lookup is introduced.
+
+See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).

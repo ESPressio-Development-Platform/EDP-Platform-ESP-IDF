@@ -23,3 +23,9 @@ The derived key is first produced in local unpublished storage. Cryptographic fa
 ExternalPreferredMemoryResource tries PSRAM before internal memory. ExecutionContext does not use forced deletion as a normal lifecycle mechanism.
 
 No deployment-key provider helper stores global mutable state, starts a task, waits or acquires a lock. One instance is caller-serialized.
+
+## Current-context and native lifetime extension
+
+The new binding implementation and native completion/parking proof are documented in the current-context and execution reclamation references. No Profiling runtime, worker, identity allocator or generic archive implementation is added here.
+
+See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).

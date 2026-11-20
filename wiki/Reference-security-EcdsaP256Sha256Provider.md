@@ -1,6 +1,6 @@
 # ESP-IDF ECDSA P-256 SHA-256 DigitalSignature Provider (H360)
 
-Source: [`src/security/EcdsaP256Sha256Provider.hpp`](../src/security/EcdsaP256Sha256Provider.hpp).
+Source: [`src/security/EcdsaP256Sha256Provider.hpp`](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/b009a47d77bb8c20f97c62ce702bafe058d261b2/src/security/EcdsaP256Sha256Provider.hpp).
 
 **Capability:** `EDP-Security::DigitalSignature`, concrete shared
 `EcdsaP256Sha256Provider<TKeySource,TRandomSource>` selected by Bootstrap.
@@ -33,4 +33,4 @@ persistent journal readback, monotonic lease/Clock Era, independent 2/3
 certificate, RF transmission, key attestation, NVS safe rollback or
 submillisecond clocks. These remain mandatory H360 successor tranches.
 
-See [longform implementation contract](../docs/EDP-SIGNATURE-IMPLEMENTATION.MD).
+See [longform implementation contract](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/EDP-SIGNATURE-IMPLEMENTATION.MD).

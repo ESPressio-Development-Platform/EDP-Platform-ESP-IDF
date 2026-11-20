@@ -323,3 +323,10 @@ using ExecutionContextContract = ESPressio::Platform::Execution::Detail::Executi
 - `#if defined(INCLUDE_uxTaskGetStackHighWaterMark) && ( INCLUDE_uxTaskGetStackHighWaterMark == 1 )`
 - `#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( INCLUDE_vTaskDelete == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) && ( INCLUDE_xTaskGetCurrentTaskHandle == 1 )`
 - `#if defined(INCLUDE_uxTaskGetStackHighWaterMark) && ( INCLUDE_uxTaskGetStackHighWaterMark == 1 )`
+
+
+## Verified native nonexecution
+
+The [current source](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/b009a47d77bb8c20f97c62ce702bafe058d261b2/src/execution/ExecutionContextProvider.hpp) adds private _completionObserved, retained after consuming completion even if the same Join call times out before parking. Initialize/Destroy reset it for a fresh incarnation. Join requires both the completion fact and stable eSuspended state within one original wait budget. Destroy rechecks eSuspended for started/joined tasks or the private eBlocked/eSuspended start gate for unstarted tasks; refusal preserves all owner storage. INCLUDE_eTaskGetState is an additional required SDK configuration capability.
+
+The narrow public [ESPressio_Platform_ESP_IDF_ExecutionContext.hpp](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/b009a47d77bb8c20f97c62ce702bafe058d261b2/src/ESPressio_Platform_ESP_IDF_ExecutionContext.hpp) exports this existing provider without activating unrelated realizations. The [reclamation proof and caller retry rule](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/NATIVE-EXECUTION-RECLAMATION.MD) distinguish completion notification from native suspension and synchronous deletion.

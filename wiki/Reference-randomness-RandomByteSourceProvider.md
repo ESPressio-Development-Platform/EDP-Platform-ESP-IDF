@@ -2,7 +2,7 @@
 
 **Classification:** public native provider and ownership statuses; private state.
 Existing capability/typed Fill contract and version0.1.0 remain. See the
-[complete resource preconditions and evidence](../docs/EXPLICIT-ENTROPY-OWNERSHIP.MD).
+[complete resource preconditions and evidence](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/EXPLICIT-ENTROPY-OWNERSHIP.MD).
 
 ## Public declarations
 

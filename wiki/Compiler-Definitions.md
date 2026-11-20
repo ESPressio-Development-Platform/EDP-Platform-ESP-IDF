@@ -34,3 +34,9 @@ there is no emulation, additional storage, task or lock. See
 [provider reference](Reference-AtomicWord32-ESP-IDF).
 
 H433 uses SDK sdkconfig target macros and compiler __XTENSA__ only for audited ESP32/S3 entropy ownership/native CAS. Other targets refuse. No owned macro can force qualification; host SDK stub selects no target.
+
+## Current-context and native lifetime extension
+
+Binding guards require __XTENSA__, CONFIG_IDF_TARGET_ESP32 or CONFIG_IDF_TARGET_ESP32S3, XCHAL_HAVE_THREADPTR and C++20 __cpp_constinit. They are SDK/compiler capabilities, not application-policy knobs. Native execution additionally requires INCLUDE_eTaskGetState. Qualification is SDK/toolchain-specific. Host model target macros/headers are explicitly fake and cannot confer native support.
+
+See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).

@@ -11,3 +11,7 @@
 - [Dependency Contracts](Dependency-Contracts)
 - [Reference Index](Reference-Index)
 - [Compiler Definitions](Compiler-Definitions)
+
+- [Current-context binding](Reference-execution-CurrentContextBindingProvider)
+- [Native execution lifetime](Reference-execution-ExecutionContextProvider)
+- [Native wait budget](Reference-detail-ESPIdfWait)

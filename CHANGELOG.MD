@@ -17,3 +17,11 @@
 - Add optional typed binding vocabulary/native realization boundary.
 - Add exact result/ownership tests and three-surface source-led demos.
 - Keep native qualification explicit; no release claim.
+
+
+### Native execution lifetime correction
+
+- Join now proves native self-suspension after entry completion within one total timeout, preserving completion across timed-out retries.
+- Destroy refuses live/unparked storage reclamation, preventing cross-core deferred-cleanup/static-TCB reuse races.
+- Add actual-source model regressions, native/Arduino physical migration and 100-incarnation owner tests, a narrow execution header and explicit qualification limits.
+- Select reintegrated Security main and consistent GitHub URL demo dependencies; add S3 execution-demo build environments.
