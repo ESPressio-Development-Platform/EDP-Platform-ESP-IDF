@@ -25,3 +25,5 @@
 - Destroy refuses live/unparked storage reclamation, preventing cross-core deferred-cleanup/static-TCB reuse races.
 - Add actual-source model regressions, native/Arduino physical migration and 100-incarnation owner tests, a narrow execution header and explicit qualification limits.
 - Select reintegrated Security main and consistent GitHub URL demo dependencies; add S3 execution-demo build environments.
+
+- Declare Clock in Arduino metadata and include its public entry point so broad/native-timebase headers are discoverable by Arduino IDE.

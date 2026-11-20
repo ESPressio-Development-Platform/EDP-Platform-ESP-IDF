@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <type_traits>
-#include <clock/MonotonicTimebaseProvider.hpp>
+#include <ESPressio_Clock.hpp>
 
 #if defined(ESP_PLATFORM)
 #include <sdkconfig.h>
