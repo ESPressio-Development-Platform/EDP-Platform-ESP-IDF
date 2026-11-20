@@ -26,7 +26,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
 #endif
 
 
-#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( INCLUDE_vTaskDelete == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) && ( INCLUDE_xTaskGetCurrentTaskHandle == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( INCLUDE_vTaskDelete == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) && ( INCLUDE_xTaskGetCurrentTaskHandle == 1 ) && ( INCLUDE_eTaskGetState == 1 )
 
     /// ESP-IDF static execution-context provider with processor-affinity support.
     class ExecutionContextProvider final : public Framework::Provider<
@@ -69,7 +69,11 @@ namespace ESPressio::Platform::ESPIDF::Execution {
             /// Indicates whether Start has been accepted.
             bool _started = false;
 
-            /// Indicates whether the owner has successfully joined the completed execution.
+            /// Indicates whether the completion semaphore was consumed by this sequential owner.
+            /// Retained across a timed-out park inspection so later Join calls do not lose the signal.
+            bool _completionObserved = false;
+
+            /// Indicates whether the owner has joined both completed entry and stable native parking.
             bool _joined = false;
 
 
@@ -252,6 +256,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                 _entry = entry;
                 _parameter = parameter;
                 _started = false;
+                _completionObserved = false;
                 _joined = false;
 
                 const auto name = configuration.Name != nullptr
@@ -305,7 +310,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                 return ESPressio::Platform::Execution::ExecutionStartResult::Succeeded;
             }
 
-            /// Waits until the user execution entry has returned and records successful ownership join.
+            /// Joins only after entry completion AND stable native self-suspension within one total budget.
             ESPressio::Platform::Execution::ExecutionJoinResult Join(
                 ESPressio::Platform::Synchronization::WaitTimeout timeout
             ) noexcept {
@@ -323,9 +328,20 @@ namespace ESPressio::Platform::ESPIDF::Execution {
 
                 ESPressio::Platform::ESPIDF::Detail::WaitBudget budget(timeout);
 
-                if (!budget.Take(
-                    _completionSignal
-                )) {
+                if (!_completionObserved) {
+                    if (!budget.Take(
+                        _completionSignal
+                    )) {
+                        return ESPressio::Platform::Execution::ExecutionJoinResult::TimedOut;
+                    }
+                    _completionObserved = true;
+                }
+
+                if (budget.WaitUntil(
+                    [this]() noexcept {
+                        return eTaskGetState(_handle) == eSuspended;
+                    }
+                ) != ESPressio::Platform::ESPIDF::Detail::NativeReadinessWaitResult::Ready) {
                     return ESPressio::Platform::Execution::ExecutionJoinResult::TimedOut;
                 }
 
@@ -334,7 +350,8 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                 return ESPressio::Platform::Execution::ExecutionJoinResult::Succeeded;
             }
 
-            /// Destroys an unstarted context or a context whose completed execution was joined.
+            /// Destroys only stably parked contexts. An unstarted task still reaching its private
+            /// gate returns ProviderFailure without releasing any storage; its owner may retry.
             ESPressio::Platform::Execution::ExecutionDestroyResult Destroy() noexcept {
                 if (!_initialized || _handle == nullptr) {
                     return ESPressio::Platform::Execution::ExecutionDestroyResult::InvalidState;
@@ -344,6 +361,17 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                     return ESPressio::Platform::Execution::ExecutionDestroyResult::InvalidState;
                 }
 
+                // A completion signal precedes self-suspension. Never enqueue a running
+                // cross-core task for deferred idle cleanup and then release/reuse its storage.
+                const auto state = eTaskGetState(_handle);
+                const bool parked = _started
+                    ? state == eSuspended
+                    : state == eBlocked || state == eSuspended;
+
+                if (!parked) {
+                    return ESPressio::Platform::Execution::ExecutionDestroyResult::ProviderFailure;
+                }
+
                 vTaskDelete(
                     _handle
                 );
@@ -351,6 +379,7 @@ namespace ESPressio::Platform::ESPIDF::Execution {
                 _handle = nullptr;
                 _entry = nullptr;
                 _parameter = nullptr;
+                _completionObserved = false;
                 _joined = false;
                 _started = false;
                 _initialized = false;

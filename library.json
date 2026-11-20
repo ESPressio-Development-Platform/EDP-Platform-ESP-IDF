@@ -40,7 +40,7 @@
     },
     {
       "name": "EDP-Security",
-      "version": "https://github.com/ESPressio-Development-Platform/EDP-Security.git#mesh_v1"
+      "version": "https://github.com/ESPressio-Development-Platform/EDP-Security.git#main"
     },
     {
       "name": "EDP-Persistence",

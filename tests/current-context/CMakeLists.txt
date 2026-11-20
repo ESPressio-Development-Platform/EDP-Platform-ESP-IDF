@@ -17,3 +17,10 @@ target_compile_options(current_context_binding_model PRIVATE
 target_link_libraries(current_context_binding_model PRIVATE Threads::Threads)
 enable_testing()
 add_test(NAME current_context_binding_model COMMAND current_context_binding_model)
+
+add_executable(native_execution_lifecycle_model NativeExecutionLifecycleModelTests.cpp)
+target_include_directories(native_execution_lifecycle_model PRIVATE
+    lifecycle-model/include ../../src ${EDP_PLATFORM_SOURCE_DIR}/src ${EDP_SYSTEM_SOURCE_DIR}/src)
+target_compile_options(native_execution_lifecycle_model PRIVATE
+    -Wall -Wextra -Wpedantic -Werror -UNDEBUG)
+add_test(NAME native_execution_lifecycle_model COMMAND native_execution_lifecycle_model)

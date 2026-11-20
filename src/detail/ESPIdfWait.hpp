@@ -57,6 +57,18 @@ namespace ESPressio::Platform::ESPIDF::Detail {
     }
 
 
+    /// Outcome of ordinary native lifecycle readiness polling.
+    enum class NativeReadinessWaitResult : std::uint8_t {
+
+        /// The requested lifecycle fact was observed within this wait operation.
+        Ready = 0U,
+
+        /// The operation could not observe readiness within its remaining budget.
+        TimedOut = 1U
+
+    };
+
+
     /// Tracks one total ESP-IDF FreeRTOS wait budget across native semaphore acquisitions.
     class WaitBudget final {
 
@@ -140,6 +152,55 @@ namespace ESPressio::Platform::ESPIDF::Detail {
 
 
             // Native waiting.
+
+            /// Polls an ordinary-context readiness predicate within this same total native wait budget.
+            /// NoWait performs exactly one inspection; finite waits consume the remaining budget.
+            /// @tparam TPredicate Noexcept predicate inspecting a native lifecycle state.
+            template<class TPredicate>
+            NativeReadinessWaitResult WaitUntil(TPredicate&& predicate) noexcept {
+
+                static_assert(
+                    noexcept(predicate()),
+                    "Native wait readiness predicates must be noexcept"
+                );
+
+                if (predicate()) {
+                    return NativeReadinessWaitResult::Ready;
+                }
+
+                if (_timeout.IsNoWait()) {
+                    return NativeReadinessWaitResult::TimedOut;
+                }
+
+                if (_timeout.IsForever()) {
+                    while (!predicate()) {
+                        vTaskDelay(1U);
+                    }
+                    return NativeReadinessWaitResult::Ready;
+                }
+
+                ConsumeElapsed();
+
+                while (_remainingTicks > 0U) {
+                    const auto before = xTaskGetTickCount();
+                    vTaskDelay(1U);
+                    const auto after = xTaskGetTickCount();
+
+                    ConsumeWait(
+                        before,
+                        after,
+                        1U,
+                        false
+                    );
+
+                    if (predicate()) {
+                        return NativeReadinessWaitResult::Ready;
+                    }
+                }
+
+                return NativeReadinessWaitResult::TimedOut;
+            }
+
 
             /// Takes one ESP-IDF FreeRTOS semaphore while preserving the complete wait budget.
             bool Take(
