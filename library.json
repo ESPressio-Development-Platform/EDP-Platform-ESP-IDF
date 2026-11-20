@@ -24,12 +24,15 @@
   },
   "version": "0.1.0",
   "license": "Apache-2.0",
-  "frameworks": "espidf",
+  "frameworks": [
+    "arduino",
+    "espidf"
+  ],
   "platforms": "espressif32",
   "dependencies": [
     {
       "name": "EDP-Platform",
-      "version": "https://github.com/ESPressio-Development-Platform/EDP-Platform.git#main"
+      "version": "https://github.com/ESPressio-Development-Platform/EDP-Platform.git#feature/profiling-v1"
     },
     {
       "name": "EDP-Memory",

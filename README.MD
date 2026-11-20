@@ -118,3 +118,5 @@ EDP-Clock depends only on EDP-System and abstract EDP-Platform, so there is no c
 All six native direct dependencies and their complete closure are shown above.
 Version remains 0.1.0. See [the specification contract and limits](docs/NATIVE-MONOTONIC-TIMEBASE.MD)
 and [the three-form example](demos/native-monotonic-timebase/README.MD).
+
+- [Native current-context binding](docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.

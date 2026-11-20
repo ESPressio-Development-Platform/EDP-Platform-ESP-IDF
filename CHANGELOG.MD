@@ -11,3 +11,9 @@
   library version. No Clock authority or NVS/security provisioning change.
 
 - H433 (0.1.0): fix unqualified native cryptographic random success; explicit exclusive SDK source acquisition/release, default/unsupported refusal, noncopyable owner, host and actual C+D two-core qualification. Historical key entropy is not retroactively qualified.
+
+## Unreleased — 0.1.0 current-context binding
+
+- Add optional typed binding vocabulary/native realization boundary.
+- Add exact result/ownership tests and three-surface source-led demos.
+- Keep native qualification explicit; no release claim.

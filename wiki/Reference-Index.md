@@ -21,3 +21,5 @@ Every production header under `src/` is represented below. Reference pages prese
 > Source baseline: `524a881b9ed27a86c5b886429558242d88962b70`.
 
 - [H428 Xtensa atomic-word provider](Reference-AtomicWord32-ESP-IDF)
+
+- [Native current-context binding](../docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.

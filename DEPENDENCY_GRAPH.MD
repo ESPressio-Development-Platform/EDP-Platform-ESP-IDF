@@ -104,3 +104,7 @@ EDP-Clock depends only on EDP-System and abstract EDP-Platform, so there is no c
 All six native direct dependencies and their complete closure are shown above.
 Version remains 0.1.0. See [the specification contract and limits](docs/NATIVE-MONOTONIC-TIMEBASE.MD)
 and [the three-form example](demos/native-monotonic-timebase/README.MD).
+
+## Current-context binding source slice
+
+The new Platform vocabulary includes only Standard C++ and existing EDP-System composition facilities. The concrete native header adds ESP-IDF/FreeRTOS and Xtensa SDK headers within the SDK owner only. No Threading, Profiling or application domain dependency is introduced by either binding header. Native package selection currently pins Platform feature/profiling-v1 pending qualified reintegration; this is not an all-main release claim.

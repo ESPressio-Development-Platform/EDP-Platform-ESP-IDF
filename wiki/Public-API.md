@@ -40,3 +40,5 @@ Public operations are `Initialize`, `Destroy` and generic `Derive`. No operation
 The application normally combines this source and zeroizer with EDP-Security's `DeploymentKeyProvider` rather than invoking six derivations manually.
 
 H433 adds explicit RandomByteSourceProvider acquisition/release/status and actual ownership query; copy/move deleted, default nonzero fill refuses. [Reference](Reference-randomness-RandomByteSourceProvider.md).
+
+- [Native current-context binding](../docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.

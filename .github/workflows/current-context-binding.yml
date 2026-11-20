@@ -1,0 +1,31 @@
+name: Native current context binding
+on:
+  push:
+  pull_request:
+jobs:
+  host-sdk-model:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compiler: [g++, clang++]
+        mode: [Debug, Release]
+    steps:
+      - uses: actions/checkout@v4
+      - run: git clone https://github.com/ESPressio-Development-Platform/EDP-Platform.git --branch feature/profiling-v1 --depth 1 ../EDP-Platform
+      - run: git clone https://github.com/ESPressio-Development-Platform/EDP-System.git --branch main --depth 1 ../EDP-System
+      - run: cmake -S tests/current-context -B build-binding -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_BUILD_TYPE=${{ matrix.mode }} -DEDP_PLATFORM_SOURCE_DIR=$GITHUB_WORKSPACE/../EDP-Platform -DEDP_SYSTEM_SOURCE_DIR=$GITHUB_WORKSPACE/../EDP-System
+      - run: cmake --build build-binding --parallel 2
+      - run: ctest --test-dir build-binding --output-on-failure
+  sdk-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        surface: [PlatformIO_Arduino, PlatformIO_ESP-IDF]
+        target: [esp32dev, esp32s3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install platformio
+      - run: pio run -d demos/current-context-binding/${{ matrix.surface }} -e ${{ matrix.target }}
