@@ -56,3 +56,10 @@ The current native package selects reintegrated Security main (a7482cbc5f455d407
 > Historical pre-reintegration dependency/documentation baseline: `f7c5667e8359e29d9c2a23f4aa44b8761ca6ac60` (`mesh_v1`).
 
 The dependency direction is acyclic: EDP-Security depends only on abstract Platform/Memory contracts and never on EDP-Platform-ESP-IDF.
+
+
+## Arduino Clock discovery correction
+
+The native timebase consumes the existing public ESPressio_Clock.hpp entry point. Arduino library.properties now declares the same Clock dependency already in library.json. This resolves Arduino IDE subdirectory-header discovery for broad native headers without a new capability, timer or runtime behavior. Source/metadata correction: a5454b245ffbd5e2edff19db91315357d08c2815.
+
+Four additional execution/AES Arduino IDE builds pass on ESP32/S3 (RPI400 20261120T113159-7254e373). Four SDK root builds with exact updated dependency heads pass (AI02 20261120T113247-aa8b6bf3); native/Security GCC/Clang Debug/Release owner regressions pass (20261120T113200-d02fab0f). Original discovery failures are retained in the Policy handoff.

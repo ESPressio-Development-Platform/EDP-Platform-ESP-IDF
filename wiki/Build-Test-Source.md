@@ -44,3 +44,10 @@ Every production header is listed in [Reference Index](Reference-Index). Test mo
 The current-context host CMake project contains actual-provider binding and execution-lifecycle SDK MODEL tests, including four compiler/mode combinations and sanitizer runs. The maintained target project builds native and Arduino ESP32/S3 fixtures. Actual four-profile physical results cover ISR rejection, core migration, raw task reuse and 100 real native-owner lifecycles per profile. Full Profiling/Threading integration is not thereby qualified.
 
 See [binding reference](Reference-execution-CurrentContextBindingProvider) and [execution reference](Reference-execution-ExecutionContextProvider).
+
+
+## Arduino Clock discovery correction
+
+The native timebase consumes the existing public ESPressio_Clock.hpp entry point. Arduino library.properties now declares the same Clock dependency already in library.json. This resolves Arduino IDE subdirectory-header discovery for broad native headers without a new capability, timer or runtime behavior. Source/metadata correction: a5454b245ffbd5e2edff19db91315357d08c2815.
+
+Four additional execution/AES Arduino IDE builds pass on ESP32/S3 (RPI400 20261120T113159-7254e373). Four SDK root builds with exact updated dependency heads pass (AI02 20261120T113247-aa8b6bf3); native/Security GCC/Clang Debug/Release owner regressions pass (20261120T113200-d02fab0f). Original discovery failures are retained in the Policy handoff.

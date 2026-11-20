@@ -107,3 +107,8 @@ The future AST overlay must exclude CurrentContextBindingProvider and its lookup
 ## Observed lookup cost
 
 The actual four-profile fixture measured seven warm batches of 100000 bound reads and seven unbound batches through its sole Clock::MonotonicClockProvider (existing native timebase). Median bound lookup-plus-loop/check cost was approximately 1189 ns (ESP32 ESP-IDF), 1045 ns (S3 ESP-IDF), 737 ns (ESP32 Arduino) and 628 ns (S3 Arduino). A matched empty-loop baseline is retained with every sample. These are nominal canonical-nanosecond observations on the selected configurations, including normal scheduling noise; they are neither worst-case guarantees nor complete profiling-probe costs or release acceptance limits. Receipt AI02 20261120T111837-9895536a. Production carrier/owner code remains exactly b009a47d77bb8c20f97c62ce702bafe058d261b2; maintained fixture source is 7508bb4b3b3589e7cfebc92558a2ef941852d1c3.
+
+
+### Package discovery follow-up
+
+Source/metadata correction a5454b245ffbd5e2edff19db91315357d08c2815 imports the existing public Clock entry and declares Clock in Arduino metadata. Carrier/execution-operation bodies remain the physically qualified b009 implementation. Four broad-header SDK and four additional IDE builds pass, with owner regressions. The correction changes package/header discovery, not the lookup algorithm.
