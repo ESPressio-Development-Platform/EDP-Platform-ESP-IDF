@@ -5,7 +5,7 @@
 
 #include <ESPressio_Memory.hpp>
 #include <ESPressio_Platform_ESP_IDF.hpp>
-#include <ESPressio_Platform_Portable.hpp>
+#include <ESPressio_Platform_Portable_ByteOperations.hpp>
 #include <ESPressio_Security.hpp>
 
 namespace Demo {

@@ -1,5 +1,7 @@
 #include "TargetRecord.hpp"
 #include <ESPressio_Platform_ESP_IDF_ExecutionContext.hpp>
+#include <timing/EspTimerMonotonicTimebaseProvider.hpp>
+#include <clock/MonotonicClockProvider.hpp>
 
 #include <cstdio>
 #include <cstdlib>
@@ -528,6 +530,56 @@ namespace NativeBindingQualification {
         Print("BINDING_ACTUAL_EXECUTION_OWNER_PASS incarnations=100 cores=2\n");
     }
 
+
+    // One canonical monotonic clock belongs to this qualification application.
+
+    /// Reuses the existing SDK-owned monotonic timebase without creating timer hardware.
+    const ESPressio::Platform::ESPIDF::Timing::EspTimerMonotonicTimebaseProvider timebase;
+
+    /// Sole canonical clock for the fixture's elapsed lookup measurements.
+    const ESPressio::Clock::MonotonicClockProvider<
+        ESPressio::Platform::ESPIDF::Timing::EspTimerMonotonicTimebaseProvider
+    > clock(timebase);
+
+
+    /// Measures warm carrier lookup plus loop/check cost, alongside a matched empty-loop baseline.
+    /// Values are observations in nominal canonical nanoseconds, never worst-case guarantees.
+    void MeasureLookup(bool expectBound) {
+        constexpr unsigned iterations = 100000U;
+
+        for (unsigned sample = 0U; sample < 7U; ++sample) {
+            const auto baselineStart = clock.Now().Nanoseconds();
+            for (unsigned iteration = 0U; iteration < iterations; ++iteration) {
+                __asm__ __volatile__("" ::: "memory");
+            }
+            const auto baselineEnd = clock.Now().Nanoseconds();
+
+            unsigned matched = 0U;
+            const auto lookupStart = clock.Now().Nanoseconds();
+            for (unsigned iteration = 0U; iteration < iterations; ++iteration) {
+                __asm__ __volatile__("" ::: "memory");
+                const auto* record = binding.ReadCurrent().GetIfBound();
+                matched += record == (expectBound ? &controllerRecord : nullptr) ? 1U : 0U;
+            }
+            const auto lookupEnd = clock.Now().Nanoseconds();
+
+            Require(
+                matched == iterations &&
+                baselineEnd >= baselineStart &&
+                lookupEnd >= lookupStart,
+                "lookup benchmark identity and monotonicity"
+            );
+            Print(
+                "BINDING_LOOKUP_SAMPLE bound=%u sample=%u iterations=%u total_ns=%llu baseline_ns=%llu\n",
+                expectBound ? 1U : 0U,
+                sample,
+                iterations,
+                static_cast<unsigned long long>(lookupEnd - lookupStart),
+                static_cast<unsigned long long>(baselineEnd - baselineStart)
+            );
+        }
+    }
+
     void Run() {
         Require(
             binding.ReadCurrent().Status() == CurrentContextReadStatus::Unbound,
@@ -652,11 +704,13 @@ namespace NativeBindingQualification {
 
         CheckMigration();
         CheckActualExecutionOwner();
+        MeasureLookup(true);
 
         Require(
             binding.RetireCurrent(controllerRecord) == CurrentContextRetireResult::Retired,
             "controller retirement"
         );
+        MeasureLookup(false);
         Print(
             "BINDING_HIL_PASS target=%s incarnations=20 reads_per_task=20000 ISR=rejected migration=PASS threading_owner=NOT_RUN\n",
             CONFIG_IDF_TARGET

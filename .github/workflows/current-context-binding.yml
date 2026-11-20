@@ -29,3 +29,16 @@ jobs:
           python-version: '3.12'
       - run: pip install platformio
       - run: pio run -d demos/current-context-binding/${{ matrix.surface }} -e ${{ matrix.target }}
+
+  sdk-lifecycle-fixture:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [esp32dev, esp32s3, esp32dev-arduino, esp32s3-arduino]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install platformio
+      - run: pio run -d tests/current-context/target -e ${{ matrix.target }}
