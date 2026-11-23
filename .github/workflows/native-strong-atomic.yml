@@ -26,3 +26,25 @@ jobs:
         with:
           name: native-strong-${{ matrix.target }}
           path: ${{ runner.temp }}/native-strong-sdk/*.log
+
+  host-contract:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [main, feature/profiling-v1]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: EDP-Platform-ESP-IDF
+      - uses: actions/checkout@v4
+        with:
+          repository: ESPressio-Development-Platform/EDP-Platform
+          ref: ${{ matrix.platform }}
+          path: EDP-Platform
+      - uses: actions/checkout@v4
+        with:
+          repository: ESPressio-Development-Platform/EDP-System
+          ref: main
+          path: EDP-System
+      - name: Validate base-only or strong vocabulary and unchanged placement refusal
+        run: python3 EDP-Platform-ESP-IDF/tests/host/AtomicWord32StorageContractTests.py

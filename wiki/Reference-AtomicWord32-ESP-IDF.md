@@ -62,3 +62,9 @@ See [normative contract](https://github.com/ESPressio-Development-Platform/EDP-P
 ## Strong load/store extension
 
 The same Word adds LoadSequentiallyConsistent() -> std::uint32_t and StoreSequentiallyConsistent(std::uint32_t) -> void, both noexcept, with SupportsSequentiallyConsistentLoadStore=true. SequentiallyConsistentAtomicWord32Contract validates the optional Platform traits; Word remains four bytes/four-aligned and internal-DRAM-only. Compiler seq_cst builtins implement the cross-word ordering domain. Use strong operations exclusively on participating protocol words. [Contract and limits](../docs/ATOMIC-WORD-32.MD); [complete three-form example](../demos/atomic-word-strong/README.MD).
+
+## Base-only Platform compatibility correction
+
+The optional strong property and trait are exposed only when the coherently selected Platform headers provide the strong contract. Base-only Platform/main users retain the existing provider and four-byte Word; strong consumers must still select the qualified contract and cannot substitute weak ordering. Operation bodies are unchanged.
+
+The original f33e877/Platform-main Clock SDK failure is preserved. RPI continuation validates the same functional correction prepared as AI02 local401ea669 while that appliance is unavailable; source/work is preserved and must be reconciled without force-pushing. Exact current receipts and publication are recorded in Policy.

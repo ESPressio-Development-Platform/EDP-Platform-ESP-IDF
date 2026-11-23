@@ -8,6 +8,11 @@
 #include <esp_memory_utils.h>
 #include <ESPressio_Platform.hpp>
 
+// The stronger vocabulary is optional. Base-only Platform users keep their existing provider.
+#if __has_include(<concurrency/SequentiallyConsistentAtomicWord32Contract.hpp>)
+#include <concurrency/SequentiallyConsistentAtomicWord32Contract.hpp>
+#endif
+
 #if !defined(__XTENSA__) || \
     (!defined(CONFIG_IDF_TARGET_ESP32) && !defined(CONFIG_IDF_TARGET_ESP32S3))
 #error "ESPIDF AtomicWord32Provider requires ESP32 or ESP32-S3 native hardware CAS"
@@ -37,11 +42,13 @@ namespace ESPressio::Platform::ESPIDF::Concurrency {
                 System::CompositionFramework::PropertyValue<
                     ESPressio::Platform::Concurrency::AtomicWordStorageBytes,
                     4U
-                >,
-                System::CompositionFramework::PropertyValue<
+                >
+#if __has_include(<concurrency/SequentiallyConsistentAtomicWord32Contract.hpp>)
+                , System::CompositionFramework::PropertyValue<
                     ESPressio::Platform::Concurrency::SupportsSequentiallyConsistentLoadStore,
                     true
                 >
+#endif
             >
         >
     > {
@@ -155,10 +162,12 @@ namespace ESPressio::Platform::ESPIDF::Concurrency {
         static_assert(!std::is_move_constructible_v<Word>);
     };
 
+#if __has_include(<concurrency/SequentiallyConsistentAtomicWord32Contract.hpp>)
     /// Validates the explicitly advertised optional strong load/store contract.
     using SequentiallyConsistentAtomicWord32Contract =
         ESPressio::Platform::Concurrency::Detail::SequentiallyConsistentAtomicWord32ProviderTraits<AtomicWord32Provider>;
 
     static_assert(sizeof(SequentiallyConsistentAtomicWord32Contract) > 0U);
+#endif
 
 } // ESPressio::Platform::ESPIDF::Concurrency

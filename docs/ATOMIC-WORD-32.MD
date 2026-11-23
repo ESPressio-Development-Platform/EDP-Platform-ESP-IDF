@@ -81,3 +81,9 @@ Actual SDK-generated strong load/store bodies must be audited independently for 
 The three complete authored forms pass WROOM/S3 SDK builds and physical execution: PIOArduino Arduino, PIOArduino ESP-IDF and official Arduino CLI1.6.0 / esp32 core4.0.0. Each final physical profile performs 10,000 pinned cross-core store/load rounds with no forbidden zero/zero observation. Actual linked NativeStrongLoad/NativeStrongStore seams call the production operations and are executed; all six ELF bodies audit as entry/return, MEMW and one aligned load or store, without calls, branches, retry, masking or fallback. Exact hashes/raw logs/receipts are recorded in the Policy continuation; no GitHub Actions-green or hard latency guarantee is implied.
 
 The maintained SDK runner copies complete authored forms to its output directory and selects the exact checkout ref through a GitHub URL. The instruction-audit runner retains linked body assembly and ELF hashes. Test transport overrides are appliance infrastructure; authored demo manifests contain only public GitHub dependency references. Physical PSRAM construction remains untested; the unchanged constructor's full-range DRAM guard and SDK-stub refusal suite remain explicit.
+
+## Base-only Platform compatibility correction
+
+The optional strong property and trait are exposed only when the coherently selected Platform headers provide the strong contract. Base-only Platform/main users retain the existing provider and four-byte Word; strong consumers must still select the qualified contract and cannot substitute weak ordering. Operation bodies are unchanged.
+
+The original f33e877/Platform-main Clock SDK failure is preserved. RPI continuation validates the same functional correction prepared as AI02 local401ea669 while that appliance is unavailable; source/work is preserved and must be reconciled without force-pushing. Exact current receipts and publication are recorded in Policy.
