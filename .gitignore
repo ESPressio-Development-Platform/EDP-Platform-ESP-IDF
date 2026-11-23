@@ -449,3 +449,5 @@ $RECYCLE.BIN/
 .pio/
 .pioenvs/
 .piolibdeps/
+
+/demos/atomic-word-strong/PlatformIO_ESP-IDF/sdkconfig.*

@@ -65,3 +65,13 @@ This qualifies internal-DRAM atomic behavior on the two actual targets;
 physical construction in PSRAM has not been exercised. It does not prove
 Clock accuracy, authenticated voter time, election authority, antirollback,
 RF timing or a positive receiver certificate. Versions remain 0.1.0.
+
+## Optional sequentially consistent protocol words
+
+The same provider now advertises SupportsSequentiallyConsistentLoadStore and validates Platform's optional SequentiallyConsistentAtomicWord32ProviderTraits. LoadSequentiallyConsistent and StoreSequentiallyConsistent use GCC/Clang-compatible __atomic builtins with __ATOMIC_SEQ_CST on the existing aligned four-byte value. They do not relabel acquire/release semantics. All words in a multi-word strong protocol must use the same qualified provider/ordering domain and strong operations for every protocol access.
+
+The narrow ESPressio_Platform_ESP_IDF_AtomicWord32.hpp root discovers this opt-in provider without importing the broad umbrella. Construction/storage restrictions and base operations remain unchanged. No extra retained state, dependency, task, allocator, lock or clock is added.
+
+The complete atomic-word-strong demo provides identical Example.hpp content for Arduino IDE, PlatformIO Arduino and PlatformIO ESP-IDF. It runs 10,000 pinned cross-core store/load pairs and rejects the forbidden zero/zero observation. Fixed native helpers coordinate rounds outside the atomic operations; the test's synchronization and polling are not probe work.
+
+Actual SDK-generated strong load/store bodies must be audited independently for direct instructions/barriers without calls, lock/emulation/interrupt masking or retry loops. Host SDK seams validate the contract and refusal behavior but do not prove target instruction ordering. Runtime stress is supporting evidence, not a replacement for the compiler ordering contract. This extension is not a capture gateway or proof of capture/export/archival quiescence. Versions remain 0.1.0.

@@ -38,3 +38,7 @@ Use --mode normal, release, sanitize or analyze (Clang). CTest requires
 EDP_CLOCK_SOURCE_DIR and registers the same runner; EDP_NATIVE_TIMEBASE_CONTRACT_MODE
 selects its mode. These seams make no native instruction or physical rate claim.
 See [the native contract](../docs/NATIVE-MONOTONIC-TIMEBASE.MD).
+
+## Strong native atomic extension
+
+AtomicWord32StorageContractTests.py also instantiates the optional strong traits and executes builtin-backed strong operations under explicit SDK seams. Actual target instruction and cross-core qualification use demos/atomic-word-strong; host success is not native runtime proof.

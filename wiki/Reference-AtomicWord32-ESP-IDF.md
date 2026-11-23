@@ -58,3 +58,7 @@ boots each on WROOM32 and S3, no NVS writes or RF. Physical PSRAM construction
 was not tested. None of these results establishes a Clock certificate.
 
 See [normative contract](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/ATOMIC-WORD-32.MD).
+
+## Strong load/store extension
+
+The same Word adds LoadSequentiallyConsistent() -> std::uint32_t and StoreSequentiallyConsistent(std::uint32_t) -> void, both noexcept, with SupportsSequentiallyConsistentLoadStore=true. SequentiallyConsistentAtomicWord32Contract validates the optional Platform traits; Word remains four bytes/four-aligned and internal-DRAM-only. Compiler seq_cst builtins implement the cross-word ordering domain. Use strong operations exclusively on participating protocol words. [Contract and limits](../docs/ATOMIC-WORD-32.MD); [complete three-form example](../demos/atomic-word-strong/README.MD).

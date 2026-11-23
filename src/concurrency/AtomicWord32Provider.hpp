@@ -37,6 +37,10 @@ namespace ESPressio::Platform::ESPIDF::Concurrency {
                 System::CompositionFramework::PropertyValue<
                     ESPressio::Platform::Concurrency::AtomicWordStorageBytes,
                     4U
+                >,
+                System::CompositionFramework::PropertyValue<
+                    ESPressio::Platform::Concurrency::SupportsSequentiallyConsistentLoadStore,
+                    true
                 >
             >
         >
@@ -106,6 +110,26 @@ namespace ESPressio::Platform::ESPIDF::Concurrency {
                 _value = value;
             }
 
+            /// Reads within the compiler's sequentially consistent order across protocol words.
+            std::uint32_t LoadSequentiallyConsistent() const noexcept {
+                return __atomic_load_n(
+                    &_value,
+                    __ATOMIC_SEQ_CST
+                );
+            }
+
+            /// Publishes within the same compiler sequentially consistent ordering domain.
+            /// @param value Complete unsigned word value to publish.
+            void StoreSequentiallyConsistent(
+                std::uint32_t value
+            ) noexcept {
+                __atomic_store_n(
+                    &_value,
+                    value,
+                    __ATOMIC_SEQ_CST
+                );
+            }
+
             /// Attempts native hardware CAS with acquire/release ordering and refreshed failure evidence.
             bool CompareExchangeAcqRel(
                 std::uint32_t& expected,
@@ -130,5 +154,11 @@ namespace ESPressio::Platform::ESPIDF::Concurrency {
         static_assert(!std::is_copy_constructible_v<Word>);
         static_assert(!std::is_move_constructible_v<Word>);
     };
+
+    /// Validates the explicitly advertised optional strong load/store contract.
+    using SequentiallyConsistentAtomicWord32Contract =
+        ESPressio::Platform::Concurrency::Detail::SequentiallyConsistentAtomicWord32ProviderTraits<AtomicWord32Provider>;
+
+    static_assert(sizeof(SequentiallyConsistentAtomicWord32Contract) > 0U);
 
 } // ESPressio::Platform::ESPIDF::Concurrency

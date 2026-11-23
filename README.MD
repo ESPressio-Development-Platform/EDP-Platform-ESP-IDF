@@ -183,3 +183,7 @@ namespace CurrentContextBindingDemo {
 ~~~
 
 Follow the [complete progressive integration](docs/CURRENT-CONTEXT-BINDING.MD) and [three build surfaces](demos/current-context-binding/README.MD). Binding is separate from recording or Threading instrumentation. [Native execution storage reclamation](docs/NATIVE-EXECUTION-RECLAMATION.MD) documents the verified Join/Destroy lifetime contract.
+
+## Native strong atomic protocol words
+
+The optional native AtomicWord32 provider supports explicit sequentially consistent loads/stores on its existing four-byte internal-DRAM Word. Start with [the complete three-form example](demos/atomic-word-strong/README.MD) and [the storage/ordering contract](docs/ATOMIC-WORD-32.MD). The narrow include is ESPressio_Platform_ESP_IDF_AtomicWord32.hpp; no broad provider umbrella or additional scheduler is required.

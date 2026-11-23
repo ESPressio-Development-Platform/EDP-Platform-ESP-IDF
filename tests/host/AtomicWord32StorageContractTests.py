@@ -48,6 +48,8 @@ def main():
             "#include <cstdio>\n#include <type_traits>\n"
             "using P = ESPressio::Platform::ESPIDF::Concurrency::AtomicWord32Provider;\n"
             "using W = P::Word;\n"
+            "using Strong = ESPressio::Platform::Concurrency::Detail::SequentiallyConsistentAtomicWord32ProviderTraits<P>;\n"
+            "static_assert(sizeof(Strong) > 0);\n"
             "static_assert(sizeof(W) == 4 && alignof(W) == 4);\n"
             "static_assert(std::is_nothrow_default_constructible_v<W>);\n"
             "static_assert(!std::is_copy_constructible_v<W> && !std::is_move_constructible_v<W>);\n"
@@ -55,6 +57,8 @@ def main():
             '  std::puts("before-construction"); std::fflush(stdout);\n'
             "  W word;\n"
             "  if (word.LoadRelaxed() != 0) return 4;\n"
+            "  word.StoreSequentiallyConsistent(42U);\n"
+            "  if (word.LoadSequentiallyConsistent() != 42U) return 5;\n"
             '  std::puts("after-construction");\n'
             "  return 0;\n}\n"
         )
