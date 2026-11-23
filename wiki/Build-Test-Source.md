@@ -51,3 +51,7 @@ See [binding reference](Reference-execution-CurrentContextBindingProvider) and [
 The native timebase consumes the existing public ESPressio_Clock.hpp entry point. Arduino library.properties now declares the same Clock dependency already in library.json. This resolves Arduino IDE subdirectory-header discovery for broad native headers without a new capability, timer or runtime behavior. Source/metadata correction: a5454b245ffbd5e2edff19db91315357d08c2815.
 
 Four additional execution/AES Arduino IDE builds pass on ESP32/S3 (RPI400 20261120T113159-7254e373). Four SDK root builds with exact updated dependency heads pass (AI02 20261120T113247-aa8b6bf3); native/Security GCC/Clang Debug/Release owner regressions pass (20261120T113200-d02fab0f). Original discovery failures are retained in the Policy handoff.
+
+- [Native atomic narrow entry](Reference-ESPressio-Platform-ESP-IDF-AtomicWord32) and [strong operations](Reference-AtomicWord32-ESP-IDF): complete three-form source and hardware qualification project under demos/atomic-word-strong.
+
+Native strong ordering: tests/run_native_strong_demo_builds.py builds exact-ref complete authored Arduino/ESP-IDF forms; tests/qualify_native_strong_codegen.py checks their linked operation bodies and retains assembly/ELF hashes. Its --elf option adds official CLI images. The SDK CI workflow runs the same maintained build/audit tools. Host storage/refusal tests remain explicit SDK seams. Physical PSRAM construction, hard probe latency and full gateway/export/archive acceptance remain unproved.

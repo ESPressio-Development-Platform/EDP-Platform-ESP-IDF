@@ -1,29 +1,25 @@
 # Reference Index
 
-Every production header under `src/` is represented below. Reference pages preserve declaration purpose, exact signature, access/classification and an exact-baseline source link.
+All 19 production header units are indexed below. Declaration/member contracts are maintained on the owning pages. The 23 November atomic extension changes only its existing provider and adds one narrow entry; no duplicate runtime owner.
 
-| Source header | Classification | Declarations | Reference |
-|---|---|---:|---|
-| `src/ESPressio_Platform_ESP_IDF.hpp` | PUBLIC ENTRY POINT | 0 | [open](Reference-ESPressio-Platform-ESP-IDF) |
-| `src/ESPressio_Platform_ESP_IDF_SpinLock.hpp` | PUBLIC NARROW ENTRY POINT | 0 | [open](Reference-ESPressio-Platform-ESP-IDF-SpinLock) |
-| `src/detail/ESPIdfWait.hpp` | PRIVATE IMPLEMENTATION | 11 | [open](Reference-detail-ESPIdfWait) |
-| `src/detail/ExecutionPriority.hpp` | PRIVATE IMPLEMENTATION | 1 | [open](Reference-detail-ExecutionPriority) |
-| `src/execution/ExecutionContextProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 28 | [open](Reference-execution-ExecutionContextProvider) |
-| `src/memory/MemoryResourceProviders.hpp` | PUBLIC PROVIDER / EXTENSION API | 9 | [open](Reference-memory-MemoryResourceProviders) |
-| `src/randomness/RandomByteSourceProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 3 | [open](Reference-randomness-RandomByteSourceProvider) |
-| `src/security/Aes256GcmProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 15 | [open](Reference-security-Aes256GcmProvider) |
-| `src/security/EcdsaP256Sha256Provider.hpp` | PUBLIC PROVIDER / EXTENSION API | 3 | [open](Reference-security-EcdsaP256Sha256Provider) |
-| `src/security/DevelopmentP256KeySource.hpp` | DEVELOPMENT-LAB OPTIONAL PROVIDER-BOUND KEY SOURCE / NONHARDENED | 5 | [open](Reference-security-DevelopmentP256KeySource) |
-| `src/security/DeploymentKeySourceProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 31 | [open](Reference-security-DeploymentKeySourceProvider) |
-| `src/security/SecretZeroizationProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 3 | [open](Reference-security-SecretZeroizationProvider) |
-| `src/synchronization/SpinLockProvider.hpp` | PUBLIC PROVIDER / EXTENSION API | 12 | [open](Reference-synchronization-SpinLockProvider) |
-
-> Source baseline: `524a881b9ed27a86c5b886429558242d88962b70`.
-
-- [H428 Xtensa atomic-word provider](Reference-AtomicWord32-ESP-IDF)
-
-- [Native current-context binding](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.
-
-- [Current-context binding](Reference-execution-CurrentContextBindingProvider)
-- [Native execution lifetime](Reference-execution-ExecutionContextProvider)
-- [Native wait budget](Reference-detail-ESPIdfWait)
+| Source unit | Classification | Reference |
+|---|---|---|
+| src/ESPressio_Platform_ESP_IDF.hpp | PUBLIC ENTRY | [Reference](Reference-ESPressio-Platform-ESP-IDF) |
+| src/ESPressio_Platform_ESP_IDF_AtomicWord32.hpp | PUBLIC ENTRY | [Reference](Reference-ESPressio-Platform-ESP-IDF-AtomicWord32) |
+| src/ESPressio_Platform_ESP_IDF_CurrentContextBinding.hpp | PUBLIC ENTRY | [Reference](Reference-ESPressio-Platform-ESP-IDF-CurrentContextBinding) |
+| src/ESPressio_Platform_ESP_IDF_ExecutionContext.hpp | PUBLIC ENTRY | [Reference](Reference-ESPressio-Platform-ESP-IDF-ExecutionContext) |
+| src/ESPressio_Platform_ESP_IDF_SpinLock.hpp | PUBLIC ENTRY | [Reference](Reference-ESPressio-Platform-ESP-IDF-SpinLock) |
+| src/concurrency/AtomicWord32Provider.hpp | PUBLIC PROVIDER | [Reference](Reference-AtomicWord32-ESP-IDF) |
+| src/detail/ESPIdfWait.hpp | PRIVATE IMPLEMENTATION | [Reference](Reference-detail-ESPIdfWait) |
+| src/detail/ExecutionPriority.hpp | PRIVATE IMPLEMENTATION | [Reference](Reference-detail-ExecutionPriority) |
+| src/execution/CurrentContextBindingProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-execution-CurrentContextBindingProvider) |
+| src/execution/ExecutionContextProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-execution-ExecutionContextProvider) |
+| src/memory/MemoryResourceProviders.hpp | PUBLIC PROVIDER | [Reference](Reference-memory-MemoryResourceProviders) |
+| src/randomness/RandomByteSourceProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-randomness-RandomByteSourceProvider) |
+| src/security/Aes256GcmProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-security-Aes256GcmProvider) |
+| src/security/DeploymentKeySourceProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-security-DeploymentKeySourceProvider) |
+| src/security/DevelopmentP256KeySource.hpp | PUBLIC PROVIDER | [Reference](Reference-security-DevelopmentP256KeySource) |
+| src/security/EcdsaP256Sha256Provider.hpp | PUBLIC PROVIDER | [Reference](Reference-security-EcdsaP256Sha256Provider) |
+| src/security/SecretZeroizationProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-security-SecretZeroizationProvider) |
+| src/synchronization/SpinLockProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-synchronization-SpinLockProvider) |
+| src/timing/EspTimerMonotonicTimebaseProvider.hpp | PUBLIC PROVIDER | [Reference](Reference-timing-EspTimerMonotonicTimebaseProvider) |

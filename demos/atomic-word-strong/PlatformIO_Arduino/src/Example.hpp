@@ -9,6 +9,17 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 
+/// Actual-provider load seam, also linked/executed for firmware instruction inspection.
+extern "C" __attribute__((noinline, used)) std::uint32_t NativeStrongLoad(
+    const ESPressio::Platform::ESPIDF::Concurrency::AtomicWord32Provider::Word& word
+) noexcept;
+
+/// Actual-provider store seam, also linked/executed for firmware instruction inspection.
+extern "C" __attribute__((noinline, used)) void NativeStrongStore(
+    ESPressio::Platform::ESPIDF::Concurrency::AtomicWord32Provider::Word& word,
+    std::uint32_t value
+) noexcept;
+
 namespace NativeStrongExample {
 
     /// Existing native provider, with optional strong ordering on the same four-byte Word.
@@ -89,6 +100,11 @@ namespace NativeStrongExample {
     inline void Run() noexcept {
         static_assert(sizeof(Word) == 4U && alignof(Word) == 4U);
         static_assert(sizeof(ESPressio::Platform::Concurrency::Detail::SequentiallyConsistentAtomicWord32ProviderTraits<Provider>) > 0U);
+        NativeStrongStore(
+            Values[0U],
+            0U
+        );
+        Require(NativeStrongLoad(Values[0U]) == 0U);
         Controller = xTaskGetCurrentTaskHandle();
         for (unsigned core = 0U; core < 2U; ++core) {
             Tasks[core] = xTaskCreateStaticPinnedToCore(

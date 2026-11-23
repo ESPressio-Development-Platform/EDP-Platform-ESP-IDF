@@ -113,3 +113,7 @@ The new Platform vocabulary includes only Standard C++ and existing EDP-System c
 ## Qualified native working profile
 
 The new native package selects Platform feature/profiling-v1 (5d1ff9c79e230d7f7e243e6d35b5e05916d9c501) for its additive binding vocabulary and Security main (a7482cbc5f455d407860ad36a2b1589441674c94) after qualified reintegration. All authored Native demo Platform/Security URLs match these selected branches. The approved nine Profiling source owners are still feature branches: this is not an all-main Profiling release. Historical mesh_v1 consumers do not automatically receive a correction published only to Native main.
+
+## Strong native atomic owner extension (23 November 2026)
+
+The existing native AtomicWord32Provider now opts into Platform's optional strong load/store vocabulary; its narrow discovery root adds no package edge. Direct source dependencies remain Platform/Memory/Security/Persistence/System/Clock with the complete closure above. The strong example uses only the native owner and existing SDK helpers; it does not consume Threading or Profiling. Platform feature/profiling-v1 baef885 is the qualified vocabulary baseline; Security main remains a7482cb. No all-main Profiling claim.

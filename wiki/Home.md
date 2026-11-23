@@ -37,3 +37,5 @@ Start with [Architecture](Architecture), then use [Composition](Composition) and
 - [H428 ESP-IDF Xtensa hardware AtomicWord32](Reference-AtomicWord32-ESP-IDF)
 
 - [Native current-context binding](https://github.com/ESPressio-Development-Platform/EDP-Platform-ESP-IDF/blob/main/docs/CURRENT-CONTEXT-BINDING.MD): implementation with explicit qualification boundaries.
+
+- [Native atomic narrow entry](Reference-ESPressio-Platform-ESP-IDF-AtomicWord32) and [strong operations](Reference-AtomicWord32-ESP-IDF): complete three-form source and hardware qualification project under demos/atomic-word-strong.

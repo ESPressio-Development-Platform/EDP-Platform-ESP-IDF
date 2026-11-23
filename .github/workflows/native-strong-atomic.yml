@@ -1,0 +1,28 @@
+name: Native strong atomic SDK demos
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  sdk:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [esp32dev, esp32s3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install platformio
+      - name: Build exact current native source and complete Arduino/ESP-IDF forms
+        run: python tests/run_native_strong_demo_builds.py --output ${{ runner.temp }}/native-strong-sdk --target ${{ matrix.target }}
+      - name: Audit linked strong-operation instruction bodies
+        run: python tests/qualify_native_strong_codegen.py --build-results ${{ runner.temp }}/native-strong-sdk/results.json --output ${{ runner.temp }}/native-strong-codegen
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-strong-${{ matrix.target }}
+          path: ${{ runner.temp }}/native-strong-sdk/*.log
